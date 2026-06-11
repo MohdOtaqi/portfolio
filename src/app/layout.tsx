@@ -26,7 +26,7 @@ const splineMono = Spline_Sans_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://mohammadotaqi.dev";
+const SITE_URL = "https://mohammadotaqi.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -79,7 +79,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Mohammad Otaqi",
-  url: "https://mohammadotaqi.dev",
+  url: "https://mohammadotaqi.com",
   jobTitle: "Software Engineer",
   worksFor: { "@type": "Organization", name: "ZagTrader", url: "https://zagtrader.com" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "Al-Hussein Technical University", alternateName: "HTU" },
@@ -89,7 +89,7 @@ const jsonLd = {
     "https://jo.linkedin.com/in/mohammad-otaqi-ba5a17257",
   ],
   knowsAbout: ["C#", ".NET", "ASP.NET Core", "React", "TypeScript", "Flutter", "SQL Server", "SWIFT messaging", "FIX protocol", "fintech software"],
-  image: "https://mohammadotaqi.dev/og.png",
+  image: "https://mohammadotaqi.com/og.png",
   description: "Software Engineer at ZagTrader specialising in fintech infrastructure — SWIFT/FIX messaging, market-data systems, and full-stack product development.",
 };
 
