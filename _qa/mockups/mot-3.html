@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>MOT — Chat</title>
+<style>
+  :root{
+    --bg:#0A0A16; --surface:#12122A; --chatbar:#1E1E2A; --inputbox:#2A2A3E;
+    --primary:#FFBF00; --text:#FFFFFF; --muted:rgba(255,255,255,.5);
+    --faint:rgba(255,255,255,.30); --bubble-them:#1E1E36; --green:#22C55E;
+  }
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{margin:0;width:390px;height:844px;overflow:hidden;}
+  body{background:var(--bg);color:var(--text);
+    font-family:"Inter","Segoe UI",Roboto,system-ui,sans-serif;position:relative;
+    display:flex;flex-direction:column;}
+
+  /* Status bar */
+  .statusbar{height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;
+    padding:0 22px;font-size:14px;font-weight:600;background:var(--chatbar);}
+  .statusbar .icons{display:flex;align-items:center;gap:7px;font-size:13px;}
+  .battery{display:inline-block;width:23px;height:12px;border:1.4px solid #fff;border-radius:3px;
+    position:relative;padding:1.4px;}
+  .battery::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:#fff;border-radius:0 1px 1px 0;}
+  .battery i{display:block;height:100%;width:78%;background:#fff;border-radius:1px;}
+
+  /* Chat app bar */
+  .appbar{flex:none;background:var(--chatbar);display:flex;align-items:center;gap:11px;padding:8px 12px 10px;}
+  .back{color:#fff;font-size:24px;line-height:1;}
+  .av{position:relative;flex:none;}
+  .av .circle{width:42px;height:42px;border-radius:50%;background:linear-gradient(160deg,#2a2350,#181230);
+    display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;
+    font-family:"Oswald",sans-serif;}
+  .av .dot{position:absolute;right:0;bottom:0;width:12px;height:12px;border-radius:50%;
+    background:var(--green);border:2px solid var(--chatbar);}
+  .who{display:flex;flex-direction:column;}
+  .who .nm{font-size:16px;font-weight:600;}
+  .who .st{font-size:12px;color:var(--green);}
+  .appbar .more{margin-left:auto;color:#fff;font-size:22px;padding:0 4px;}
+
+  /* Messages area */
+  .msgs{flex:1;overflow:hidden;padding:6px 8px 0;display:flex;flex-direction:column;}
+
+  .datesep{align-self:center;display:flex;align-items:center;gap:6px;margin:14px 0 12px;
+    background:var(--surface);border:1px solid #2A2A3E;border-radius:20px;padding:6px 16px;
+    box-shadow:0 2px 4px rgba(0,0,0,.08);}
+  .datesep .clk{color:var(--primary);font-size:13px;}
+  .datesep .txt{color:#FFC107;font-size:12px;font-weight:600;letter-spacing:.5px;}
+
+  .row{display:flex;margin:3px 0;padding:0 6px;}
+  .row.me{justify-content:flex-end;}
+  .bubble{max-width:75%;padding:9px 13px;border-radius:18px;font-size:15px;line-height:1.35;}
+  .row.them .bubble{background:var(--surface);border-bottom-left-radius:4px;color:#fff;
+    box-shadow:0 2px 6px rgba(0,0,0,.06);}
+  .row.me .bubble{background:var(--primary);border-bottom-right-radius:4px;color:#000;
+    box-shadow:0 2px 6px rgba(0,0,0,.06);}
+  .meta{display:flex;align-items:center;gap:4px;justify-content:flex-end;margin-top:4px;}
+  .meta .tm{font-size:10px;}
+  .row.me .meta .tm{color:rgba(0,0,0,.5);}
+  .row.them .meta{justify-content:flex-start;}
+  .row.them .meta .tm{color:rgba(255,255,255,.32);}
+  .meta .seen{font-size:11px;color:rgba(0,0,0,.85);}
+
+  .unread{align-self:center;margin:8px 0;background:linear-gradient(90deg,var(--primary),#B8860B);
+    color:#000;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:16px;padding:5px 14px;
+    box-shadow:0 0 8px rgba(255,191,0,.35);}
+
+  /* image bubble */
+  .imgbubble{padding:5px;}
+  .imgbubble .ph{width:190px;height:118px;border-radius:8px;
+    background:linear-gradient(135deg,#241f3d,#15131f);display:flex;align-items:center;justify-content:center;
+    font-size:30px;color:rgba(255,255,255,.25);}
+  .imgbubble .cap{padding:5px 6px 1px;}
+
+  /* typing indicator */
+  .typing{align-self:flex-start;margin:4px 0 2px 12px;background:var(--surface);
+    border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;display:flex;gap:5px;}
+  .typing .d{width:7px;height:7px;border-radius:50%;background:rgba(255,191,0,.8);
+    animation:bounce 1.2s infinite;}
+  .typing .d:nth-child(2){animation-delay:.2s;}
+  .typing .d:nth-child(3){animation-delay:.4s;}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.6;}30%{transform:translateY(-5px);opacity:1;}}
+
+  /* input bar */
+  .inputbar{flex:none;background:var(--surface);border-top:1px solid rgba(42,42,62,.4);
+    box-shadow:0 -2px 12px rgba(0,0,0,.16);padding:10px 10px calc(10px + 16px);
+    display:flex;align-items:center;gap:8px;}
+  .imgbtn{width:40px;height:40px;flex:none;border-radius:12px;background:var(--inputbox);
+    display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:19px;}
+  .field{flex:1;background:var(--inputbox);border:1px solid #3A3A4E;border-radius:24px;
+    padding:12px 18px;color:var(--faint);font-size:14px;}
+  .send{width:48px;height:48px;flex:none;border-radius:24px;background:var(--primary);
+    display:flex;align-items:center;justify-content:center;color:#000;font-size:21px;
+    box-shadow:0 0 10px rgba(255,191,0,.4);}
+  .homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);
+    width:132px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);}
+</style>
+</head>
+<body>
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons"><span>▂▄▆█</span><span>📶</span><span class="battery"><i></i></span></span>
+  </div>
+
+  <!-- Chat header -->
+  <div class="appbar">
+    <span class="back">←</span>
+    <div class="av">
+      <div class="circle">K</div>
+      <div class="dot"></div>
+    </div>
+    <div class="who">
+      <span class="nm">Kairo_TR</span>
+      <span class="st">Online</span>
+    </div>
+    <span class="more">⋮</span>
+  </div>
+
+  <!-- Messages -->
+  <div class="msgs">
+
+    <div class="datesep"><span class="clk">🕒</span><span class="txt">Today</span></div>
+
+    <div class="row them">
+      <div class="bubble">yo are you queueing valorant tonight? 🎮
+        <div class="meta"><span class="tm">9:12 PM</span></div>
+      </div>
+    </div>
+
+    <div class="row me">
+      <div class="bubble">for sure, just finished a comp game. immortal lobby was brutal lol
+        <div class="meta"><span class="tm">9:14 PM</span><span class="seen">👁</span></div>
+      </div>
+    </div>
+
+    <div class="row them">
+      <div class="bubble">need one more for the 5-stack, you in?
+        <div class="meta"><span class="tm">9:15 PM</span></div>
+      </div>
+    </div>
+
+    <div class="row me">
+      <div class="bubble">100%. send the invite, mic is on 🎙️
+        <div class="meta"><span class="tm">9:15 PM</span><span class="seen">👁</span></div>
+      </div>
+    </div>
+
+    <div class="row them">
+      <div class="bubble imgbubble">
+        <div class="ph">🖼️</div>
+        <div class="cap">our last ranked win — clutch 1v3 😤
+          <div class="meta"><span class="tm">9:16 PM</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row me">
+      <div class="bubble">LETS GO. queue up i'm ready 🔥
+        <div class="meta"><span class="tm">9:17 PM</span><span class="seen" style="color:rgba(0,0,0,.45);">✈</span></div>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div class="typing"><span class="d"></span><span class="d"></span><span class="d"></span></div>
+
+  </div>
+
+  <!-- Input bar -->
+  <div class="inputbar">
+    <div class="imgbtn">🖼️</div>
+    <div class="field">Type a message...</div>
+    <div class="send">➤</div>
+  </div>
+
+  <div class="homebar"></div>
+</body>
+</html>

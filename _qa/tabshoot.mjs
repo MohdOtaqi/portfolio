@@ -1,0 +1,12 @@
+import { chromium } from "playwright";
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1.5 });
+await p.goto("http://localhost:5192", { waitUntil: "networkidle", timeout: 60000 });
+await p.waitForTimeout(2000);
+await p.screenshot({ path: "public/apps/tabayyun-1.png" });
+console.log("shot tabayyun-1");
+await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.6));
+await p.waitForTimeout(1200);
+await p.screenshot({ path: "public/apps/tabayyun-2.png" });
+console.log("shot tabayyun-2");
+await b.close();

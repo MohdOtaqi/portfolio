@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Sabaq — نتيجة التسميع</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  html,body { margin:0; width:390px; height:844px; overflow:hidden; }
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --primaryLight:#FDF5DC;
+    --primary:#B8860B; --gold:#C9A84C; --accent:#1D6B4F; --green:#2E7D5A;
+    --text:#1A1209; --tSecondary:#6B5030; --tLight:#9C8060; --borderLight:#F0E6CE;
+  }
+  body{
+    width:390px; height:844px; background:var(--bg); position:relative;
+    font-family:"Segoe UI","Helvetica Neue",system-ui,Arial,sans-serif; color:var(--text);
+  }
+  .arabic{ font-family:"Geeza Pro","Traditional Arabic","Segoe UI",serif; }
+
+  /* status bar */
+  .statusbar{ height:44px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 22px; font-size:15px; font-weight:600; color:var(--text); direction:ltr; }
+  .statusbar .icons{ display:flex; align-items:center; gap:7px; font-size:13px; }
+  .battery{ display:inline-block; width:24px; height:12px; border:1.4px solid var(--text);
+    border-radius:3px; position:relative; }
+  .battery::after{ content:""; position:absolute; right:-3px; top:3px; width:2px; height:6px;
+    background:var(--text); border-radius:0 1px 1px 0; }
+  .battery::before{ content:""; position:absolute; left:1.4px; top:1.4px; bottom:1.4px; width:65%;
+    background:var(--text); border-radius:1px; }
+
+  /* header */
+  .header{ display:flex; flex-direction:row-reverse; align-items:center; justify-content:space-between;
+    padding:6px 18px 10px; }
+  .hbtn{ width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+    color:var(--tSecondary); font-size:20px; }
+  .htitle{ font-size:18px; font-weight:800; color:var(--text); }
+
+  .body{ padding:0 24px; display:flex; flex-direction:column; align-items:center; }
+
+  /* step indicator */
+  .steps{ display:flex; flex-direction:row-reverse; align-items:center; justify-content:center;
+    gap:0; margin:4px 0 18px; width:100%; }
+  .step{ display:flex; flex-direction:column; align-items:center; gap:5px; }
+  .step .circ{ width:30px; height:30px; border-radius:15px; display:flex; align-items:center;
+    justify-content:center; font-size:13px; font-weight:800; border:2px solid var(--borderLight);
+    background:#fff; color:var(--tLight); }
+  .step.done .circ{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .step .lbl{ font-size:11px; color:var(--tLight); font-weight:700; }
+  .step.done .lbl{ color:var(--accent); }
+  .step-line{ width:36px; height:2px; background:var(--accent); margin:0 2px 17px; }
+  .step-line.off{ background:var(--borderLight); }
+
+  /* result icon */
+  .icon-area{ margin:6px 0 14px; }
+  .icon-circle{ width:118px; height:118px; border-radius:59px; background:#E8F5E9;
+    display:flex; align-items:center; justify-content:center; }
+  .icon-inner{ width:86px; height:86px; border-radius:43px; background:#C8E6C9;
+    display:flex; align-items:center; justify-content:center; font-size:54px; color:var(--accent); }
+
+  .verdict{ font-size:30px; font-weight:800; color:var(--accent); margin-bottom:5px; }
+  .verdict-sub{ font-size:15px; color:var(--tSecondary); margin-bottom:18px; }
+
+  /* score circle */
+  .score-circle{ width:88px; height:88px; border-radius:44px; border:4px solid var(--accent);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff;
+    box-shadow:0 4px 12px rgba(139,96,32,.1); margin-bottom:22px; }
+  .score-val{ font-size:24px; font-weight:800; color:var(--accent); }
+  .score-lbl{ font-size:11px; color:var(--tLight); margin-top:2px; }
+
+  /* ayah card */
+  .ayah-card{ background:#fff; border-radius:18px; padding:18px 20px; width:100%;
+    border:1px solid var(--borderLight); box-shadow:0 6px 16px rgba(139,96,32,.08);
+    display:flex; flex-direction:column; align-items:center; margin-bottom:22px; }
+  .ayah-lbl-row{ display:flex; flex-direction:row-reverse; align-items:center; gap:6px; margin-bottom:11px; }
+  .ayah-lbl{ font-size:13px; color:var(--primary); font-weight:600; }
+  .ayah-text{ font-size:21px; line-height:38px; color:var(--text); text-align:center; margin-bottom:12px; }
+  .ayah-ref-badge{ background:var(--primaryLight); border:1px solid var(--gold); border-radius:10px;
+    padding:6px 14px; font-size:12px; color:var(--primary); font-weight:600; }
+
+  /* primary btn */
+  .btn{ background:var(--accent); border-radius:16px; padding:15px; width:100%; text-align:center;
+    color:#fff; font-size:17px; font-weight:800; box-shadow:0 6px 16px rgba(29,107,79,.35);
+    display:flex; flex-direction:row-reverse; align-items:center; justify-content:center; gap:8px; }
+
+  /* recitation meta row */
+  .meta-row{ display:flex; flex-direction:row-reverse; align-items:center; justify-content:center;
+    gap:7px; margin-top:14px; color:var(--tLight); font-size:12px; }
+  .meta-row .gold{ color:var(--gold); }
+</style>
+</head>
+<body>
+  <!-- status bar -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <span>●●●●</span>
+      <span style="font-size:14px;">📶</span>
+      <span class="battery"></span>
+    </span>
+  </div>
+
+  <!-- header -->
+  <div class="header">
+    <div class="hbtn">⌂</div>
+    <div class="htitle arabic">نتيجة التسميع</div>
+    <div style="width:40px;"></div>
+  </div>
+
+  <div class="body">
+    <!-- step indicator: استمع / تدرّب / تسميع -->
+    <div class="steps">
+      <div class="step done"><div class="circ">✓</div><div class="lbl arabic">استمع</div></div>
+      <div class="step-line"></div>
+      <div class="step done"><div class="circ">✓</div><div class="lbl arabic">تدرّب</div></div>
+      <div class="step-line"></div>
+      <div class="step done"><div class="circ">✓</div><div class="lbl arabic">تسميع</div></div>
+    </div>
+
+    <!-- result icon -->
+    <div class="icon-area">
+      <div class="icon-circle">
+        <div class="icon-inner">✓</div>
+      </div>
+    </div>
+
+    <div class="verdict arabic">أحسنت! ✓</div>
+    <div class="verdict-sub arabic">لقد تلوت الآية بشكل جيد</div>
+
+    <!-- score -->
+    <div class="score-circle">
+      <div class="score-val arabic">٩٢٪</div>
+      <div class="score-lbl arabic">التطابق</div>
+    </div>
+
+    <!-- correct ayah -->
+    <div class="ayah-card">
+      <div class="ayah-lbl-row">
+        <span style="color:var(--primary);font-size:13px;">📖</span>
+        <span class="ayah-lbl arabic">الآية الصحيحة</span>
+      </div>
+      <div class="ayah-text arabic">ٱلَّذِی خَلَقَ ٱلۡمَوۡتَ وَٱلۡحَیَوٰةَ لِیَبۡلُوَكُمۡ أَیُّكُمۡ أَحۡسَنُ عَمَلًا</div>
+      <div class="ayah-ref-badge arabic">سورة الملك - الآية ٢</div>
+    </div>
+
+    <!-- action -->
+    <div class="btn arabic">الآية التالية &nbsp;←</div>
+
+    <div class="meta-row">
+      <span class="gold">🎵</span>
+      <span class="arabic">القارئ: مشاري العفاسي · رواية حفص</span>
+    </div>
+  </div>
+</body>
+</html>

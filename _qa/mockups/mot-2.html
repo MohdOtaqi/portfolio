@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>MOT — Profile</title>
+<style>
+  :root{
+    --bg:#0A0A16; --surface:#12122A; --input:#1A1A30; --appbar:#08081A;
+    --navbar:#0D0D1A; --primary:#FFBF00; --on-primary:#000;
+    --logo-gold:#C8973E; --text:#FFFFFF; --muted:rgba(255,255,255,.5);
+    --faint:rgba(255,255,255,.30); --card-border:rgba(255,255,255,.08);
+    --green:#22C55E; --diamond:#5BC0EB;
+  }
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{margin:0;width:390px;height:844px;overflow:hidden;}
+  body{background:var(--bg);color:var(--text);
+    font-family:"Inter","Segoe UI",Roboto,system-ui,sans-serif;position:relative;}
+  .ambient{position:absolute;top:60px;left:50%;transform:translateX(-50%);
+    width:300px;height:300px;background:radial-gradient(circle,rgba(255,191,0,.12),transparent 68%);
+    pointer-events:none;}
+
+  /* Status bar */
+  .statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 22px;font-size:14px;font-weight:600;background:var(--appbar);position:relative;z-index:2;}
+  .statusbar .icons{display:flex;align-items:center;gap:7px;font-size:13px;}
+  .battery{display:inline-block;width:23px;height:12px;border:1.4px solid #fff;border-radius:3px;
+    position:relative;padding:1.4px;}
+  .battery::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:#fff;border-radius:0 1px 1px 0;}
+  .battery i{display:block;height:100%;width:78%;background:#fff;border-radius:1px;}
+
+  /* App bar */
+  .appbar{background:var(--appbar);display:flex;align-items:center;justify-content:center;
+    position:relative;padding:9px 0 8px;z-index:2;}
+  .menu{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:26px;}
+  .more{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:22px;}
+  .logo{display:flex;align-items:center;gap:9px;}
+  .logo svg{width:32px;height:32px;}
+  .logo .word{font-family:"Oswald","Inter",sans-serif;font-weight:700;font-size:22px;
+    letter-spacing:5px;color:var(--logo-gold);}
+
+  .scroll{height:calc(844px - 44px - 49px);overflow:hidden;padding:0 16px 0;}
+
+  /* Header */
+  .phead{display:flex;flex-direction:column;align-items:center;padding-top:18px;position:relative;z-index:1;}
+  .avwrap{width:108px;height:108px;border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),#B8860B);padding:3px;
+    box-shadow:0 0 24px rgba(255,191,0,.30);}
+  .av{width:100%;height:100%;border-radius:50%;
+    background:linear-gradient(160deg,#2a2350,#181230);
+    display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;
+    color:#fff;font-family:"Oswald",sans-serif;}
+  .badges{display:flex;gap:8px;margin-top:12px;}
+  .pro{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--primary),#B8860B);
+    color:#000;font-size:11px;font-weight:800;letter-spacing:1px;border-radius:12px;padding:4px 10px;
+    box-shadow:0 0 10px rgba(255,191,0,.4);}
+  .founder{display:flex;align-items:center;gap:4px;color:#C8973E;background:rgba(200,151,62,.12);
+    border:1px solid rgba(200,151,62,.5);font-size:11px;font-weight:800;letter-spacing:1px;
+    border-radius:12px;padding:4px 10px;}
+  .uname{font-family:"Oswald",sans-serif;font-size:24px;font-weight:700;letter-spacing:.5px;margin-top:14px;}
+  .utag{color:var(--muted);font-size:13px;margin-top:2px;}
+  .stats{display:flex;gap:34px;margin-top:14px;}
+  .stat{text-align:center;}
+  .stat b{font-size:18px;font-weight:800;}
+  .stat span{display:block;color:var(--muted);font-size:12px;margin-top:1px;}
+  .follow{margin-top:14px;background:var(--primary);color:#000;font-weight:800;font-size:14px;
+    border:none;border-radius:20px;padding:10px 38px;letter-spacing:.3px;font-family:inherit;}
+
+  /* Cards */
+  .card{background:var(--surface);border:1px solid var(--card-border);border-radius:18px;
+    padding:16px;margin-top:14px;}
+  .chead{display:flex;align-items:center;gap:8px;margin-bottom:13px;}
+  .chead .ic{color:var(--primary);font-size:17px;}
+  .chead .t{font-size:16px;font-weight:800;}
+  .bio{color:rgba(255,255,255,.78);font-size:13.5px;line-height:1.55;}
+
+  /* handles */
+  .handle{display:flex;align-items:center;gap:12px;padding:11px 12px;background:var(--input);
+    border:1px solid rgba(255,255,255,.05);border-radius:12px;margin-top:8px;}
+  .handle:first-of-type{margin-top:0;}
+  .handle .hic{font-size:17px;width:22px;text-align:center;}
+  .handle .hlabel{color:var(--muted);font-size:13px;}
+  .handle .hval{margin-left:auto;font-size:13.5px;font-weight:600;}
+  .hval.ok{color:var(--green);}
+
+  /* platforms */
+  .plats{display:flex;gap:8px;flex-wrap:wrap;}
+  .pchip{width:56px;height:64px;border-radius:14px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:5px;
+    background:var(--input);border:1px solid rgba(255,255,255,.08);color:var(--faint);font-size:10px;}
+  .pchip .pic{font-size:22px;}
+  .pchip.on{background:rgba(255,191,0,.10);border:1.5px solid var(--primary);color:var(--primary);}
+
+  /* games */
+  .gchips{display:flex;flex-wrap:wrap;gap:8px;}
+  .gchip{display:flex;align-items:center;gap:7px;background:rgba(255,191,0,.10);
+    border:1px solid rgba(255,191,0,.32);border-radius:20px;padding:5px 12px 5px 6px;}
+  .gchip .ga{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+    font-size:14px;background:#23233e;}
+  .gchip .gn{font-size:12.5px;font-weight:800;}
+  .gchip .gr{display:flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;}
+
+  /* reputation */
+  .reps{display:flex;flex-wrap:wrap;gap:9px;}
+  .rep{display:flex;align-items:center;gap:7px;border-radius:12px;padding:9px 12px;
+    background:linear-gradient(135deg,rgba(255,191,0,.12),rgba(255,191,0,.04));
+    border:1px solid rgba(255,191,0,.32);}
+  .rep.empty{background:var(--input);border:1px solid rgba(255,255,255,.06);}
+  .rep .rt{font-size:13px;font-weight:600;}
+  .rep.empty .rt{color:var(--muted);font-weight:400;}
+  .rep .ric{font-size:14px;color:var(--primary);}
+  .rep.empty .ric{color:var(--faint);}
+  .rep .rc{background:rgba(255,191,0,.22);color:var(--primary);font-size:12px;font-weight:800;
+    border-radius:8px;padding:1px 7px;}
+  .rep.empty .rc{background:rgba(255,255,255,.06);color:var(--faint);}
+
+  /* play style row */
+  .psrow{display:flex;align-items:center;gap:10px;background:var(--input);border-radius:12px;padding:12px 14px;}
+  .psrow .lbl{color:var(--muted);font-size:13px;}
+  .psrow .val{margin-left:auto;color:var(--primary);font-weight:700;font-size:14px;}
+
+  /* nav */
+  .nav{position:absolute;left:16px;right:16px;bottom:14px;height:66px;
+    background:rgba(13,13,26,.92);border:1px solid rgba(255,255,255,.08);border-radius:34px;
+    display:flex;align-items:center;justify-content:space-around;padding:0 18px;
+    box-shadow:0 10px 32px rgba(0,0,0,.55);backdrop-filter:blur(24px);z-index:5;}
+  .nav .navi{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(255,255,255,.38);font-size:10px;}
+  .nav .navi .ic{font-size:21px;}
+  .nav .navi.sel{color:var(--primary);}
+  .nav .navi.sel .badge{width:46px;height:38px;border-radius:13px;background:rgba(255,191,0,.18);
+    display:flex;align-items:center;justify-content:center;}
+  .nav .navi.sel .badge .ic{font-size:21px;}
+  .nav .center{width:50px;height:50px;border-radius:50%;background:var(--primary);color:#000;
+    display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:300;
+    box-shadow:0 0 18px rgba(255,191,0,.5),0 0 32px rgba(255,191,0,.2);}
+
+  .fade{position:absolute;left:0;right:0;bottom:0;height:120px;
+    background:linear-gradient(transparent,var(--bg) 78%);pointer-events:none;z-index:4;}
+</style>
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons"><span>▂▄▆█</span><span>📶</span><span class="battery"><i></i></span></span>
+  </div>
+
+  <div class="appbar">
+    <span class="menu">☰</span>
+    <div class="logo">
+      <svg viewBox="0 0 100 100"><polygon fill="#C8973E" points="30,30 30,72 40,72 40,52 50,62 50,30"/><polygon fill="#C8973E" points="70,30 70,72 60,72 60,52 50,62 70,30"/><polygon fill="#C8973E" points="30,30 70,30 50,52"/></svg>
+      <span class="word">MOT</span>
+    </div>
+    <span class="more">⋮</span>
+  </div>
+
+  <div class="scroll">
+    <!-- Profile header -->
+    <div class="phead">
+      <div class="avwrap"><div class="av">N</div></div>
+      <div class="badges">
+        <span class="pro">🏅 MOT PRO</span>
+        <span class="founder">🛡 FOUNDER</span>
+      </div>
+      <div class="uname">NovaStrike</div>
+      <div class="utag">@nova_strike</div>
+      <div class="stats">
+        <div class="stat"><b>1,284</b><span>Followers</span></div>
+        <div class="stat"><b>312</b><span>Following</span></div>
+      </div>
+      <button class="follow">Follow</button>
+    </div>
+
+    <!-- Bio -->
+    <div class="card">
+      <div class="chead"><span class="ic">👤</span><span class="t">Profile Info</span></div>
+      <div class="bio">Immortal Valorant duelist main. Grinding ranked every night EST. Looking for a serious 5-stack to climb to Radiant. Mic always on, good vibes only.</div>
+    </div>
+
+    <!-- Handles -->
+    <div class="card">
+      <div class="chead"><span class="ic">🔗</span><span class="t">Linked Accounts</span></div>
+      <div class="handle"><span class="hic">🎮</span><span class="hlabel">Gamer Tag</span><span class="hval">NovaStrike#NA1</span></div>
+      <div class="handle"><span class="hic">🟣</span><span class="hlabel">Discord</span><span class="hval">nova.strike</span></div>
+      <div class="handle"><span class="hic">🅿️</span><span class="hlabel">PSN</span><span class="hval">Nova_Strike_</span></div>
+      <div class="handle"><span class="hic">🎙️</span><span class="hlabel">Voice Chat (Mic)</span><span class="hval ok">Available</span></div>
+    </div>
+
+    <!-- Play style -->
+    <div class="card">
+      <div class="chead"><span class="ic">⚡</span><span class="t">Play Style</span></div>
+      <div class="psrow"><span class="lbl">Style</span><span class="val">Competitive</span></div>
+    </div>
+
+    <!-- Platforms -->
+    <div class="card">
+      <div class="chead"><span class="ic">🖥️</span><span class="t">Platforms</span></div>
+      <div class="plats">
+        <div class="pchip on"><span class="pic">🖥️</span>PC</div>
+        <div class="pchip on"><span class="pic">🅿️</span>PS</div>
+        <div class="pchip"><span class="pic">🟩</span>Xbox</div>
+        <div class="pchip"><span class="pic">📱</span>Mobile</div>
+        <div class="pchip"><span class="pic">🎮</span>Switch</div>
+      </div>
+    </div>
+
+    <!-- Favorite games -->
+    <div class="card">
+      <div class="chead"><span class="ic">❤️</span><span class="t">Favorite Games</span></div>
+      <div class="gchips">
+        <div class="gchip"><span class="ga">🎯</span><span class="gn">Valorant<br><span class="gr" style="color:#FFBF00;">🏆 Immortal</span></span></div>
+        <div class="gchip"><span class="ga">🔫</span><span class="gn">Apex Legends<br><span class="gr" style="color:#5BC0EB;">💎 Diamond&nbsp;2</span></span></div>
+        <div class="gchip"><span class="ga">🚗</span><span class="gn">Rocket League<br><span class="gr" style="color:#C0C0C0;">⭐ Champion</span></span></div>
+      </div>
+    </div>
+
+    <!-- Reputation -->
+    <div class="card" style="margin-bottom:130px;">
+      <div class="chead"><span class="ic">⭐</span><span class="t">Reputation</span></div>
+      <div class="reps">
+        <div class="rep"><span class="ric">🎤</span><span class="rt">Good Communicator</span><span class="rc">47</span></div>
+        <div class="rep"><span class="ric">🔥</span><span class="rt">Clutch</span><span class="rc">31</span></div>
+        <div class="rep empty"><span class="ric">😊</span><span class="rt">Friendly</span><span class="rc">12</span></div>
+        <div class="rep"><span class="ric">🎖️</span><span class="rt">Leader</span><span class="rc">19</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade"></div>
+
+  <div class="nav">
+    <div class="navi"><span class="ic">⌂</span>Home</div>
+    <div class="navi"><span class="ic">🔍</span>Find</div>
+    <div class="center">+</div>
+    <div class="navi"><span class="ic">💬</span>Messages</div>
+    <div class="navi sel"><span class="badge"><span class="ic">👤</span></span></div>
+  </div>
+</body>
+</html>

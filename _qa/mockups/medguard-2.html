@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>MedGuard — Heart Attack First Aid</title>
+<style>
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{margin:0;width:390px;height:844px;overflow:hidden;}
+  body{
+    font-family:'Inter',-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;
+    background:#F0F4F8;color:#1A1A2E;position:relative;display:flex;flex-direction:column;
+  }
+  /* ── Status bar ── */
+  .statusbar{
+    position:absolute;top:0;left:0;right:0;height:44px;z-index:30;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 22px;color:#fff;font-size:14px;font-weight:600;
+  }
+  .statusbar .icons{display:flex;align-items:center;gap:6px;font-size:13px;}
+  .statusbar .bat{border:1.4px solid rgba(255,255,255,.9);border-radius:3px;width:22px;height:11px;position:relative;padding:1px;display:inline-flex;}
+  .statusbar .bat::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:rgba(255,255,255,.9);border-radius:0 1px 1px 0;}
+  .statusbar .bat i{background:#fff;width:80%;height:100%;border-radius:1px;display:block;}
+
+  /* ── App bar (heart gradient) ── */
+  .appbar{
+    height:96px;background:linear-gradient(135deg,#FF6B6B,#EE5A24);
+    display:flex;align-items:flex-end;justify-content:center;gap:10px;
+    padding-bottom:14px;color:#fff;
+  }
+  .appbar .back{position:absolute;left:14px;bottom:12px;font-size:22px;color:#fff;}
+  .appbar .ab-title{font-size:18px;font-weight:600;}
+
+  .scroll{flex:1;overflow:hidden;padding:16px 16px 0;}
+
+  /* ── Hero banner ── */
+  .hero{
+    border-radius:20px;padding:20px;display:flex;align-items:center;gap:16px;
+    background:linear-gradient(135deg,#FF6B6B,#EE5A24);
+    box-shadow:0 6px 16px rgba(198,40,40,.3);color:#fff;
+  }
+  .hero .htxt{flex:1;}
+  .hero .h1{font-size:20px;font-weight:700;line-height:1.2;}
+  .hero .h2{font-size:13px;line-height:1.4;margin-top:8px;color:rgba(255,255,255,.85);}
+  .hero .hcircle{
+    width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.2);
+    display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;
+  }
+
+  /* ── Timer banner ── */
+  .timer{
+    margin-top:16px;display:flex;align-items:center;gap:10px;
+    background:rgba(13,115,119,.06);border:1px solid rgba(13,115,119,.2);
+    border-radius:14px;padding:12px 16px;color:#0D7377;
+  }
+  .timer .tico{font-size:18px;}
+  .timer .tlabel{flex:1;font-size:14px;font-weight:600;}
+  .timer .tval{
+    background:rgba(13,115,119,.1);border-radius:8px;padding:4px 10px;
+    font-size:20px;font-weight:700;
+  }
+
+  /* ── Section title ── */
+  .sect{display:flex;align-items:center;gap:10px;margin-top:20px;}
+  .sect .bar{width:4px;height:22px;border-radius:2px;background:#C62828;}
+  .sect .stxt{font-size:18px;font-weight:700;color:#1A1A2E;}
+
+  /* ── Step cards ── */
+  .step{
+    margin-top:14px;background:#fff;border-radius:16px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);padding:16px;display:flex;gap:14px;
+  }
+  .step .scol{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+  .step .snum{
+    width:48px;height:48px;border-radius:50%;
+    background:linear-gradient(135deg,#FF6B6B,#EE5A24);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;
+    box-shadow:0 3px 8px rgba(198,40,40,.3);
+  }
+  .step .sicon{font-size:20px;color:#C62828;margin-top:6px;}
+  .step .scontent{flex:1;}
+  .step .slabel{font-size:10px;font-weight:700;letter-spacing:1.2px;color:rgba(198,40,40,.6);}
+  .step .stitle{font-size:16px;font-weight:700;color:#1A1A2E;margin-top:4px;}
+  .step .sdetail{font-size:13px;color:#6B7280;line-height:1.5;margin-top:6px;}
+  .connector{width:2px;height:22px;margin-left:39px;
+    background:linear-gradient(to bottom,rgba(198,40,40,.4),rgba(198,40,40,.1));}
+
+  /* ── Bottom actions ── */
+  .bottombar{
+    background:#fff;padding:12px 16px 26px;display:flex;gap:12px;
+    box-shadow:0 -3px 10px rgba(0,0,0,.08);
+  }
+  .bbtn{flex:1;border-radius:14px;padding:14px 0;font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:7px;border:none;}
+  .bbtn-call{background:#D32F2F;color:#fff;}
+  .bbtn-hosp{background:#fff;color:#0D7377;border:1.5px solid #0D7377;}
+</style>
+</head>
+<body>
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <span>&#9646;&#9646;&#9646;&#9624;</span>
+      <span>&#128246;</span>
+      <span class="bat"><i></i></span>
+    </span>
+  </div>
+
+  <!-- App bar -->
+  <div class="appbar">
+    <span class="back">&#8592;</span>
+    <span class="ab-title">Heart Attack &mdash; First Aid</span>
+  </div>
+
+  <div class="scroll">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="htxt">
+        <div class="h1">Every second counts &mdash; act now</div>
+        <div class="h2">Read each step below and follow the instructions in order.</div>
+      </div>
+      <div class="hcircle">&#128147;</div>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer">
+      <span class="tico">&#9201;</span>
+      <span class="tlabel">Time since alert: 00:42</span>
+      <span class="tval">02:18</span>
+    </div>
+
+    <!-- Section title -->
+    <div class="sect">
+      <span class="bar"></span>
+      <span class="stxt">Step-by-Step Instructions</span>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="scol">
+        <div class="snum">1</div>
+        <div class="sicon">&#128222;</div>
+      </div>
+      <div class="scontent">
+        <div class="slabel">STEP 1 OF 6</div>
+        <div class="stitle">Call Emergency Services</div>
+        <div class="sdetail">Call 911 / 112 immediately. State heart attack suspicion. Every minute counts.</div>
+      </div>
+    </div>
+    <div class="connector"></div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="scol">
+        <div class="snum">2</div>
+        <div class="sicon">&#128094;</div>
+      </div>
+      <div class="scontent">
+        <div class="slabel">STEP 2 OF 6</div>
+        <div class="stitle">Sit or Lie Comfortably</div>
+        <div class="sdetail">Half-sitting position (knees bent) is most comfortable. Loosen any tight clothing.</div>
+      </div>
+    </div>
+    <div class="connector"></div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="scol">
+        <div class="snum">3</div>
+        <div class="sicon">&#128138;</div>
+      </div>
+      <div class="scontent">
+        <div class="slabel">STEP 3 OF 6</div>
+        <div class="stitle">Give Aspirin (If Not Allergic)</div>
+        <div class="sdetail">Chew one adult aspirin (300&nbsp;mg). Do not swallow whole &mdash; it helps thin the blood and limits heart damage.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom actions -->
+  <div class="bottombar">
+    <button class="bbtn bbtn-call">&#128222; Call 911</button>
+    <button class="bbtn bbtn-hosp">&#127973; Nearest Hospital</button>
+  </div>
+</body>
+</html>

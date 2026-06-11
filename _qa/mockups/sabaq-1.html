@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Sabaq — الرئيسية</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  html,body { margin:0; width:390px; height:844px; overflow:hidden; }
+  :root{
+    --bg:#FDF8EE; --card:#FFFFFF; --bgAlt:#F5EDD8;
+    --primary:#B8860B; --primaryDark:#8B6508; --primaryLight:#FDF5DC;
+    --gold:#C9A84C; --goldDeep:#8B5E12;
+    --accent:#1D6B4F;
+    --tPrimary:#1A1209; --tSecondary:#6B5030; --tLight:#9C8060;
+    --border:#E5D5B0; --borderLight:#F0E6CE; --dark:#161C14;
+  }
+  body{
+    width:390px; height:844px; background:var(--bg); position:relative;
+    font-family:"Segoe UI","Helvetica Neue",system-ui,Arial,sans-serif;
+    color:var(--tPrimary);
+  }
+  .arabic{ font-family:"Geeza Pro","Segoe UI","Tahoma",serif; }
+
+  /* status bar */
+  .statusbar{
+    height:44px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 22px; font-size:15px; font-weight:600; color:var(--tPrimary);
+    direction:ltr;
+  }
+  .statusbar .icons{ display:flex; align-items:center; gap:7px; font-size:13px; }
+  .battery{ display:inline-block; width:24px; height:12px; border:1.4px solid var(--tPrimary);
+    border-radius:3px; position:relative; }
+  .battery::after{ content:""; position:absolute; right:-3px; top:3px; width:2px; height:6px;
+    background:var(--tPrimary); border-radius:0 1px 1px 0; }
+  .battery::before{ content:""; position:absolute; left:1.4px; top:1.4px; bottom:1.4px; width:72%;
+    background:var(--tPrimary); border-radius:1px; }
+
+  /* top bar */
+  .topbar{ display:flex; flex-direction:row-reverse; align-items:center;
+    justify-content:space-between; padding:6px 20px 12px; }
+  .greeting{ font-size:13px; color:var(--tSecondary); text-align:right; }
+  .username{ font-size:19px; font-weight:800; color:var(--tPrimary); text-align:right; margin-top:1px;}
+  .profile{ width:44px; height:44px; border-radius:22px; background:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:26px; color:var(--primary);
+    box-shadow:0 2px 6px rgba(139,96,32,.12); }
+
+  .scroll{ height:calc(844px - 44px - 62px - 70px); overflow:hidden; padding:0 20px; }
+
+  /* prayer widget */
+  .prayer{ background:#fff; border-radius:20px; padding:15px 16px; margin-bottom:18px;
+    border:1px solid #F0EAD6; box-shadow:0 4px 14px rgba(139,96,32,.07); }
+  .prayer-head{ display:flex; flex-direction:row-reverse; align-items:center; gap:6px; margin-bottom:13px; }
+  .prayer-head .ico{ color:var(--gold); font-size:15px; }
+  .prayer-title{ font-size:14px; font-weight:700; }
+  .prayer-row{ display:flex; flex-direction:row-reverse; gap:9px; }
+  .pcard{ flex:1; padding:9px 4px; border-radius:12px; background:#F9F7F0;
+    display:flex; flex-direction:column; align-items:center; }
+  .pcard.active{ background:var(--primary); box-shadow:0 4px 10px rgba(184,134,11,.35); }
+  .pname{ font-size:11px; color:var(--tSecondary); margin-bottom:4px; }
+  .ptime{ font-size:13px; font-weight:800; color:var(--tPrimary); }
+  .pcard.active .pname, .pcard.active .ptime{ color:#fff; }
+  .dot{ width:4px; height:4px; border-radius:2px; background:#fff; margin-top:4px; }
+
+  /* daily ayah (dark) */
+  .ayah{ background:var(--dark); border-radius:20px; padding:18px 20px; margin-bottom:18px;
+    box-shadow:0 8px 22px rgba(0,0,0,.18); }
+  .ayah-head{ display:flex; flex-direction:row-reverse; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .ayah-tag{ color:var(--gold); font-size:11px; font-weight:800; }
+  .ayah-spark{ color:var(--gold); font-size:13px; }
+  .ayah-text{ color:#FDF8EE; font-size:18px; line-height:33px; text-align:center; margin-bottom:9px; }
+  .ayah-reason{ color:#D0D0D0; font-size:12px; line-height:20px; text-align:center; margin-bottom:13px; }
+  .ayah-foot{ display:flex; flex-direction:row-reverse; justify-content:space-between; align-items:center; }
+  .ayah-src{ color:#A0A0A0; font-size:11px; }
+  .ayah-btns{ display:flex; flex-direction:row-reverse; gap:8px; }
+  .ab{ display:flex; flex-direction:row-reverse; align-items:center; gap:4px;
+    background:rgba(255,255,255,.13); padding:6px 12px; border-radius:8px; font-size:12px; font-weight:600; color:#fff; }
+  .ab.tafsir{ background:rgba(255,255,255,.18); border:1px solid var(--gold); color:var(--gold); }
+
+  /* progress widget */
+  .prog{ background:#fff; border-radius:20px; padding:16px; margin-bottom:18px;
+    display:flex; flex-direction:row-reverse; align-items:center; gap:15px;
+    border:1px solid #EDE8D0; box-shadow:0 4px 14px rgba(139,96,32,.07); }
+  .prog-left{ flex:1; display:flex; flex-direction:column; align-items:flex-end; }
+  .prog-title{ font-size:15px; font-weight:800; margin-bottom:4px; }
+  .prog-sub{ font-size:11px; color:var(--tSecondary); margin-bottom:11px; }
+  .ptrack{ width:100%; height:6px; background:#F0EAD6; border-radius:3px; overflow:hidden; }
+  .pfill{ height:100%; width:18%; background:var(--gold); border-radius:3px; }
+  .pcircle{ width:60px; height:60px; border-radius:30px; border:4px solid var(--gold);
+    display:flex; align-items:center; justify-content:center; background:#FDF8EE;
+    font-size:14px; font-weight:800; color:var(--gold); }
+
+  /* hero */
+  .hero{ background:var(--primary); border-radius:20px; padding:18px 20px; margin-bottom:24px;
+    display:flex; flex-direction:row-reverse; justify-content:space-between; align-items:center;
+    box-shadow:0 10px 24px rgba(184,134,11,.3); }
+  .hero-title{ color:#fff; font-size:19px; font-weight:900; text-align:right; }
+  .hero-sub{ color:rgba(255,255,255,.62); font-size:12px; margin-top:4px; text-align:right; }
+  .hero-ico{ width:50px; height:50px; border-radius:25px; background:rgba(255,255,255,.16);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; }
+
+  /* section header */
+  .sect{ display:flex; flex-direction:row-reverse; align-items:center; gap:10px; margin-bottom:13px; }
+  .sect-title{ font-size:15px; font-weight:800; color:var(--tPrimary); }
+  .sect-line{ flex:1; height:1px; background:linear-gradient(to left,var(--gold),transparent); }
+  .sect-gem{ color:var(--gold); font-size:9px; }
+
+  /* feature grid */
+  .grid{ display:flex; flex-direction:row-reverse; gap:11px; margin-bottom:14px; }
+  .fcard{ flex:1; background:#fff; border-radius:16px; padding:14px 8px;
+    display:flex; flex-direction:column; align-items:center; border:1px solid #FAFAFA;
+    box-shadow:0 2px 7px rgba(139,96,32,.05); }
+  .ficon{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center;
+    justify-content:center; margin-bottom:9px; font-size:20px; }
+  .ftitle{ font-size:13px; font-weight:800; text-align:center; }
+  .fsub{ font-size:10px; color:var(--tSecondary); text-align:center; margin-top:2px; }
+
+  /* bottom nav */
+  .nav{ position:absolute; bottom:0; left:0; width:390px; height:70px; background:#fff;
+    border-top:1px solid var(--borderLight); display:flex; flex-direction:row-reverse;
+    align-items:flex-start; padding-top:8px; box-shadow:0 -2px 8px rgba(139,96,32,.06); }
+  .nav-item{ flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+    color:var(--tLight); font-size:11px; font-weight:700; }
+  .nav-ico{ width:38px; height:38px; border-radius:12px; display:flex; align-items:center;
+    justify-content:center; font-size:20px; }
+  .nav-item.active{ color:var(--primary); }
+  .nav-item.active .nav-ico{ background:var(--primaryLight); border:1px solid var(--gold); }
+</style>
+</head>
+<body>
+  <!-- status bar -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <span>●●●●</span>
+      <span style="font-size:14px;">📶</span>
+      <span class="battery"></span>
+    </span>
+  </div>
+
+  <!-- top bar -->
+  <div class="topbar">
+    <div>
+      <div class="greeting arabic">السلام عليكم،</div>
+      <div class="username arabic">يا حافظ القرآن</div>
+    </div>
+    <div class="profile">👤</div>
+  </div>
+
+  <div class="scroll">
+    <!-- prayer times -->
+    <div class="prayer">
+      <div class="prayer-head">
+        <span class="ico">🕐</span>
+        <span class="prayer-title arabic">مواقيت الصلاة</span>
+      </div>
+      <div class="prayer-row">
+        <div class="pcard"><div class="pname arabic">الفجر</div><div class="ptime">04:22</div></div>
+        <div class="pcard active"><div class="pname arabic">الظهر</div><div class="ptime">12:05</div><div class="dot"></div></div>
+        <div class="pcard"><div class="pname arabic">العصر</div><div class="ptime">15:42</div></div>
+        <div class="pcard"><div class="pname arabic">المغرب</div><div class="ptime">18:55</div></div>
+        <div class="pcard"><div class="pname arabic">العشاء</div><div class="ptime">20:21</div></div>
+      </div>
+    </div>
+
+    <!-- daily ayah -->
+    <div class="ayah">
+      <div class="ayah-head">
+        <span class="ayah-tag arabic">آية اليوم</span>
+        <span class="ayah-spark">✦</span>
+      </div>
+      <div class="ayah-text arabic">"وَاصْبِرْ لِحُكْمِ رَبِّكَ فَإِنَّكَ بِأَعْيُنِنَا ۖ وَسَبِّحْ بِحَمْدِ رَبِّكَ حِينَ تَقُومُ"</div>
+      <div class="ayah-reason arabic">سبب النزول: توجيه إلهي للنبي صلى الله عليه وسلم بالصبر</div>
+      <div class="ayah-foot">
+        <span class="ayah-src arabic">سورة الطور · ٤٨</span>
+        <div class="ayah-btns">
+          <span class="ab arabic">📖 قراءة</span>
+          <span class="ab tafsir arabic">؟ التفسير</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- progress -->
+    <div class="prog">
+      <div class="prog-left">
+        <div class="prog-title arabic">حصاد الحفظ</div>
+        <div class="prog-sub arabic">١٬١٤٢ آيات تم حفظها بفضل الله</div>
+        <div class="ptrack"><div class="pfill"></div></div>
+      </div>
+      <div class="pcircle">١٨٪</div>
+    </div>
+
+    <!-- hero -->
+    <div class="hero">
+      <div>
+        <div class="hero-title arabic">ابدأ الورد اليومي</div>
+        <div class="hero-sub arabic">متابعة سبقك من حيث توقفت</div>
+      </div>
+      <div class="hero-ico">▶</div>
+    </div>
+
+    <!-- feature grid -->
+    <div class="sect">
+      <span class="sect-title arabic">المكتبة القرآنية والخدمات</span>
+      <span class="sect-gem">✦</span>
+      <span class="sect-line"></span>
+    </div>
+    <div class="grid">
+      <div class="fcard">
+        <div class="ficon" style="background:#1D6B4F15;color:#1D6B4F;">📕</div>
+        <div class="ftitle arabic">المصحف الكامل</div>
+        <div class="fsub arabic">قراءة واستماع</div>
+      </div>
+      <div class="fcard">
+        <div class="ficon" style="background:#B8860B15;color:#B8860B;">✨</div>
+        <div class="ftitle arabic">خطة الذكاء</div>
+        <div class="fsub arabic">جدول حفظك</div>
+      </div>
+      <div class="fcard">
+        <div class="ficon" style="background:#8B451315;color:#8B4513;">🧭</div>
+        <div class="ftitle arabic">القبلة</div>
+        <div class="fsub arabic">اتجاه مكة</div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="fcard">
+        <div class="ficon" style="background:#1D6B4F15;color:#1D6B4F;">🌿</div>
+        <div class="ftitle arabic">الأذكار</div>
+        <div class="fsub arabic">صباح ومساء</div>
+      </div>
+      <div class="fcard">
+        <div class="ficon" style="background:#B8860B15;color:#B8860B;">🎗️</div>
+        <div class="ftitle arabic">خطة المراجعة</div>
+        <div class="fsub arabic">تتبع تقدمك</div>
+      </div>
+      <div class="fcard">
+        <div class="ficon" style="background:#8B451315;color:#8B4513;">📊</div>
+        <div class="ftitle arabic">الإحصائيات</div>
+        <div class="fsub arabic">نشاطك اليومي</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom nav -->
+  <div class="nav">
+    <div class="nav-item active"><div class="nav-ico">🏠</div><span class="arabic">الرئيسية</span></div>
+    <div class="nav-item"><div class="nav-ico">📖</div><span class="arabic">القرآن</span></div>
+    <div class="nav-item"><div class="nav-ico">🎓</div><span class="arabic">سبقي</span></div>
+    <div class="nav-item"><div class="nav-ico">📊</div><span class="arabic">تقدمي</span></div>
+  </div>
+</body>
+</html>

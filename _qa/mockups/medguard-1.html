@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>MedGuard — Health Dashboard</title>
+<style>
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{margin:0;width:390px;height:844px;overflow:hidden;}
+  body{
+    font-family:'Inter',-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;
+    background:#F0F4F8;color:#1A1A2E;position:relative;
+  }
+  /* ── Status bar ── */
+  .statusbar{
+    position:absolute;top:0;left:0;right:0;height:44px;z-index:30;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 22px;color:#fff;font-size:14px;font-weight:600;
+  }
+  .statusbar .icons{display:flex;align-items:center;gap:6px;font-size:13px;}
+  .statusbar .bat{
+    border:1.4px solid rgba(255,255,255,.9);border-radius:3px;width:22px;height:11px;
+    position:relative;padding:1px;display:inline-flex;
+  }
+  .statusbar .bat::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:rgba(255,255,255,.9);border-radius:0 1px 1px 0;}
+  .statusbar .bat i{background:#fff;width:80%;height:100%;border-radius:1px;display:block;}
+
+  /* ── Header (curved gradient app bar) ── */
+  .appbar{
+    height:140px;
+    background:linear-gradient(135deg,#0D7377 0%,#00897B 100%);
+    padding:0 18px 16px;display:flex;flex-direction:column;justify-content:flex-end;
+    position:relative;
+  }
+  .appbar .menu{position:absolute;top:50px;left:14px;color:#fff;font-size:24px;}
+  .appbar .greet{color:rgba(255,255,255,.72);font-size:14px;}
+  .appbar .title{color:#fff;font-size:22px;font-weight:700;margin-top:4px;letter-spacing:.2px;}
+
+  .body{padding:16px 16px 0;}
+
+  /* ── BLE banner ── */
+  .ble-banner{
+    display:flex;align-items:center;gap:10px;
+    background:#E8F5E9;border:1.2px solid #66BB6A;border-radius:14px;
+    padding:12px 16px;color:#2E7D32;font-size:13px;font-weight:500;
+  }
+  .ble-banner .ico{font-size:18px;}
+  .ble-banner .spin{margin-left:auto;color:#2E7D32;}
+
+  /* ── Vital cards ── */
+  .card{
+    background:#fff;border-radius:20px;padding:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.10);
+  }
+  .vital-top{display:flex;align-items:center;justify-content:space-between;}
+  .vital-ico{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;
+    justify-content:center;font-size:22px;color:#fff;
+  }
+  .ico-heart{background:linear-gradient(135deg,#FF6B6B,#EE5A24);}
+  .ico-oxy{background:linear-gradient(135deg,#4FACFE,#00F2FE);}
+  .ico-stress{background:linear-gradient(135deg,#A18CD1,#FBC2EB);}
+  .badge{
+    display:flex;align-items:center;gap:4px;border-radius:8px;
+    padding:4px 8px;font-size:10px;font-weight:600;
+  }
+  .badge .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+  .badge-live{background:rgba(46,125,50,.1);color:#2E7D32;}
+  .badge-live .dot{background:#2E7D32;}
+  .badge-sim{background:rgba(255,152,0,.1);color:#FF9800;}
+  .badge-sim .dot{background:#FF9800;}
+
+  .vital-val{display:flex;align-items:flex-end;margin-top:16px;}
+  .vital-val .num{font-size:42px;font-weight:800;line-height:1;color:#1A1A2E;}
+  .vital-val .unit{font-size:16px;color:#6B7280;font-weight:500;margin-left:4px;margin-bottom:4px;}
+  .vital-label{font-size:14px;color:#6B7280;font-weight:500;margin-top:4px;}
+
+  .grid2{display:flex;gap:14px;margin-top:14px;}
+  .grid2 .card{flex:1;padding:16px;}
+  .grid2 .vital-ico{width:38px;height:38px;font-size:20px;}
+  .grid2 .vital-val .num{font-size:32px;}
+  .grid2 .vital-val .unit{font-size:14px;}
+  .grid2 .vital-label{font-size:12px;}
+
+  /* ── Action buttons ── */
+  .actions{display:flex;gap:12px;margin-top:24px;}
+  .btn{
+    flex:1;border-radius:14px;padding:13px 0;font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:6px;border:none;
+  }
+  .btn-out{background:#fff;color:#0D7377;border:1.5px solid #0D7377;}
+  .btn-pri{background:#0D7377;color:#fff;}
+  .btn-green{background:#4CAF50;color:#fff;}
+  .btn .bico{font-size:17px;}
+
+  /* ── AI Analysis card ── */
+  .ai-card{
+    margin-top:24px;border-radius:20px;padding:20px;
+    background:linear-gradient(135deg,#1A1A2E 0%,#16213E 100%);
+    box-shadow:0 4px 12px rgba(103,58,183,.30);
+  }
+  .ai-head{display:flex;align-items:center;gap:12px;}
+  .ai-ico{
+    width:40px;height:40px;border-radius:12px;background:rgba(103,58,183,.30);
+    display:flex;align-items:center;justify-content:center;font-size:20px;
+  }
+  .ai-title{color:#fff;font-size:18px;font-weight:700;flex:1;}
+  .risk-badge{
+    padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;
+    background:rgba(102,187,106,.2);color:#69F0AE;border:1px solid rgba(102,187,106,.5);
+  }
+  .ai-cond{color:rgba(255,255,255,.78);font-size:15px;font-weight:600;margin-top:16px;}
+  .ai-expl{color:rgba(255,255,255,.5);font-size:13px;margin-top:8px;line-height:1.45;}
+  .ai-note{
+    margin-top:12px;padding:12px;border-radius:12px;
+    background:rgba(30,58,95,.5);border:1px solid rgba(0,229,255,.25);
+    display:flex;gap:10px;
+  }
+  .ai-note .pin{color:#18FFFF;font-size:18px;}
+  .ai-note .ntitle{color:#18FFFF;font-size:11px;font-weight:700;letter-spacing:.5px;}
+  .ai-note .ntext{color:rgba(255,255,255,.7);font-size:12.5px;line-height:1.4;margin-top:4px;}
+  .ai-btn{
+    width:100%;margin-top:16px;border:none;border-radius:14px;padding:14px 0;
+    background:#673AB7;color:#fff;font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+</style>
+</head>
+<body>
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <span>&#9646;&#9646;&#9646;&#9624;</span>
+      <span>&#128246;</span>
+      <span class="bat"><i></i></span>
+    </span>
+  </div>
+
+  <!-- App bar -->
+  <div class="appbar">
+    <span class="menu">&#9776;</span>
+    <span class="greet">Hello, Mohammad</span>
+    <span class="title">Your Health Dashboard</span>
+  </div>
+
+  <div class="body">
+    <!-- BLE banner -->
+    <div class="ble-banner">
+      <span class="ico">&#128279;</span>
+      <span>Connected &middot; receiving data from MedGuard&nbsp;Watch</span>
+      <span class="spin">&#9210;</span>
+    </div>
+
+    <!-- Heart Rate (full width) -->
+    <div class="card" style="margin-top:20px;">
+      <div class="vital-top">
+        <div class="vital-ico ico-heart">&#10084;</div>
+        <div class="badge badge-live"><span class="dot"></span>BLE Live</div>
+      </div>
+      <div class="vital-val"><span class="num">82</span><span class="unit">BPM</span></div>
+      <div class="vital-label">Heart Rate</div>
+    </div>
+
+    <!-- SpO2 + Stress -->
+    <div class="grid2">
+      <div class="card">
+        <div class="vital-top">
+          <div class="vital-ico ico-oxy">&#128167;</div>
+          <div class="badge badge-live"><span class="dot"></span>BLE Live</div>
+        </div>
+        <div class="vital-val"><span class="num">98</span><span class="unit">%</span></div>
+        <div class="vital-label">SpO&#8322;</div>
+      </div>
+      <div class="card">
+        <div class="vital-top">
+          <div class="vital-ico ico-stress">&#129504;</div>
+          <div class="badge badge-sim"><span class="dot"></span>Simulated</div>
+        </div>
+        <div class="vital-val"><span class="num">38</span><span class="unit">/100</span></div>
+        <div class="vital-label">Stress</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-out"><span class="bico">&#128300;</span>Simulate</button>
+      <button class="btn btn-pri"><span class="bico">&#8986;</span>BLE</button>
+      <button class="btn btn-green"><span class="bico">&#8635;</span>Sync</button>
+    </div>
+
+    <!-- AI Analysis -->
+    <div class="ai-card">
+      <div class="ai-head">
+        <div class="ai-ico">&#129504;</div>
+        <div class="ai-title">AI Health Analysis</div>
+        <div class="risk-badge">&#10003; NORMAL</div>
+      </div>
+      <div class="ai-cond">Vitals within healthy range</div>
+      <div class="ai-expl">Heart rate, blood oxygen and stress are all within normal limits. No intervention needed right now.</div>
+      <div class="ai-note">
+        <span class="pin">&#128205;</span>
+        <div>
+          <div class="ntitle">PERSONALIZED FOR YOU</div>
+          <div class="ntext">Given your noted history of mild hypertension, keep monitoring after activity and stay hydrated.</div>
+        </div>
+      </div>
+      <button class="ai-btn">&#10024; Analyze Now</button>
+    </div>
+  </div>
+</body>
+</html>

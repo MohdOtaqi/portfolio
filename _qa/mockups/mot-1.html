@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>MOT — Find Members</title>
+<style>
+  :root{
+    --bg:#0A0A16; --surface:#12122A; --input:#1A1A30; --appbar:#08081A;
+    --navbar:#0D0D1A; --primary:#FFBF00; --on-primary:#000;
+    --logo-gold:#C8973E; --text:#FFFFFF; --muted:rgba(255,255,255,.5);
+    --faint:rgba(255,255,255,.30); --card-border:rgba(255,255,255,.08);
+    --green:#22C55E;
+  }
+  *{box-sizing:border-box; -webkit-font-smoothing:antialiased;}
+  html,body{margin:0;width:390px;height:844px;overflow:hidden;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:"Inter","Segoe UI",Roboto,system-ui,sans-serif;
+    position:relative;
+  }
+  .ambient{position:absolute;top:-120px;left:-80px;width:340px;height:340px;
+    background:radial-gradient(circle,rgba(255,191,0,.10),transparent 70%);
+    pointer-events:none;}
+
+  /* ── Status bar ── */
+  .statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 22px;font-size:14px;font-weight:600;letter-spacing:.3px;
+    background:var(--appbar);}
+  .statusbar .icons{display:flex;align-items:center;gap:7px;font-size:13px;}
+  .battery{display:inline-block;width:23px;height:12px;border:1.4px solid #fff;border-radius:3px;
+    position:relative;padding:1.4px;}
+  .battery::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:#fff;border-radius:0 1px 1px 0;}
+  .battery i{display:block;height:100%;width:78%;background:#fff;border-radius:1px;}
+
+  /* ── App bar ── */
+  .appbar{background:var(--appbar);display:flex;align-items:center;justify-content:center;
+    position:relative;padding:10px 0 8px;}
+  .menu{position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    color:var(--primary);font-size:26px;line-height:1;}
+  /* MOT M-monogram logo */
+  .logo{display:flex;align-items:center;gap:9px;}
+  .logo svg{width:34px;height:34px;display:block;}
+  .logo .word{font-family:"Oswald","Inter",sans-serif;font-weight:700;font-size:23px;
+    letter-spacing:5px;color:var(--logo-gold);}
+
+  /* ── Tabs ── */
+  .tabs{display:flex;background:var(--appbar);padding:0 6px;}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:9px 0 10px;color:var(--faint);font-size:12.5px;font-weight:700;
+    border-bottom:3px solid transparent;}
+  .tab .ic{font-size:17px;}
+  .tab.active{color:var(--primary);border-bottom-color:var(--primary);}
+
+  /* ── Search ── */
+  .searchwrap{padding:12px 16px 4px;}
+  .search{display:flex;align-items:center;gap:10px;background:var(--surface);
+    border:1px solid rgba(255,255,255,.08);border-radius:30px;padding:11px 16px;}
+  .search .mag{color:var(--muted);font-size:16px;}
+  .search input{flex:1;background:none;border:none;outline:none;color:var(--text);
+    font-size:14px;font-family:inherit;}
+  .search input::placeholder{color:var(--faint);}
+  .search .tune{width:34px;height:34px;border-radius:50%;background:var(--input);
+    display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:16px;}
+
+  /* ── Section title ── */
+  .sectionhead{display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px 8px;}
+  .sectionhead .t{color:var(--primary);font-size:13px;font-weight:800;letter-spacing:1.6px;}
+  .sectionhead .c{color:var(--faint);font-size:12px;}
+
+  /* ── Member list ── */
+  .list{padding:0 16px;display:flex;flex-direction:column;gap:12px;}
+  .card{background:#15151f;border-radius:14px;border:1px solid rgba(255,191,0,.30);
+    padding:12px;display:flex;align-items:center;gap:13px;}
+  .card.now{border:2px solid var(--primary);
+    box-shadow:0 0 14px rgba(255,191,0,.28);background:#181420;}
+  .card.pro{border:2px solid var(--primary);box-shadow:0 0 14px rgba(255,191,0,.28);}
+  .av{position:relative;flex:none;}
+  .av .ring{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;font-size:22px;font-weight:700;color:#0A0A16;
+    background:linear-gradient(135deg,#3a3a5a,#23233e);}
+  .av.pro .ring{background:linear-gradient(135deg,var(--primary),#B8860B);}
+  .av .ringinner{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;font-size:20px;font-weight:800;}
+  .av .dot{position:absolute;right:1px;bottom:1px;width:14px;height:14px;border-radius:50%;
+    border:2.5px solid #15151f;}
+  .dot.online{background:var(--green);} .dot.off{background:#5a5a6a;}
+
+  .info{flex:1;min-width:0;}
+  .nameline{display:flex;align-items:center;gap:7px;}
+  .name{font-size:17px;font-weight:800;}
+  .name.proname{color:var(--primary);}
+  .crown{color:var(--primary);font-size:14px;}
+  .nowbadge{background:var(--primary);color:#000;font-size:9px;font-weight:900;
+    letter-spacing:1.2px;border-radius:4px;padding:2px 6px;
+    box-shadow:0 0 6px rgba(255,191,0,.6);}
+  .tagrow{display:flex;align-items:center;gap:7px;margin-top:6px;flex-wrap:wrap;}
+  .style{background:rgba(255,191,0,.2);color:var(--primary);font-size:11.5px;font-weight:600;
+    border-radius:12px;padding:2px 10px;}
+  .plat{display:flex;align-items:center;gap:5px;font-size:13px;}
+  .plat .p{font-size:13px;}
+  .mic{color:var(--green);font-size:12px;}
+  .game{font-size:11px;color:var(--muted);margin-top:5px;display:flex;align-items:center;gap:5px;}
+  .game b{color:rgba(255,255,255,.78);font-weight:600;}
+
+  .invite{flex:none;background:var(--primary);color:#000;font-weight:700;font-size:13px;
+    border:none;border-radius:20px;padding:9px 16px;font-family:inherit;}
+
+  /* ── Floating nav ── */
+  .nav{position:absolute;left:16px;right:16px;bottom:14px;height:66px;
+    background:rgba(13,13,26,.92);border:1px solid rgba(255,255,255,.08);
+    border-radius:34px;display:flex;align-items:center;justify-content:space-around;
+    padding:0 18px;
+    box-shadow:0 10px 32px rgba(0,0,0,.55),0 0 20px rgba(255,191,0,.04);
+    backdrop-filter:blur(24px);}
+  .nav .navi{display:flex;flex-direction:column;align-items:center;gap:3px;
+    color:rgba(255,255,255,.38);font-size:10px;}
+  .nav .navi .ic{font-size:21px;}
+  .nav .navi.sel{color:var(--primary);}
+  .nav .navi.sel .badge{width:46px;height:38px;border-radius:13px;background:rgba(255,191,0,.18);
+    display:flex;align-items:center;justify-content:center;}
+  .nav .navi.sel .badge .ic{font-size:21px;}
+  .nav .center{width:50px;height:50px;border-radius:50%;background:var(--primary);
+    color:#000;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:300;
+    box-shadow:0 0 18px rgba(255,191,0,.5),0 0 32px rgba(255,191,0,.2);}
+</style>
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <span>▂▄▆█</span>
+      <span>📶</span>
+      <span class="battery"><i></i></span>
+    </span>
+  </div>
+
+  <!-- App bar -->
+  <div class="appbar">
+    <span class="menu">☰</span>
+    <div class="logo">
+      <svg viewBox="0 0 100 100" aria-label="MOT">
+        <polygon fill="#C8973E" points="30,30 30,72 40,72 40,52 50,62 50,30"/>
+        <polygon fill="#C8973E" points="70,30 70,72 60,72 60,52 50,62 70,30" transform="translate(0,0)"/>
+        <polygon fill="#C8973E" points="30,30 70,30 50,52"/>
+      </svg>
+      <span class="word">MOT</span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab"><span class="ic">🎮</span>Squad Up</div>
+    <div class="tab active"><span class="ic">🔍</span>Members</div>
+    <div class="tab"><span class="ic">👥</span>Teams</div>
+  </div>
+
+  <!-- Search -->
+  <div class="searchwrap">
+    <div class="search">
+      <span class="mag">🔍</span>
+      <input value="Valorant" readonly>
+      <span class="tune">⚙</span>
+    </div>
+  </div>
+
+  <!-- Section header -->
+  <div class="sectionhead">
+    <span class="t">FIND MEMBERS</span>
+    <span class="c">14 players</span>
+  </div>
+
+  <!-- Member cards -->
+  <div class="list">
+
+    <div class="card pro">
+      <div class="av pro">
+        <div class="ring"><div class="ringinner" style="background:#1c1530;color:#fff;">NV</div></div>
+        <div class="dot online"></div>
+      </div>
+      <div class="info">
+        <div class="nameline">
+          <span class="name proname">NovaStrike</span>
+          <span class="crown">👑</span>
+          <span class="nowbadge">NOW</span>
+        </div>
+        <div class="tagrow">
+          <span class="style">Competitive</span>
+          <span class="plat"><span class="p">🖥️</span><span class="mic">🎙️</span></span>
+        </div>
+        <div class="game">🏆 <b>Immortal</b> · Valorant</div>
+      </div>
+      <button class="invite">Invite</button>
+    </div>
+
+    <div class="card now">
+      <div class="av">
+        <div class="ring"><div class="ringinner" style="background:#23233e;color:#fff;">KA</div></div>
+        <div class="dot online"></div>
+      </div>
+      <div class="info">
+        <div class="nameline">
+          <span class="name">Kairo_TR</span>
+          <span class="nowbadge">NOW</span>
+        </div>
+        <div class="tagrow">
+          <span class="style">Sweaty/Tryhard</span>
+          <span class="plat"><span class="p">🎮</span><span class="mic">🎙️</span></span>
+        </div>
+        <div class="game">🏆 <b>Diamond</b> · Valorant</div>
+      </div>
+      <button class="invite">Invite</button>
+    </div>
+
+    <div class="card">
+      <div class="av">
+        <div class="ring"><div class="ringinner" style="background:#23233e;color:#fff;">LY</div></div>
+        <div class="dot off"></div>
+      </div>
+      <div class="info">
+        <div class="nameline"><span class="name">Lyra.exe</span></div>
+        <div class="tagrow">
+          <span class="style">Chill</span>
+          <span class="plat"><span class="p">🖥️</span></span>
+        </div>
+        <div class="game">🏆 <b>Ascendant</b> · Valorant</div>
+      </div>
+      <button class="invite">Invite</button>
+    </div>
+
+    <div class="card">
+      <div class="av">
+        <div class="ring"><div class="ringinner" style="background:#23233e;color:#fff;">ZN</div></div>
+        <div class="dot off"></div>
+      </div>
+      <div class="info">
+        <div class="nameline"><span class="name">Zenith</span></div>
+        <div class="tagrow">
+          <span class="style">Casual</span>
+          <span class="plat"><span class="p">🎮</span><span class="mic">🎙️</span></span>
+        </div>
+        <div class="game">🏆 <b>Gold</b> · Valorant</div>
+      </div>
+      <button class="invite">Invite</button>
+    </div>
+
+    <div class="card">
+      <div class="av">
+        <div class="ring"><div class="ringinner" style="background:#23233e;color:#fff;">FR</div></div>
+        <div class="dot off"></div>
+      </div>
+      <div class="info">
+        <div class="nameline"><span class="name">FrostByte</span></div>
+        <div class="tagrow">
+          <span class="style">Competitive</span>
+          <span class="plat"><span class="p">🖥️</span></span>
+        </div>
+        <div class="game">🏆 <b>Platinum</b> · Valorant</div>
+      </div>
+      <button class="invite">Invite</button>
+    </div>
+
+  </div>
+
+  <!-- Floating nav -->
+  <div class="nav">
+    <div class="navi"><span class="ic">⌂</span>Home</div>
+    <div class="navi sel"><span class="badge"><span class="ic">🔍</span></span></div>
+    <div class="center">+</div>
+    <div class="navi"><span class="ic">💬</span>Messages</div>
+    <div class="navi"><span class="ic">👤</span>Profile</div>
+  </div>
+</body>
+</html>

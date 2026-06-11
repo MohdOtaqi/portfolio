@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Sabaq — المصحف</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  html,body { margin:0; width:390px; height:844px; overflow:hidden; }
+  :root{
+    --parchment:#FDF8EE; --parchmentDk:#F5EDDA; --darkbg:#161C14;
+    --green:#2E4C33; --gold:#C9A84C; --goldDeep:#8B5E12; --primary:#B8860B;
+    --text:#1A1208; --tSecondary:#6B5030; --tLight:#9C8060;
+  }
+  body{
+    width:390px; height:844px; background:var(--darkbg); position:relative;
+    font-family:"Segoe UI","Helvetica Neue",system-ui,Arial,sans-serif; color:#fff;
+  }
+  .arabic{ font-family:"Geeza Pro","Traditional Arabic","Scheherazade New","Segoe UI",serif; }
+
+  /* status bar (dark) */
+  .statusbar{ height:44px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 22px; font-size:15px; font-weight:600; color:#EDE2C8; direction:ltr;
+    background:var(--parchment); }
+  .statusbar{ color:#1A1208; }
+  .statusbar .icons{ display:flex; align-items:center; gap:7px; font-size:13px; }
+  .battery{ display:inline-block; width:24px; height:12px; border:1.4px solid #1A1208;
+    border-radius:3px; position:relative; }
+  .battery::after{ content:""; position:absolute; right:-3px; top:3px; width:2px; height:6px;
+    background:#1A1208; border-radius:0 1px 1px 0; }
+  .battery::before{ content:""; position:absolute; left:1.4px; top:1.4px; bottom:1.4px; width:78%;
+    background:#1A1208; border-radius:1px; }
+
+  /* header (parchment bar) */
+  .header{ display:flex; flex-direction:row; align-items:center; gap:2px;
+    padding:8px 12px; background:var(--parchment);
+    border-bottom:1px solid rgba(201,168,76,.38); }
+  .hbtn{ width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+    color:var(--text); font-size:20px; }
+  .hbtn.gold{ color:var(--primary); }
+  .hbtn.sec{ color:var(--tSecondary); font-size:18px; }
+  .hcenter{ flex:1; display:flex; flex-direction:column; align-items:center; }
+  .hsurah{ font-size:16px; font-weight:700; color:var(--text); }
+  .hjuz{ font-size:11px; color:var(--tSecondary); margin-top:1px; }
+  .hactions{ display:flex; flex-direction:row; gap:0; }
+
+  /* mushaf page */
+  .stage{ height:calc(844px - 44px - 51px); background:var(--darkbg);
+    display:flex; flex-direction:column; align-items:center; padding:14px 9px 0; overflow:hidden; }
+  .page{ width:368px; background:var(--parchment); border-radius:8px; border:2px solid var(--green);
+    box-shadow:0 0 6px rgba(201,168,76,.55); padding:10px 18px 14px; position:relative;
+    flex:1; display:flex; flex-direction:column; }
+  .orn{ display:flex; align-items:center; gap:6px; margin-bottom:6px; }
+  .orn .line{ flex:1; height:1px; background:rgba(201,168,76,.5); }
+  .orn .gem{ font-size:9px; color:var(--gold); }
+  .toprow{ display:flex; justify-content:space-between; padding:0 4px; margin-bottom:10px; }
+  .toprow span{ font-size:11px; color:var(--tSecondary); }
+
+  /* surah banner */
+  .banner{ display:flex; justify-content:center; margin:8px 0 12px; }
+  .banner-in{ border:1.5px solid var(--gold); border-radius:4px; padding:8px 32px;
+    text-align:center; background:var(--parchmentDk); min-width:70%; }
+  .banner-name{ font-size:20px; font-weight:800; color:var(--goldDeep); }
+  .banner-sub{ font-size:11px; color:var(--tSecondary); margin-top:3px; }
+  .bismillah{ font-size:20px; color:#5C3D00; text-align:center; line-height:36px; margin-bottom:8px; }
+
+  /* ayah rows */
+  .ayah-row{ display:flex; flex-direction:row-reverse; align-items:center; gap:0;
+    padding-bottom:11px; margin-bottom:11px; border-bottom:.5px solid rgba(201,168,76,.28); }
+  .ayah-txt{ flex:1; font-size:23px; line-height:46px; color:var(--text); text-align:right; padding:2px 4px; }
+  .ayah-txt.active{ color:#2E7D32; font-weight:600; }
+  .marker{ margin-right:12px; background:var(--parchmentDk); border:1.5px solid var(--gold);
+    border-radius:12px; padding:5px 9px; min-width:32px; text-align:center;
+    font-size:14px; font-weight:700; color:var(--gold); }
+  .marker.active{ background:rgba(46,76,51,.18); border-color:var(--green); color:var(--green); }
+
+  /* page footer ornament */
+  .ornb{ display:flex; align-items:center; gap:6px; margin-top:auto; padding-top:8px; }
+  .ornb .line{ flex:1; height:1px; background:rgba(201,168,76,.5); }
+  .pagenum{ font-size:15px; font-weight:700; color:var(--gold); padding:0 10px; }
+
+  /* page nav row */
+  .navrow{ display:flex; flex-direction:row-reverse; align-items:center; justify-content:space-between;
+    width:368px; padding:12px 16px 0; }
+  .navarrow{ width:40px; height:40px; border-radius:20px; background:var(--parchment);
+    border:1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    color:var(--primary); font-size:18px; box-shadow:0 2px 6px rgba(0,0,0,.25); }
+  .pagebadge{ display:flex; flex-direction:row; align-items:center; gap:3px;
+    background:var(--parchmentDk); border-radius:8px; padding:5px 12px;
+    border:1px solid rgba(201,168,76,.55); font-size:13px; font-weight:700; color:var(--goldDeep); }
+</style>
+</head>
+<body>
+  <!-- status bar -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <span>●●●●</span>
+      <span style="font-size:14px;">📶</span>
+      <span class="battery"></span>
+    </span>
+  </div>
+
+  <!-- header -->
+  <div class="header">
+    <div class="hbtn">›</div>
+    <div class="hcenter">
+      <div class="hsurah arabic">الملك</div>
+      <div class="hjuz arabic">الجزء ٢٩</div>
+    </div>
+    <div class="hactions">
+      <div class="hbtn sec">🎵</div>
+      <div class="hbtn gold">⊙</div>
+      <div class="hbtn gold">☰</div>
+    </div>
+  </div>
+
+  <!-- mushaf -->
+  <div class="stage">
+    <div class="page">
+      <div class="orn"><span class="line"></span><span class="gem">✦</span><span class="line"></span></div>
+      <div class="toprow"><span class="arabic">حزب ٥٨</span><span class="arabic">الجزء ٢٩</span></div>
+
+      <div class="banner">
+        <div class="banner-in">
+          <div class="banner-name arabic">الملك</div>
+          <div class="banner-sub arabic">مكية &nbsp;•&nbsp; ٣٠ آية</div>
+        </div>
+      </div>
+      <div class="bismillah arabic">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِيمِ</div>
+
+      <div class="ayah-row">
+        <div class="ayah-txt arabic">تَبَـٰرَكَ ٱلَّذِی بِیَدِهِ ٱلۡمُلۡكُ وَهُوَ عَلَىٰ كُلِّ شَیۡءٍ قَدِیرٌ</div>
+        <div class="marker arabic">١</div>
+      </div>
+      <div class="ayah-row">
+        <div class="ayah-txt arabic active">ٱلَّذِی خَلَقَ ٱلۡمَوۡتَ وَٱلۡحَیَوٰةَ لِیَبۡلُوَكُمۡ أَیُّكُمۡ أَحۡسَنُ عَمَلࣰا ۚ وَهُوَ ٱلۡعَزِیزُ ٱلۡغَفُورُ</div>
+        <div class="marker arabic active">٢</div>
+      </div>
+      <div class="ayah-row">
+        <div class="ayah-txt arabic">ٱلَّذِی خَلَقَ سَبۡعَ سَمَـٰوَ ٰ⁠تٍ طِبَاقࣰا ۖ مَّا تَرَىٰ فِی خَلۡقِ ٱلرَّحۡمَـٰنِ مِن تَفَـٰوُتࣲ</div>
+        <div class="marker arabic">٣</div>
+      </div>
+      <div class="ayah-row" style="border-bottom:none;">
+        <div class="ayah-txt arabic">فَٱرۡجِعِ ٱلۡبَصَرَ هَلۡ تَرَىٰ مِن فُطُورࣲ</div>
+        <div class="marker arabic">٤</div>
+      </div>
+
+      <div class="ornb"><span class="line"></span><span class="pagenum arabic">٥٦٢</span><span class="line"></span></div>
+    </div>
+
+    <div class="navrow">
+      <div class="navarrow">‹</div>
+      <div class="pagebadge arabic">ص ٥٦٢</div>
+      <div class="navarrow">›</div>
+    </div>
+  </div>
+</body>
+</html>

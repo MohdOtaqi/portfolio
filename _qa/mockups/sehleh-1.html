@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>Sahleh — Home</title>
+<style>
+  :root{
+    --green:#10B981; --green-dark:#0F766E; --green-50:#D1FAE5;
+    --ink:#0F172A; --muted:#64748B; --soft:#94A3B8;
+    --bg:#F8FAFC; --surface:#FFFFFF; --border:#E2E8F0; --variant:#F1F5F9;
+    --amber:#F59E0B; --blue:#3B82F6; --cyan:#06B6D4; --pink:#EC4899;
+    --violet:#8B5CF6; --orange:#F97316;
+    --font:"Outfit","Segoe UI",-apple-system,system-ui,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+  html,body{margin:0;width:390px;height:844px;overflow:hidden;background:var(--bg);font-family:var(--font);color:var(--ink);}
+  /* status bar */
+  .status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px 0 26px;font-size:15px;font-weight:600;color:var(--ink);}
+  .status .right{display:flex;align-items:center;gap:6px;font-size:13px;}
+  .bat{display:inline-block;width:24px;height:12px;border:1.5px solid var(--ink);border-radius:3px;position:relative;}
+  .bat::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:var(--ink);border-radius:0 1px 1px 0;}
+  .bat span{position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:70%;background:var(--ink);border-radius:1px;}
+  .scroll{height:800px;overflow:hidden;}
+  /* header */
+  .head{padding:8px 20px 4px;display:flex;align-items:center;justify-content:space-between;}
+  .greet{font-size:13.5px;color:var(--muted);font-weight:500;}
+  .loc{display:flex;align-items:center;gap:3px;font-size:20px;font-weight:700;margin-top:2px;}
+  .loc .chev{color:var(--green);font-size:18px;}
+  .hicons{display:flex;align-items:center;gap:8px;}
+  .role{background:var(--green-50);color:var(--green-dark);font-size:11px;font-weight:700;padding:8px 11px;border-radius:13px;border:1px solid rgba(16,185,129,.18);}
+  .bell{width:44px;height:44px;border-radius:14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);display:flex;align-items:center;justify-content:center;font-size:19px;position:relative;}
+  .bell .dot{position:absolute;top:11px;right:11px;width:8px;height:8px;background:#EF4444;border-radius:50%;}
+  /* search */
+  .search{margin:12px 20px 0;background:#fff;border-radius:20px;padding:13px 14px;display:flex;align-items:center;gap:11px;box-shadow:0 10px 22px rgba(79,70,229,.05);}
+  .search .mag{color:var(--green);font-size:21px;}
+  .search .ph{flex:1;color:var(--soft);font-size:15.5px;}
+  .search .tune{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;}
+  /* promo */
+  .promo{margin:16px 20px 0;height:170px;border-radius:30px;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#0F766E 0%,#10B981 55%,#34D399 100%);
+    box-shadow:0 16px 30px rgba(16,185,129,.28);padding:24px 26px;color:#fff;}
+  .promo .c1{position:absolute;right:-26px;top:-26px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.14);}
+  .promo .c2{position:absolute;left:-40px;bottom:-40px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.10);}
+  .promo .tag{position:relative;display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:5px 11px;font-size:10px;font-weight:800;letter-spacing:1.4px;}
+  .promo h2{position:relative;font-size:25px;font-weight:800;line-height:1.12;margin-top:13px;width:62%;}
+  .promo .claim{position:relative;display:inline-block;margin-top:16px;background:#fff;color:var(--green-dark);font-weight:800;font-size:13px;padding:11px 19px;border-radius:15px;box-shadow:0 6px 12px rgba(0,0,0,.12);}
+  .promo .ic{position:absolute;right:22px;bottom:14px;font-size:84px;opacity:.92;}
+  /* order buttons */
+  .orders{display:flex;gap:14px;margin:18px 20px 0;}
+  .ord{flex:1;border-radius:22px;padding:15px;text-align:center;border:1.5px solid;}
+  .ord.q{background:rgba(16,185,129,.10);border-color:rgba(16,185,129,.3);color:var(--green-dark);}
+  .ord.e{background:rgba(148,163,184,.10);border-color:rgba(148,163,184,.3);color:var(--soft);}
+  .ord .t{font-size:17px;font-weight:800;line-height:1.2;}
+  .ord .s{font-size:11.5px;font-weight:600;margin-top:7px;opacity:.85;}
+  /* section header */
+  .sec{display:flex;align-items:center;justify-content:space-between;margin:26px 20px 0;}
+  .sec h3{font-size:20px;font-weight:800;}
+  .sec a{font-size:14px;font-weight:700;color:var(--green);}
+  /* categories */
+  .cats{display:flex;gap:16px;padding:14px 20px 2px;overflow:hidden;}
+  .cat{display:flex;flex-direction:column;align-items:center;gap:11px;flex:0 0 auto;}
+  .cat .ico{width:74px;height:74px;border-radius:23px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:33px;box-shadow:0 8px 18px rgba(0,0,0,.06);}
+  .cat .nm{font-size:12.5px;font-weight:600;}
+  /* provider list */
+  .pcard{margin:14px 20px 0;background:#fff;border-radius:28px;box-shadow:0 8px 22px rgba(15,23,42,.05);overflow:hidden;}
+  .pcard .banner{height:118px;position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:15px;}
+  .pcard .banner .bigico{position:absolute;right:-16px;bottom:-22px;font-size:96px;color:rgba(255,255,255,.32);}
+  .rate{background:rgba(255,255,255,.92);border-radius:20px;padding:6px 11px;font-size:13px;font-weight:800;display:flex;align-items:center;gap:4px;}
+  .rate .st{color:var(--amber);}
+  .online{background:rgba(16,185,129,.95);border-radius:20px;padding:5px 11px;font-size:11px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;}
+  .online .d{width:7px;height:7px;background:#fff;border-radius:50%;}
+  .pcard .info{padding:18px 18px 18px;display:flex;align-items:flex-start;gap:12px;}
+  .pcard .info .col{flex:1;}
+  .pname{font-size:18px;font-weight:800;display:flex;align-items:center;gap:6px;}
+  .pname .vf{color:var(--blue);font-size:16px;}
+  .chips{display:flex;align-items:center;gap:12px;margin-top:8px;font-size:12px;}
+  .chips .hl{color:var(--green);font-weight:800;display:flex;align-items:center;gap:3px;}
+  .chips .lo{color:var(--soft);display:flex;align-items:center;gap:3px;}
+  .tagrow{display:flex;align-items:center;gap:10px;margin-top:8px;}
+  .svc{background:var(--variant);color:var(--muted);font-size:11px;font-weight:700;padding:4px 9px;border-radius:8px;}
+  .dist{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:3px;}
+  .price{background:var(--green-50);border-radius:16px;padding:11px 14px;text-align:center;}
+  .price .lb{font-size:9.5px;font-weight:700;color:var(--green);}
+  .price .vl{font-size:16px;font-weight:800;color:var(--green-dark);}
+  /* bottom nav */
+  .nav{position:absolute;left:16px;right:16px;bottom:14px;height:64px;background:#fff;border-radius:30px;box-shadow:0 8px 22px rgba(0,0,0,.10);display:flex;align-items:center;justify-content:space-around;padding:0 8px;}
+  .ni{display:flex;align-items:center;gap:8px;padding:12px 14px;border-radius:100px;color:var(--muted);font-size:22px;}
+  .ni.on{background:rgba(16,185,129,.12);color:var(--green);}
+  .ni.on .lbl{font-size:14px;font-weight:800;}
+  .ni .lbl{display:none;}
+  .ni.on .lbl{display:inline;}
+  .fade{position:absolute;left:0;right:0;bottom:78px;height:36px;background:linear-gradient(transparent,var(--bg));pointer-events:none;}
+</style>
+</head>
+<body>
+  <div class="status">
+    <span>9:41</span>
+    <span class="right">
+      <span>▮▮▮</span>
+      <span>📶</span>
+      <span class="bat"><span></span></span>
+    </span>
+  </div>
+
+  <div class="scroll">
+    <div class="head">
+      <div>
+        <div class="greet">Need something done,</div>
+        <div class="loc">Amman, Jordan <span class="chev">⌄</span></div>
+      </div>
+      <div class="hicons">
+        <div class="role">Provider</div>
+        <div class="bell">🔔<span class="dot"></span></div>
+      </div>
+    </div>
+
+    <div class="search">
+      <span class="mag">🔍</span>
+      <span class="ph">Search for services or providers...</span>
+      <span class="tune">⚙</span>
+    </div>
+
+    <div class="promo">
+      <div class="c1"></div><div class="c2"></div>
+      <span class="tag">🎉 EXCLUSIVE</span>
+      <h2>Up to 30% Off on Home Repair</h2>
+      <span class="claim">Claim Now</span>
+      <span class="ic">🛠️</span>
+    </div>
+
+    <div class="orders">
+      <div class="ord q"><div class="t">Quick Order ⚡</div><div class="s">8 AM – 10 PM</div></div>
+      <div class="ord e"><div class="t">Emergency 🚨</div><div class="s">10 PM – 8 AM</div></div>
+    </div>
+
+    <div class="sec"><h3>Categories</h3><a>See All</a></div>
+    <div class="cats">
+      <div class="cat"><div class="ico" style="box-shadow:0 8px 18px rgba(59,130,246,.16)">🧹</div><div class="nm">Cleaning</div></div>
+      <div class="cat"><div class="ico" style="box-shadow:0 8px 18px rgba(16,185,129,.16)">🔧</div><div class="nm">Plumbing</div></div>
+      <div class="cat"><div class="ico" style="box-shadow:0 8px 18px rgba(245,158,11,.16)">⚡</div><div class="nm">Electrical</div></div>
+      <div class="cat"><div class="ico" style="box-shadow:0 8px 18px rgba(6,182,212,.16)">❄️</div><div class="nm">AC Repair</div></div>
+      <div class="cat"><div class="ico" style="box-shadow:0 8px 18px rgba(236,72,153,.16)">💆</div><div class="nm">Beauty</div></div>
+    </div>
+
+    <div class="sec"><h3>Featured Providers</h3><a>See All</a></div>
+
+    <div class="pcard">
+      <div class="banner" style="background:linear-gradient(135deg,rgba(59,130,246,.6),rgba(59,130,246,.2))">
+        <span class="bigico">🏢</span>
+        <div class="rate"><span class="st">★</span>4.8</div>
+        <div class="online"><span class="d"></span>Available Now</div>
+      </div>
+      <div class="info">
+        <div class="col">
+          <div class="pname">SparkleClean Pro <span class="vf">✔</span></div>
+          <div class="chips">
+            <span class="hl">★ 4.8 (127)</span>
+            <span class="lo">📍 Amman</span>
+          </div>
+          <div class="tagrow">
+            <span class="svc">Cleaning</span>
+            <span class="dist">⤢ 1.2 km away</span>
+          </div>
+        </div>
+        <div class="price"><div class="lb">Starting from</div><div class="vl">25 JOD</div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="banner" style="background:linear-gradient(135deg,rgba(16,185,129,.6),rgba(16,185,129,.2))">
+        <span class="bigico">🏢</span>
+        <div class="rate"><span class="st">★</span>4.9</div>
+        <div class="online"><span class="d"></span>Available Now</div>
+      </div>
+      <div class="info">
+        <div class="col">
+          <div class="pname">QuickFix Plumbing <span class="vf">✔</span></div>
+          <div class="chips">
+            <span class="hl">★ 4.9 (203)</span>
+            <span class="lo">📍 Amman</span>
+          </div>
+          <div class="tagrow">
+            <span class="svc">Plumbing</span>
+            <span class="dist">⤢ 0.8 km away</span>
+          </div>
+        </div>
+        <div class="price"><div class="lb">Starting from</div><div class="vl">18 JOD</div></div>
+      </div>
+    </div>
+    <div style="height:60px"></div>
+  </div>
+
+  <div class="fade"></div>
+  <div class="nav">
+    <div class="ni on">🏠<span class="lbl">Home</span></div>
+    <div class="ni">🗺️</div>
+    <div class="ni">📅</div>
+    <div class="ni">💬</div>
+    <div class="ni">👤</div>
+  </div>
+</body>
+</html>

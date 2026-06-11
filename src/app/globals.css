@@ -1,0 +1,201 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-ink: #16130d;
+  --color-cream: #f4efe4;
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-spline), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-mono: var(--font-spline-mono), ui-monospace, monospace;
+
+  /* fluid type scale — one ratio, clamp-based, used across all sections */
+  --text-display: clamp(3.4rem, 12vw, 11rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.03em;
+  --text-h1: clamp(2.3rem, 5.6vw, 4.4rem);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.7rem, 3.8vw, 2.9rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.2rem, 2.1vw, 1.55rem);
+  --text-h3--line-height: 1.2;
+  --text-lead: clamp(1.05rem, 1.6vw, 1.3rem);
+  --text-lead--line-height: 1.5;
+
+  --e-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ---- DAY palette (default) ---- */
+:root,
+.theme-day {
+  --background: #f4efe4;
+  --foreground: #16130d;
+  --card: #ece3d1;
+  --card-foreground: #16130d;
+  --popover: #ece3d1;
+  --popover-foreground: #16130d;
+  --primary: #16130d;
+  --primary-foreground: #f4efe4;
+  --secondary: #e7dcc7;
+  --secondary-foreground: #16130d;
+  --muted: #e7dcc7;
+  --muted-foreground: rgba(22, 19, 13, 0.58);
+  --accent: #e7dcc7;
+  --accent-foreground: #16130d;
+  --destructive: oklch(0.6 0.2 25);
+  --border: rgba(22, 19, 13, 0.14);
+  --input: rgba(22, 19, 13, 0.18);
+  --ring: #d97a06;
+  --brand: #cf7008;
+  --brand-2: #b54708;
+  --radius: 0.7rem;
+}
+
+/* ---- NIGHT palette ---- */
+.theme-night,
+.dark {
+  --background: #090b1a;
+  --foreground: #eef0fb;
+  --card: #11142a;
+  --card-foreground: #eef0fb;
+  --popover: #11142a;
+  --popover-foreground: #eef0fb;
+  --primary: #6ad8ff;
+  --primary-foreground: #03141c;
+  --secondary: #161a33;
+  --secondary-foreground: #eef0fb;
+  --muted: #161a33;
+  --muted-foreground: rgba(238, 240, 251, 0.62);
+  --accent: #161a33;
+  --accent-foreground: #eef0fb;
+  --destructive: oklch(0.7 0.19 22);
+  --border: rgba(238, 240, 251, 0.12);
+  --input: rgba(238, 240, 251, 0.16);
+  --ring: #6ad8ff;
+  --brand: #6ad8ff;
+  --brand-2: #8b7bff;
+  --radius: 0.7rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-spline-mono);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap))); }
+  }
+  @keyframes marquee-vertical {
+    from { transform: translateY(0); }
+    to { transform: translateY(calc(-100% - var(--gap))); }
+  }
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+  @keyframes aurora {
+    0% { background-position: 0% 50%; transform: rotate(-5deg) scale(0.9); }
+    25% { background-position: 50% 100%; transform: rotate(5deg) scale(1.1); }
+    50% { background-position: 100% 50%; transform: rotate(-3deg) scale(0.95); }
+    75% { background-position: 50% 0%; transform: rotate(3deg) scale(1.05); }
+    100% { background-position: 0% 50%; transform: rotate(-5deg) scale(0.9); }
+  }
+}
+
+@layer base {
+  * { border-color: var(--border); }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background: #090b1a;
+  }
+  body {
+    color: var(--foreground);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+}
+
+::selection { background: var(--brand); color: var(--background); }
+::-webkit-scrollbar { width: 0; height: 0; }
+
+/* type helpers */
+.font-display { font-family: var(--font-display); }
+.font-serif-it { font-family: var(--font-serif); font-style: italic; }
+.mono { font-family: var(--font-mono); }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.display-hero {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-optical-sizing: auto;
+}
+
+/* custom cursor */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-host { cursor: none; }
+  .cursor-host a, .cursor-host button { cursor: none; }
+}
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  pointer-events: none; border-radius: 9999px; mix-blend-mode: difference;
+  will-change: transform;
+}
+.cursor-dot { width: 6px; height: 6px; background: #fff; }
+.cursor-ring {
+  width: 38px; height: 38px; border: 1px solid rgba(160,160,160,0.8);
+  transition: width .3s var(--e-expo), height .3s var(--e-expo);
+}
+.cursor-ring.is-hover { width: 60px; height: 60px; }
+
+/* starfield twinkle (positions/parallax handled in scroll-sky.tsx) */
+@keyframes twinkle {
+  0%, 100% { opacity: calc(var(--tw-base, 0.6) * 0.35); }
+  50% { opacity: var(--tw-base, 0.6); }
+}
+.sky-star {
+  animation: twinkle ease-in-out infinite;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .sky-star { animation: none; opacity: var(--tw-base, 0.6); }
+}
