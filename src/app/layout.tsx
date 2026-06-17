@@ -101,7 +101,7 @@ const jsonLd = {
   ],
   knowsAbout: ["C#", ".NET", "ASP.NET Core", "React", "TypeScript", "Flutter", "SQL Server", "SWIFT messaging", "FIX protocol", "fintech software"],
   image: "https://mohammadotaqi.com/og.png",
-  description: "Software Engineer at ZagTrader specialising in fintech infrastructure — SWIFT/FIX messaging, market-data systems, and full-stack product development.",
+  description: "Software Engineer specializing in C#/.NET and full-stack development. At ZagTrader: SWIFT (ISO 15022) securities-settlement messaging, FIX-protocol connectivity, market-data feeds, and cryptographic licensing. Google-certified in IT Support and Project Management.",
 };
 
 export default function RootLayout({
