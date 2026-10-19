@@ -50,13 +50,13 @@ for (const path of ["/", "/ar"]) {
     await p.screenshot({ path: `_qa/v2-${tag(path, "m")}-menu.png` });
   });
 }
-for (const path of ["/work/vitalguard", "/work/mot", "/ar/work/sudur", "/work/wared"]) {
+for (const path of ["/work/shieldkin", "/work/mot", "/ar/work/sudur", "/work/wared"]) {
   await visit(path, D, false, async (p) => {
     await p.screenshot({ path: `_qa/v2-${tag(path, "d")}-top.png` });
     await p.evaluate(() => [...document.querySelectorAll("h2")].find((h) => /What I built|ما بنيته/.test(h.textContent))?.scrollIntoView({ block: "start" }));
     await p.waitForTimeout(900);
     await p.screenshot({ path: `_qa/v2-${tag(path, "d")}-built.png` });
-    if (path.includes("vitalguard")) {
+    if (path.includes("shieldkin")) {
       await p.evaluate(() => document.querySelector("iframe")?.scrollIntoView({ block: "center" }));
       await p.waitForTimeout(3500);
       await p.screenshot({ path: `_qa/v2-${tag(path, "d")}-3d.png` });

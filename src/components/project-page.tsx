@@ -100,7 +100,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
   const t = ui[locale].project;
   const w = ui[locale].work;
   const workHref = `${href(locale, "/")}#work`;
-  const isVitalGuard = p.slug === "vitalguard";
+  const hasModel = p.slug === "shieldkin";
 
   return (
     <>
@@ -113,7 +113,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
           </a>
 
           {/* hero: copy + the same mockup as the home showcase */}
-          <header className="mt-8 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <header className="mt-8 grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
             <Reveal variant="blur" speed="slow">
               <div className="mono flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.2em] text-brand">
                 <span>{p.year}</span>
@@ -131,7 +131,7 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
                   </>
                 )}
               </div>
-              <h1 className="mt-4 font-display text-display font-semibold leading-[0.95] text-foreground">{p.name}</h1>
+              <h1 className="mt-4 break-words font-display text-[clamp(2.8rem,6.2vw,6rem)] font-semibold leading-[0.95] text-foreground">{p.name}</h1>
               <p className="mt-6 max-w-xl text-lead text-muted-foreground">{p.blurb}</p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 {p.demoUrl && (
@@ -172,27 +172,27 @@ export function ProjectPage({ locale, slug }: { locale: Locale; slug: string }) 
             </section>
           )}
 
-          {/* VitalGuard: the printable wristband case, live */}
-          {isVitalGuard && (
+          {/* ShieldKin: the printable wristband case, live */}
+          {hasModel && (
             <section className="mt-24">
               <h2 className="mono mb-3 text-xs uppercase tracking-[0.22em] text-brand">{t.model}</h2>
               <p className="mb-6 max-w-2xl text-sm text-muted-foreground">{t.modelNote}</p>
               <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#111413]">
                 <iframe
-                  src="/vitalguard/wristband-viewer.html"
+                  src="/shieldkin/wristband-viewer.html"
                   title={`${p.name} — ${t.model}`}
                   loading="lazy"
                   className="block h-[860px] w-full md:h-[700px]"
                 />
               </div>
-              <a href="/vitalguard/wristband-viewer.html" target="_blank" rel="noreferrer" className="mono mt-4 inline-flex items-center gap-2 py-2 text-xs text-foreground underline decoration-border underline-offset-4 hover:text-brand">
+              <a href="/shieldkin/wristband-viewer.html" target="_blank" rel="noreferrer" className="mono mt-4 inline-flex items-center gap-2 py-2 text-xs text-foreground underline decoration-border underline-offset-4 hover:text-brand">
                 {t.openModel} <span aria-hidden>↗</span>
               </a>
-              {p.companion?.kind === "render" && (
+              {p.renders && (
                 <div className="mt-10">
                   <h3 className="mono mb-4 text-xs uppercase tracking-[0.22em] text-muted-foreground">{t.renders}</h3>
                   <div className="grid gap-4 sm:grid-cols-3">
-                    {p.companion.media.map((m) => (
+                    {p.renders.map((m) => (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img key={m} src={m} alt={`${p.name} — ${t.renders}`} loading="lazy" decoding="async" className="aspect-[4/3] w-full rounded-2xl border border-white/10 object-cover" />
                     ))}

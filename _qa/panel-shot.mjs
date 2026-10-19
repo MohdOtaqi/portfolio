@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 const b = await chromium.launch({ channel: "msedge" });
-for (const [l, vp] of [["d", { width: 1440, height: 900 }], ["m", { width: 390, height: 844 }]]) {
+for (const [l, vp] of [["d", { width: 1440, height: 900 }]]) { // phones show a list, not tabs
   const p = await b.newPage({ viewport: vp });
   await p.goto("http://localhost:3123", { waitUntil: "networkidle" });
   for (const name of process.argv.slice(2)) {

@@ -157,6 +157,8 @@ export type Project = {
   /** a second visual layered beside the main mockup: the phone app of a web product,
    *  or renders of a physical device */
   companion?: { kind: "phone" | "render"; media: string[]; caption?: string };
+  /** renders of a physical product (shown on the project page) */
+  renders?: string[];
 };
 
 export const projects: Project[] = [
@@ -292,30 +294,32 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "VitalGuard",
-    slug: "vitalguard",
+    name: "ShieldKin",
+    slug: "shieldkin",
     year: "2025—26",
     internal: false,
     status: "In development",
-    blurb: "Health wearable + companion app (grew from MedGuard).",
+    blurb: "Family-safety wristband, optional ring + companion app.",
     description:
-      "A health wristband and companion app, rebuilt from my MedGuard graduation project. The app tracks vitals against personal baselines, alerts carers on falls and critical readings, and walks through first aid step by step, in Arabic and English. The case is modelled in code (build123d), 3D-printable, and rendered in Blender.",
-    tags: ["Flutter", "Fastify", "PostgreSQL", "Valkey", "build123d", "Blender"],
-    device: "phone",
-    media: ["/apps/vitalguard-1.webp", "/apps/vitalguard-2.webp", "/apps/vitalguard-3.webp", "/apps/vitalguard-4.webp"],
+      "A wristband, an optional ring and an app for people living at home: it keeps quiet watch and tells their family when something looks wrong — a fall, a critical reading — with step-by-step first aid, in Arabic and English. It grew from my MedGuard graduation project.",
+    tags: ["Flutter", "Fastify", "PostgreSQL", "Valkey", "three.js", "build123d"],
+    device: "browser",
+    demoUrl: "https://shieldkin.com",
+    media: ["/apps/shieldkin-web-1.webp", "/apps/shieldkin-web-2.webp", "/apps/shieldkin-web-3.webp"],
     companion: {
-      kind: "render",
-      caption: "Printable case · Blender",
-      media: ["/apps/vitalguard-case-front.webp", "/apps/vitalguard-case-back.webp", "/apps/vitalguard-case-exploded.webp"],
+      kind: "phone",
+      media: ["/apps/shieldkin-app-1.webp", "/apps/shieldkin-app-2.webp", "/apps/shieldkin-app-3.webp", "/apps/shieldkin-app-4.webp"],
     },
+    renders: ["/apps/shieldkin-case-front.webp", "/apps/shieldkin-case-back.webp", "/apps/shieldkin-case-exploded.webp"],
     links: [
-      { label: "3D case viewer", href: "/vitalguard/wristband-viewer.html" },
+      { label: "3D case viewer", href: "/shieldkin/wristband-viewer.html" },
       { label: "MedGuard (v1) repo", href: "https://github.com/Mo-Otaqi/Graduation-Project-MedGuard" },
     ],
     highlights: [
-      "Rebuilding my MedGuard graduation project (Flutter + Firebase, BLE heart rate, Gemini health analysis, GPS emergency alerts) as a wearable product.",
+      "Rebuilding my MedGuard graduation project (Flutter + Firebase, BLE heart rate, Gemini health analysis, GPS emergency alerts) as a family-safety wearable: a wristband, an optional ring and an app.",
       "The companion app tracks vitals against personal baselines, alerts carers on falls and critical readings, and guides first aid step by step, in Arabic and English.",
-      "New backend on Fastify, PostgreSQL and Valkey, replacing Firebase.",
+      "New backend on Fastify, PostgreSQL and Valkey, replacing Firebase; first builds uploaded to the Google Play testing track and TestFlight.",
+      "Built shieldkin.com: a bilingual product site with a scroll-driven 3D wristband in three.js.",
       "Designed the wristband case in code (build123d to STL/STEP), 3D-printable for fit-and-feel testing, with Blender renders and an interactive web 3D viewer.",
       "Wrote the device specification: sensors, display and buttons, connectivity, battery and materials."
     ],
