@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mohammad Otaqi — CV (.NET / Fintech Backend)</title>
+<!-- DRAFT 2-page application CV, .NET / fintech backend track. Master CV = cv.html.
+     Build: node cv/build.mjs cv/cv-app-backend.html cv/drafts/Mohammad-Otaqi-CV-Backend.pdf -->
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header>
+  <h1>Mohammad Otaqi</h1>
+  <div class="title">Software Engineer — .NET &amp; Fintech Backend</div>
+  <div class="contact">
+    <span>Amman, Jordan</span><span>+962799653459</span><span><a href="mailto:otaqi.mohammad11@gmail.com">otaqi.mohammad11@gmail.com</a></span>
+  </div>
+  <div class="contact">
+    <span><a href="https://mohammadotaqi.com">mohammadotaqi.com</a></span><span><a href="https://jo.linkedin.com/in/mohammad-otaqi-ba5a17257">linkedin.com/in/mohammad-otaqi-ba5a17257</a></span><span><a href="https://github.com/MohdOtaqi">github.com/MohdOtaqi</a></span>
+  </div>
+</header>
+
+<h2>Summary</h2>
+<p>Software Engineer at ZagTrader building capital-markets infrastructure in C#/.NET 10: SWIFT ISO 15022 securities settlement and its public REST API, FIX connectivity, exchange and market-data connectors, and an AI-driven test-automation platform. Works across ASP.NET Core, EF Core, SQL Server, PostgreSQL, TypeScript/React and Docker-based CI/CD to production. Also builds multi-tenant SaaS products with strict data integrity: tenant isolation, exact decimal money and database-enforced invariants.</p>
+
+<h2>Professional Experience</h2>
+<div class="role"><span>Software Engineer — ZagTrader</span><span class="when">Sep 2025 – Present</span></div>
+<div class="group">SWIFT settlement platform</div>
+<ul>
+  <li>Built the Swift Suite (Engine, Bridge, Monitor) in C#/.NET 10: end-to-end ISO 15022 securities settlement (MT540–548, MT564, MT598/599) with maker-checker approval, an async build-and-validate pipeline (Prowide/IKVM) and gateways to Fineksus, Tadawul/Edaa and SFTP; rebuilt the Tadawul/Edaa templates from the spec and fixed live network NAKs.</li>
+  <li>Designed its public REST API (55 OpenAPI operations) with scoped, rotatable API keys, idempotent submission and signed webhooks — 59/59 endpoints verified live; added Azure Key Vault / HashiCorp Vault secrets, RBAC and offline TOTP 2FA.</li>
+</ul>
+<div class="group">AI test automation</div>
+<ul>
+  <li>Built the GUI and production release pipeline for ZT-AMTP, a multi-agent LLM platform that crawls web apps and generates, runs and certifies Playwright tests (Temporal, Fastify, Drizzle/PostgreSQL, React); raised the customer-app pass rate from 41% to 67.7%.</li>
+</ul>
+<div class="group">Trading connectivity</div>
+<ul>
+  <li>Delivered FixPortal to production: QuickFIX/n dictionary validation, per-market rules and message diffing (ASP.NET Core, EF Core, PostgreSQL, React), with 170+ automated tests and CI/CD.</li>
+  <li>Integrated exchanges and data feeds: Crypto.com FIX (HMAC logon, TLS pinning, market data and order entry), AIX, BVB (845 instruments), CoinMENA (Ed25519 signing), CMC Markets FX, OKX and IDC, whose historical reader replaced a legacy PHP job.</li>
+</ul>
+<div class="group">Internal tools &amp; DevOps</div>
+<ul>
+  <li>Shipped ZagKeyGenWeb licensing (AES/HMAC/TripleDES) to production on Docker Compose; built the WatchList real-time dashboard (React + SignalR); migrated five repositories from SVN to Gitea; analyzed ZagTraderConnector integrations; packaged apps via Inno Setup.</li>
+</ul>
+
+<div class="role"><span>Flutter &amp; Mobile Application Developer — Lightning Gate (JPECO)</span><span class="when">Jul 2024 – Mar 2025</span></div>
+<ul>
+  <li>Developed and maintained mobile applications using Flutter &amp; Firebase, ensuring stability and scalability.</li>
+  <li>Partnered with developers and designers to implement features and fix bugs, improving user experience and app reliability.</li>
+</ul>
+
+<div class="role"><span>Esports Staff — Jordan Esports Federation (JEF/JEG)</span><span class="when">Jul 2023 – May 2025</span></div>
+<ul><li>Provided IT support and refereed official national esports tournaments.</li></ul>
+<div class="role"><span>Technical Support &amp; Web Development — HTU Online Learning Center</span><span class="when">Jun 2023 – Oct 2023</span></div>
+<ul><li>Contributed to the HTUx platform with user manuals and technical documentation; delivered staff IT support.</li></ul>
+<div class="role"><span>Technical Support System Controller — HTU Student Activities</span><span class="when">Nov 2021 – Jul 2024</span></div>
+<ul><li>Managed IT systems and technical operations for student events, including MACH1 with AreoSquad at King's Academy.</li></ul>
+
+<h2 style="break-before: page">Selected Projects</h2>
+<p class="note">More projects, live demos and screenshots at mohammadotaqi.com</p>
+<div class="proj">
+  <div class="role"><span>Wared — Inventory &amp; Warehouse Management SaaS <span class="sub">| Django 5, DRF, PostgreSQL, django-tenants, React, TypeScript</span></span></div>
+  <ul>
+    <li>Schema-per-tenant SaaS for Jordanian distributors; append-only stock ledger with exact decimal money (JOD, 3 dp), row-locked balances and weighted-average costing.</li>
+    <li>Purchasing, sales, stocktakes, FEFO expiry, serials and landed cost; JoFotara national e-invoicing with credit notes; Arabic-first PWA with barcode scanning.</li>
+    <li>Per-tenant subdomains with on-demand TLS and backups proven by a real restore; all 45 Phase-1 requirements implemented and tested.</li>
+  </ul>
+</div>
+<div class="proj">
+  <div class="role"><span>Mabsim — Multi-Tenant Clinic Management SaaS <span class="sub">| Next.js 16, TypeScript, Supabase, PostgreSQL</span></span></div>
+  <ul>
+    <li>Clinic platform with per-clinic PostgreSQL row-level security: appointments and online booking, patient records, dental and orthopedic charts, insurance and lab cases.</li>
+    <li>Integrity enforced in the database: an exclusion constraint blocks overlapping bookings, a unique index double invoices and a trigger overpayment.</li>
+    <li>JoFotara e-invoicing, WhatsApp reminders via the Meta Cloud API, encrypted backups with a tested restore drill.</li>
+  </ul>
+</div>
+<div class="proj">
+  <div class="role"><span>MOT — Gaming Community Platform, Web + Mobile <span class="sub">| Node.js, PostgreSQL, Redis, Socket.IO, LiveKit, React, Flutter</span></span></div>
+  <ul>
+    <li>Discord-style servers, channels and roles with Socket.IO real-time messaging and LiveKit voice/video, plus a Flutter + Firebase mobile app for matchmaking and chat.</li>
+    <li>JWT + Google OAuth, Stripe and RevenueCat subscriptions; deployed with Docker Compose behind Caddy. Live at n0tmot.com.</li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<ul class="lines">
+  <li><b>Languages:</b> C#, TypeScript, JavaScript, SQL, Python, Dart, Java</li>
+  <li><b>.NET &amp; Backend:</b> .NET 10, ASP.NET Core, EF Core, SignalR, Background Services, REST/OpenAPI, Webhooks, Node.js, Fastify, Django/DRF</li>
+  <li><b>Fintech Protocols:</b> SWIFT ISO 15022 (MT540–548, MT564, MT598/599), FIX 4.4/5.0 SP2 (QuickFIX/n), SoupBinTCP, ITCH, SOAP/CoreWCF, SFTP</li>
+  <li><b>Data:</b> SQL Server, PostgreSQL, Valkey/Redis, Drizzle ORM, Prisma, Supabase</li>
+  <li><b>Security:</b> AES, HMAC, TripleDES, Ed25519, TLS pinning, JWT, OAuth/Entra SSO, TOTP 2FA, RBAC, Azure Key Vault, HashiCorp Vault</li>
+  <li><b>DevOps &amp; Testing:</b> Docker Compose, CI/CD (GitHub/Gitea Actions), IIS, Linux servers, Git/Gitea, Playwright, Vitest, xUnit, Temporal</li>
+  <li><b>Frontend:</b> React, TypeScript, Next.js, TanStack Query, Tailwind CSS</li>
+  <li><b>AI Engineering:</b> LLM agents, MCP (Model Context Protocol), prompt &amp; context engineering, local LLMs (Ollama, llama.cpp)</li>
+  <li><b>Professional:</b> Problem solving, communication with technical and non-technical people, teamwork, project coordination, continuous learning</li>
+</ul>
+
+<div class="block">
+<h2>Education</h2>
+<div class="role"><span>B.Sc. Computer Science — Al Hussein Technical University (HTU) <span class="sub">| GPA: Excellent</span></span><span class="when">Oct 2021 – Jul 2025</span></div>
+</div>
+
+<div class="block">
+<h2>Certifications, Awards &amp; Leadership</h2>
+<ul>
+  <li>Google (Coursera): IT Support (2023), Project Management (2023) · DataCamp: Python, NumPy, pandas</li>
+  <li>Top 24 Finalist — Ahli Fintech Hackathon (2025) · 7th Place — Tech 3arabi Hackathon (2025) · Best Member — GDVC (2024)</li>
+  <li>ACM @ HTU Treasurer &amp; IT Support · Students Deanship volunteer · MUN, Run Jordan and community events</li>
+</ul>
+</div>
+
+<div class="block">
+<h2>Languages</h2>
+<p>Arabic — Native · English — Fluent (C1) · French — Beginner (DELF A1)</p>
+</div>
+
+</body>
+</html>
