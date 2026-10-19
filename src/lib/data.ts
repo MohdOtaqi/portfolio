@@ -150,6 +150,9 @@ export type Project = {
   demoUrl?: string;
   /** honest release state shown next to the year, e.g. "Play closed testing" */
   status?: string;
+  /** a second visual layered beside the main mockup: the phone app of a web product,
+   *  or renders of a physical device */
+  companion?: { kind: "phone" | "render"; media: string[]; caption?: string };
 };
 
 export const projects: Project[] = [
@@ -253,33 +256,43 @@ export const projects: Project[] = [
     media: ["/apps/wordoasis-1.png", "/apps/wordoasis-2.png", "/apps/wordoasis-3.png"],
   },
   {
-    name: "Odispear",
-    year: "2025",
+    name: "VitalGuard",
+    year: "2025—26",
     internal: false,
-    blurb: "Discord-style community platform with real-time voice & video.",
+    status: "In development",
+    blurb: "Health wearable + companion app (grew from MedGuard).",
     description:
-      "A full-stack community platform — servers, channels, roles and DMs — with real-time messaging (Socket.IO) and LiveKit voice/video, including RNNoise/Krisp noise filtering. Node/Express + PostgreSQL + Redis backend, React + TypeScript front end, Stripe billing and Google OAuth.",
-    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Socket.IO", "LiveKit"],
-    device: "browser",
-    demoUrl: "https://n0tmot.com",
-    media: ["/apps/odispear-1.png", "/apps/odispear-2.png"],
+      "A health wristband and companion app, rebuilt from my MedGuard graduation project. The app tracks vitals against personal baselines, alerts carers on falls and critical readings, and walks through first aid step by step, in Arabic and English. The case is modelled in code (build123d), 3D-printable, and rendered in Blender.",
+    tags: ["Flutter", "Fastify", "PostgreSQL", "Valkey", "build123d", "Blender"],
+    device: "phone",
+    media: ["/apps/vitalguard-1.png", "/apps/vitalguard-2.png", "/apps/vitalguard-3.png", "/apps/vitalguard-4.png"],
+    companion: {
+      kind: "render",
+      caption: "Printable case · Blender",
+      media: ["/apps/vitalguard-case-front.jpg", "/apps/vitalguard-case-back.jpg", "/apps/vitalguard-case-exploded.jpg"],
+    },
     links: [
-      { label: "Live · n0tmot.com", href: "https://n0tmot.com" },
-      { label: "GitHub", href: "https://github.com/MohdOtaqi/Odispear" },
+      { label: "3D case viewer", href: "/vitalguard/wristband-viewer.html" },
+      { label: "MedGuard (v1) repo", href: "https://github.com/Mo-Otaqi/Graduation-Project-MedGuard" },
     ],
   },
   {
     name: "MOT",
     year: "2025—26",
     internal: false,
-    status: "Play internal testing",
-    blurb: "Gamer social network & LFG matchmaking.",
+    status: "App on Play internal testing",
+    blurb: "Gaming community platform — mobile app + n0tmot.com.",
     description:
-      "A cross-platform app for gamers to find teammates and connect — profiles, look-for-group matchmaking by game/platform/playstyle, real-time 1:1 chat, a gaming-news feed (RAWG + RSS) and content moderation. Flutter + Firebase (Firestore, Auth, Cloud Functions, FCM) with Riverpod state and RevenueCat subscriptions.",
-    tags: ["Flutter", "Firebase", "Riverpod", "RevenueCat"],
-    device: "phone",
-    media: ["/apps/mot-1.png", "/apps/mot-2.png", "/apps/mot-3.png"],
-    links: [{ label: "GitHub", href: "https://github.com/MohdOtaqi/MOT" }],
+      "One gaming platform on mobile and web. The Flutter + Firebase app does LFG matchmaking, real-time chat, a gaming-news feed and RevenueCat subscriptions; n0tmot.com (formerly Odispear) adds Discord-style servers, channels and roles with Socket.IO messaging and LiveKit voice/video, on Node/Express, PostgreSQL and Redis.",
+    tags: ["Flutter", "Firebase", "React", "TypeScript", "Node.js", "PostgreSQL", "LiveKit"],
+    device: "browser",
+    demoUrl: "https://n0tmot.com",
+    media: ["/apps/odispear-1.png", "/apps/odispear-2.png"],
+    companion: { kind: "phone", media: ["/apps/mot-1.png", "/apps/mot-2.png", "/apps/mot-3.png"] },
+    links: [
+      { label: "App repo", href: "https://github.com/MohdOtaqi/MOT" },
+      { label: "Web repo", href: "https://github.com/MohdOtaqi/Odispear" },
+    ],
   },
   {
     name: "Masra",
@@ -303,18 +316,6 @@ export const projects: Project[] = [
     tags: ["Flutter", "BLoC", "Supabase", "PostGIS", "Next.js", "Stripe"],
     device: "phone",
     media: ["/apps/sehleh-1.png", "/apps/sehleh-2.png"],
-  },
-  {
-    name: "MedGuard",
-    year: "2025",
-    internal: false,
-    blurb: "Real-time health-vitals companion (graduation project).",
-    description:
-      "A mobile app that lets a care receiver share live vitals (heart rate, SpO₂, stress) with a carer in real time via Firestore — role-based views, optional BLE heart-rate reading (GATT), an AI health-analysis Cloud Function (Gemini), and a GPS emergency-alert pipeline that pushes critical alerts to the carer over FCM.",
-    tags: ["Flutter", "Firebase", "BLE", "Gemini", "Provider"],
-    device: "phone",
-    media: ["/apps/medguard-1.png", "/apps/medguard-2.png", "/apps/medguard-3.png"],
-    links: [{ label: "GitHub", href: "https://github.com/Mo-Otaqi/Graduation-Project-MedGuard" }],
   },
   {
     name: "Tabayyun",
@@ -349,13 +350,6 @@ export const workshop: WorkshopItem[] = [
     description:
       "My multi-model AI coding CLI: one streaming REPL over the Claude, Codex, Gemini and Qwen CLIs with mid-chat model switching, a shared project “brain” that syncs context files, a planner → workers → auditor pipeline, and a council mode where several models answer and one judges.",
     tags: ["Node.js", "Zero dependencies", "LLM orchestration"],
-  },
-  {
-    name: "VitalGuard",
-    kind: "Health wearable · in progress",
-    description:
-      "A ground-up rebuild of MedGuard: a new app and real-time backend replacing Firebase, personal vital-sign baselines, carer alerts and first-aid guidance, alongside the specification for a multi-sensor wristband.",
-    tags: ["Flutter", "TypeScript", "Valkey", "Hardware spec"],
   },
   {
     name: "Rental marketplace",

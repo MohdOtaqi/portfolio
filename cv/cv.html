@@ -36,8 +36,8 @@
   .skills h3, .proj h3 { margin: 0 0 0.6mm; font-size: 8.9pt; font-weight: 700; }
   .skills b { font-weight: 600; }
 
-  .projects { display: grid; grid-template-columns: 1fr 1fr; column-gap: 6mm; row-gap: 3.2mm; }
-  .proj { break-inside: avoid; }
+  .projects { columns: 2; column-gap: 6mm; }
+  .proj { break-inside: avoid; margin-bottom: 3.2mm; }
   .proj h3 { font-weight: 700; line-height: 1.3; }
   .proj h3 span { font-weight: 500; }
   .proj ul { padding-left: 4mm; }
@@ -238,32 +238,24 @@
     </ul>
   </div>
   <div class="proj">
-    <h3>MOT — Gamer Social Network &amp; LFG Matchmaking <span>(Google Play internal testing)</span> | Flutter, Firebase, Riverpod, RevenueCat</h3>
+    <h3>MOT — Gaming Community Platform, Mobile + Web <span>(Live · n0tmot.com; app on Google Play internal testing)</span> | Flutter, Firebase, Riverpod, RevenueCat, React, TypeScript, Node.js, PostgreSQL, Redis, LiveKit</h3>
     <ul>
-      <li>Built a cross-platform app for gamers to find teammates and connect — profiles plus look-for-group matchmaking by game, platform and playstyle.</li>
-      <li>Implemented real-time 1:1 chat with typing/seen indicators and FCM push notifications.</li>
-      <li>Integrated a live gaming-news feed and a 300+ game database via the RAWG API.</li>
-      <li>Added content moderation (toxicity filtering, reporting, age-gating) and Cloud Functions for feed fan-out and notifications.</li>
-      <li>Shipped premium tiers and an in-app store with RevenueCat; analytics and crash reporting via Firebase.</li>
+      <li>Built one gaming platform across a Flutter mobile app and the n0tmot.com web app (formerly Odispear), under the MOT brand.</li>
+      <li>Mobile: profiles plus look-for-group matchmaking by game, platform and playstyle; real-time 1:1 chat with typing/seen indicators and FCM push notifications.</li>
+      <li>Integrated a live gaming-news feed and a 300+ game database via the RAWG API; content moderation (toxicity filtering, reporting, age-gating) and Cloud Functions for feed fan-out.</li>
+      <li>Web: Discord-style servers, channels, roles and direct messages over Socket.IO, with LiveKit voice/video, RNNoise/Krisp noise filtering, push-to-talk and voice-activity detection.</li>
+      <li>Implemented JWT + Google OAuth, premium tiers with RevenueCat and Stripe, and AWS S3 media on a PostgreSQL + Redis backend.</li>
+      <li>Deployed first to AWS EC2 behind nginx with PM2, now on Docker Compose behind Caddy; analytics and crash reporting via Firebase.</li>
     </ul>
   </div>
   <div class="proj">
-    <h3>Odispear — Discord-style Community Platform <span>(Live · n0tmot.com)</span> | React, TypeScript, Node.js, PostgreSQL, Redis, LiveKit, AWS</h3>
+    <h3>VitalGuard — Health Wristband &amp; Companion App <span>(in development; grew from the MedGuard graduation project)</span> | Flutter, Fastify, PostgreSQL, Valkey, build123d, Blender</h3>
     <ul>
-      <li>Built a full-stack community platform — servers, channels, roles and direct messages — with real-time messaging over Socket.IO.</li>
-      <li>Integrated LiveKit voice/video with RNNoise/Krisp noise filtering, push-to-talk and voice-activity detection.</li>
-      <li>Implemented JWT + Google OAuth, Stripe subscription billing, and AWS S3 media on a PostgreSQL + Redis backend.</li>
-      <li>Deployed first to AWS EC2 behind nginx with PM2, now on Docker Compose behind Caddy. Live at n0tmot.com.</li>
-    </ul>
-  </div>
-  <div class="proj">
-    <h3>MedGuard — Health Vitals Companion <span>(Graduation Project, Prototype)</span> | Flutter, Firebase (Auth/Firestore), BLE</h3>
-    <ul>
-      <li>Built a mobile app that lets a Care Receiver share vitals (heart rate, SpO₂, stress) with a Carer in real time via Firestore.</li>
-      <li>Implemented email/password auth with password reset and role-based views (Care Receiver / Carer).</li>
-      <li>Added optional BLE heart-rate read (GATT 0x180D/0x2A37) and a mock device scan flow.</li>
-      <li>Built a GPS emergency-alert pipeline that runs AI health analysis (Gemini Cloud Function) and pushes critical alerts to the Carer over FCM, with condition-based first-aid tips.</li>
-      <li>Structured code with screens/widgets, state via provider; documented setup, permissions, and Firebase rules.</li>
+      <li>Rebuilding my MedGuard graduation project (Flutter + Firebase, BLE heart rate, Gemini health analysis, GPS emergency alerts) as a wearable product.</li>
+      <li>Companion app tracks vitals against personal baselines, alerts carers on falls and critical readings, and guides first aid step by step, in Arabic and English.</li>
+      <li>New backend on Fastify, PostgreSQL and Valkey replacing Firebase.</li>
+      <li>Designed the wristband case in code (build123d → STL/STEP), 3D-printable for fit-and-feel testing, with Blender renders and an interactive web 3D viewer.</li>
+      <li>Wrote the device specification: sensors, display and buttons, connectivity, battery and materials.</li>
     </ul>
   </div>
   <div class="proj">

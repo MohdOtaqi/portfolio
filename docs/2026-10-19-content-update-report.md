@@ -33,3 +33,9 @@
 - Real event photos for `public/events/`.
 - `nav.tsx` exists but has never been mounted, so the site has no top nav. The CV link is only in the Contact section.
 - Flip statuses when apps go public: Sudur, Word Oasis and MOT are currently on Play testing tracks.
+
+## Follow-up (same day) — Mohammad's corrections
+- **MOT and Odispear are one product** under MOT (n0tmot.com). They are now a single "MOT" card: the n0tmot.com browser mockup with the phone app layered over it. The CV has one combined MOT entry.
+- **VitalGuard replaces MedGuard.** The card shows four real app screens (home, trends, CPR guide, fall alert) next to Blender renders of the 3D-printable case. "3D case viewer" opens the interactive STL viewer (`/vitalguard/wristband-viewer.html`, marked noindex). On the CV, MedGuard is now its origin line.
+- New `companion` field on `Project` plus `paired-mockup.tsx`. The panel stays at 580px for all 10 projects; desktop and mobile QA show 0 errors; the viewer renders its canvas and reads the case as 40.0 × 44.0 mm.
+- The CV project list now flows in two columns, so a tall entry no longer leaves half a page empty.

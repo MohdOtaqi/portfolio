@@ -40,7 +40,7 @@ for (const [label, vp] of [["d", { width: 1440, height: 900 }], ["m", { width: 3
   await scrollToId(p, "work");
   const tabs = await p.$$('[role="tab"]');
   const names = await Promise.all(tabs.map((t) => t.innerText()));
-  for (const want of ["Sudur", "Mabsim", "Wared", "Word Oasis"]) {
+  for (const want of ["Sudur", "Mabsim", "Wared", "Word Oasis", "VitalGuard", "MOT"]) {
     const i = names.findIndex((n) => n.includes(want));
     await tabs[i].click();
     await p.waitForTimeout(1000);
@@ -63,5 +63,17 @@ for (const [label, vp] of [["d", { width: 1440, height: 900 }], ["m", { width: 3
 
   console.log(JSON.stringify({ label, scrollWidth: sw, viewport: vp.width, tabs: names.length, lastTabVisible: vis, workshop: !!ws, errs, bad }, null, 0));
   await p.close();
+}
+// the 3D case viewer: canvas renders, STLs parse, no errors
+{
+  const v = await b.newPage({ viewport: { width: 1280, height: 860 } });
+  const verrs = [];
+  v.on("pageerror", (e) => verrs.push(String(e)));
+  v.on("console", (m) => { if (m.type() === "error") verrs.push(m.text()); });
+  await v.goto(URL + "/vitalguard/wristband-viewer.html", { waitUntil: "networkidle" });
+  await v.waitForTimeout(2500);
+  const ok = await v.evaluate(() => ({ canvas: !!document.querySelector("#stage canvas"), loadingHidden: document.getElementById("loading")?.hidden, foot: document.getElementById("d-foot")?.textContent }));
+  await v.screenshot({ path: "_qa/u-viewer.png" });
+  console.log(JSON.stringify({ viewer: ok, verrs }));
 }
 await b.close();

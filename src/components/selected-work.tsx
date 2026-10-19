@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { PhoneMockup } from "./phone-mockup";
 import { BrowserMockup } from "./browser-mockup";
+import { PairedMockup } from "./paired-mockup";
 import { Magnetic } from "./magnetic";
 import { Reveal } from "./reveal";
 import { Bezel, CtaLink } from "./ui/bezel";
@@ -165,23 +166,28 @@ export function SelectedWork() {
                 exit="exit"
                 transition={{ duration: 0.42, ease: EXPO }}
               >
-                <div className="mono mb-3 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-brand">
+                <div className="mono mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.2em] text-brand">
                   <span>{p.year}</span>
                   <span className="text-muted-foreground">·</span>
                   <span className="text-muted-foreground">
-                    {p.device === "browser" ? "Web" : "Mobile"}
+                    {p.companion?.kind === "render"
+                      ? "Mobile + Hardware"
+                      : p.companion
+                        ? "Web + Mobile"
+                        : p.device === "browser"
+                          ? "Web"
+                          : "Mobile"}
                   </span>
-                  {p.demoUrl ? (
+                  {p.demoUrl && (
                     <span className="inline-flex items-center gap-1.5 text-emerald-400/90">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
                     </span>
-                  ) : (
-                    p.status && (
-                      <>
-                        <span className="text-muted-foreground">·</span>
-                        <span className="text-foreground/80">{p.status}</span>
-                      </>
-                    )
+                  )}
+                  {p.status && (
+                    <>
+                      <span className="text-muted-foreground">·</span>
+                      <span className="text-foreground/80">{p.status}</span>
+                    </>
                   )}
                 </div>
 
@@ -238,7 +244,9 @@ export function SelectedWork() {
                 transition={{ duration: 0.55, ease: EXPO }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                {p.device === "browser" ? (
+                {p.companion ? (
+                  <PairedMockup p={p} />
+                ) : p.device === "browser" ? (
                   <BrowserMockup media={p.media} label={p.name} url={p.demoUrl} />
                 ) : (
                   <PhoneMockup media={p.media} label={p.name} />
