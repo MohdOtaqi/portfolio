@@ -21,7 +21,7 @@ function mulberry32(seed: number) {
   };
 }
 
-export function ScrollSky() {
+export function ScrollSky({ rtl = false }: { rtl?: boolean }) {
   const p = useScrollProgress();
   const reduce = useReducedMotion();
 
@@ -98,7 +98,9 @@ export function ScrollSky() {
   // SUN: rides from upper-left across to the right, sinking to the horizon by
   // sunset. Its halo grows and reddens as it descends (atmospheric scatter).
   // Positions are transforms (x/y), not top/left, so moving it never re-lays-out.
-  const sunX = useTransform(p, [0, sunset], narrow ? ["80vw", "90vw"] : ["26vw", "78vw"]);
+  // phones in Arabic: text starts on the right, so the bodies ride the left edge instead
+  const edge = (v: string) => (rtl ? `${100 - parseFloat(v)}vw` : v);
+  const sunX = useTransform(p, [0, sunset], narrow ? [edge("80vw"), edge("90vw")] : ["26vw", "78vw"]);
   const sunY = useTransform(p, [0, golden, sunset], narrow ? ["9vh", "14vh", "82vh"] : ["16vh", "26vh", "82vh"]);
   const sunOpacity = useTransform(p, [0, a, sunset], [1, 1, 0]);
   const sunHalo = useTransform(p, [0, golden, sunset], [1, 1.5, 2.6]);
@@ -109,7 +111,7 @@ export function ScrollSky() {
   // MOON: holds back until the sky is genuinely dark (otherwise its phase
   // shadow reads as an ugly black disc on the bright sunset), then rises high.
   const moonY = useTransform(p, [deepDusk, b], narrow ? ["78vh", "8vh"] : ["78vh", "15vh"]);
-  const moonX = useTransform(p, [deepDusk, 1], narrow ? ["84vw", "86vw"] : ["26vw", "20vw"]);
+  const moonX = useTransform(p, [deepDusk, 1], narrow ? [edge("84vw"), edge("86vw")] : ["26vw", "20vw"]);
   const moonOpacity = useTransform(p, [deepDusk, deepDusk + (b - deepDusk) * 0.4, b], [0, 0.85, 1]);
 
   // stars fade in through the violet hour; parallax by depth layer

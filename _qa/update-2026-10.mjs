@@ -38,6 +38,14 @@ for (const [label, vp] of [["d", { width: 1440, height: 900 }], ["m", { width: 3
   await p.screenshot({ path: `_qa/u-${label}-systems.png` });
 
   await scrollToId(p, "work");
+  if (label === "m") {
+    // phones get a plain list instead of the tab rail
+    const items = await p.$$eval("#work ol > li a", (as) => as.map((a) => a.getAttribute("href")));
+    await p.screenshot({ path: `_qa/u-${label}-worklist.png` });
+    console.log(JSON.stringify({ label, sw: await p.evaluate(() => document.documentElement.scrollWidth), list: items.length, errs, bad }));
+    await p.close();
+    continue;
+  }
   const tabs = await p.$$('[role="tab"]');
   const names = await Promise.all(tabs.map((t) => t.innerText()));
   for (const want of ["Sudur", "Mabsim", "Wared", "Word Oasis", "VitalGuard", "MOT"]) {

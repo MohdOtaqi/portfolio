@@ -5,6 +5,7 @@ import { AnimatedBeam } from "@/components/ui/animated-beam";
 import { Bezel } from "@/components/ui/bezel";
 import { Reveal } from "./reveal";
 import { cn } from "@/lib/utils";
+import { ui, type Locale } from "@/lib/i18n";
 
 const Node = forwardRef<
   HTMLDivElement,
@@ -28,7 +29,8 @@ const Node = forwardRef<
 ));
 Node.displayName = "Node";
 
-export function Network() {
+export function Network({ locale }: { locale: Locale }) {
+  const t = ui[locale].network;
   const container = useRef<HTMLDivElement>(null);
   const center = useRef<HTMLDivElement>(null);
   const l1 = useRef<HTMLDivElement>(null);
@@ -43,18 +45,16 @@ export function Network() {
       <div className="grid items-center gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Reveal className="eyebrow mb-6 flex items-center gap-3">
-            <span className="h-px w-10 bg-brand" /> The system
+            <span className="h-px w-10 bg-brand" /> {t.eyebrow}
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="text-h1 text-foreground">
-              Messages that settle <span className="font-serif-it text-brand">trades</span>.
+              {t.title} <span className="font-serif-it text-brand">{t.accent}</span>.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-md text-muted-foreground">
-              At ZagTrader I build the gateway between markets, custodians and
-              banks — routing, validating and archiving SWIFT &amp; FIX messages
-              across the post-trade lifecycle.
+              {t.text}
             </p>
           </Reveal>
         </div>
@@ -68,15 +68,15 @@ export function Network() {
             <div className="flex flex-col justify-between">
               <Node ref={l1}>SWIFT<br />MT54x</Node>
               <Node ref={l2}>FIX<br />Engine</Node>
-              <Node ref={l3}>Banks<br />/ Custody</Node>
+              <Node ref={l3}>{t.nodes.banks[0]}<br />{t.nodes.banks[1]}</Node>
             </div>
             <Node ref={center} big>
-              Settlement<br />Engine
+              {t.nodes.engine[0]}<br />{t.nodes.engine[1]}
             </Node>
             <div className="flex flex-col justify-between">
-              <Node ref={r1}>Exchanges</Node>
+              <Node ref={r1}>{t.nodes.exchanges[0]}</Node>
               <Node ref={r2}>SQL<br />Server</Node>
-              <Node ref={r3}>Market<br />Data</Node>
+              <Node ref={r3}>{t.nodes.market[0]}<br />{t.nodes.market[1]}</Node>
             </div>
 
             {[l1, l2, l3].map((ref, i) => (

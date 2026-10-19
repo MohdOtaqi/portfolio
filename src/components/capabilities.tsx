@@ -1,21 +1,24 @@
 "use client";
 
 import { Reveal, Stagger, StaggerItem } from "./reveal";
-import { skillGroups } from "@/lib/data";
+import { getContent } from "@/lib/content";
+import { ui, type Locale } from "@/lib/i18n";
 
-export function Capabilities() {
+export function Capabilities({ locale }: { locale: Locale }) {
+  const { skillGroups } = getContent(locale);
+  const t = ui[locale].toolkit;
   return (
     <section
       id="capabilities"
       className="relative mx-auto max-w-[1400px] px-5 py-24 sm:px-10 sm:py-36"
     >
       <Reveal className="eyebrow mb-6 flex items-center gap-3">
-        <span className="h-px w-10 bg-brand" /> The toolkit
+        <span className="h-px w-10 bg-brand" /> {t.eyebrow}
       </Reveal>
 
       <Reveal variant="blur" speed="slow" className="mb-12 max-w-2xl">
         <h2 className="font-display text-h2 font-medium tracking-tight text-foreground">
-          What I build with
+          {t.title}
         </h2>
       </Reveal>
 

@@ -3,11 +3,9 @@
 <head>
 <meta charset="utf-8">
 <title>Mohammad Otaqi — CV</title>
-<!-- Source of public/Mohammad-Otaqi-CV.pdf. Rebuild with: node cv/build.mjs -->
+<!-- MASTER CV (full, 4 pages) → public/Mohammad-Otaqi-CV.pdf. Build all CVs: node cv/build.mjs -->
+<link rel="stylesheet" href="fonts.css">
 <style>
-  /* Inter (variable, OFL) bundled locally so the PDF renders the same offline */
-  @font-face { font-family: Inter; font-weight: 400 800; src: url(fonts/inter-latin.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-  @font-face { font-family: Inter; font-weight: 400 800; src: url(fonts/inter-latin-ext.woff2) format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
   @page { size: A4; margin: 13mm 14mm 12mm; }
   * { box-sizing: border-box; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -18,10 +16,16 @@
   h1 { margin: 0; font-size: 25pt; font-weight: 800; letter-spacing: 0.01em; line-height: 1.05; text-transform: uppercase; }
   .title { margin-top: 2.5mm; font-size: 13pt; font-weight: 700; text-transform: uppercase; }
   .site { margin-top: 2mm; font-size: 8.6pt; font-weight: 600; }
-  .contact { font-size: 8.4pt; }
+  .contact { font-size: 9.2pt; }
   .contact .h { font-size: 10pt; font-weight: 800; letter-spacing: 0.22em; margin-bottom: 1.5mm; }
-  .contact div.row { display: flex; align-items: center; gap: 2mm; margin: 0.9mm 0; font-weight: 600; }
-  .contact svg { width: 9pt; height: 9pt; flex: none; }
+  .contact div.row { display: flex; align-items: center; gap: 2.4mm; margin: 1.3mm 0; font-weight: 700; }
+  .contact a { text-decoration: none; }
+  .contact a.u { text-decoration: underline; text-underline-offset: 1.5pt; }
+  .contact .ic { width: 13pt; height: 13pt; flex: none; object-fit: contain; }
+  .contact .ic-linkedin { border-radius: 1.5pt; }
+  .site { display: flex; align-items: center; gap: 2.2mm; }
+  .site a { text-decoration: underline; text-underline-offset: 1.5pt; }
+  .folder { width: 27pt; height: auto; flex: none; }
 
   h2 { margin: 4.2mm 0 1.6mm; padding-bottom: 0.7mm; border-bottom: 0.8pt solid #111; font-size: 10.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; break-after: avoid; }
   .role { display: flex; justify-content: space-between; gap: 6mm; margin-top: 2mm; font-weight: 700; font-size: 9.4pt; break-after: avoid; }
@@ -42,6 +46,7 @@
   .proj h3 span { font-weight: 500; }
   .proj ul { padding-left: 4mm; }
   .page-break { break-before: page; }
+  .group { margin: 1.4mm 0 0; font-size: 7.6pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #555; break-after: avoid; }
   .pair { display: grid; grid-template-columns: 1.4fr 1fr; gap: 6mm; }
   .pair h2 { margin-top: 3.4mm; }
 </style>
@@ -52,15 +57,15 @@
   <div>
     <h1>Mohammad Otaqi</h1>
     <div class="title">Software Engineer</div>
-    <div class="site"><a href="https://mohammadotaqi.com/">https://mohammadotaqi.com/</a></div>
+    <div class="site"><img class="folder" src="icons/portfolio.svg" alt="Portfolio"><a href="https://mohammadotaqi.com/">https://mohammadotaqi.com/</a></div>
   </div>
   <div class="contact">
     <div class="h">CONTACT</div>
-    <div class="row"><svg viewBox="0 0 24 24"><path fill="#111" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>+962799653459</div>
-    <div class="row"><svg viewBox="0 0 24 24"><path fill="#111" d="M20 4H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></svg><a href="mailto:otaqi.mohammad11@gmail.com">otaqi.mohammad11@gmail.com</a></div>
-    <div class="row"><svg viewBox="0 0 24 24"><path fill="#111" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>Amman, Jordan</div>
-    <div class="row"><svg viewBox="0 0 24 24"><path fill="#111" d="M19 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8.3 18H5.7V9.8h2.6zM7 8.6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18.3 18h-2.6v-4c0-1-.0-2.2-1.4-2.2s-1.6 1.1-1.6 2.2v4h-2.6V9.8h2.5v1.1c.4-.7 1.2-1.3 2.4-1.3 2.6 0 3.1 1.7 3.1 3.9z"/></svg><a href="https://jo.linkedin.com/in/mohammad-otaqi-ba5a17257">Mohammad Otaqi</a></div>
-    <div class="row"><svg viewBox="0 0 24 24"><path fill="#111" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg><a href="https://github.com/MohdOtaqi">MohdOtaqi</a></div>
+    <div class="row"><img class="ic ic-phone" src="icons/phone.svg" alt="">+962799653459</div>
+    <div class="row"><img class="ic ic-mail" src="icons/mail.svg" alt=""><a href="mailto:otaqi.mohammad11@gmail.com">otaqi.mohammad11@gmail.com</a></div>
+    <div class="row"><img class="ic ic-pin" src="icons/pin.svg" alt="">Amman, Jordan</div>
+    <div class="row"><img class="ic ic-linkedin" src="icons/linkedin.png" alt=""><a class="u" href="https://jo.linkedin.com/in/mohammad-otaqi-ba5a17257">Mohammad Otaqi</a></div>
+    <div class="row"><img class="ic ic-github" src="icons/github.svg" alt=""><a class="u" href="https://github.com/MohdOtaqi">MohdOtaqi</a></div>
   </div>
 </header>
 
@@ -82,19 +87,23 @@
 
 <h2>Professional Experience</h2>
 <div class="role"><span>Software Engineer — ZagTrader</span><span class="when">September 2025 – Present</span></div>
+<div class="group">SWIFT settlement platform</div>
 <ul>
-  <li>Built the Swift Suite (Engine, Bridge, Monitor): end-to-end SWIFT ISO 15022 securities settlement (MT540–548, MT564, MT598/599) with maker-checker approval — C#/.NET 10.</li>
-  <li>Engineered the Swift Engine pipeline (reader, validator, builder, archiver) with MT validation via Prowide/IKVM.</li>
-  <li>Developed the Swift Bridge gateway to Fineksus, Tadawul/Edaa and SFTP; rebuilt Tadawul/Edaa templates from the ISO 15022 spec and fixed live network NAKs.</li>
-  <li>Designed a public REST API for the platform (55 OpenAPI operations): scoped, rotatable API keys, idempotent submission, signed webhooks with an event outbox; 59/59 endpoints verified live.</li>
-  <li>Added Azure Key Vault / HashiCorp Vault secrets management, an RBAC permission system and offline TOTP 2FA across the suite.</li>
+  <li>Built the Swift Suite (Engine, Bridge, Monitor) in C#/.NET 10: end-to-end ISO 15022 securities settlement (MT540–548, MT564, MT598/599) with maker-checker approval, an async build-and-validate pipeline (Prowide/IKVM) and gateways to Fineksus, Tadawul/Edaa and SFTP; rebuilt the Tadawul/Edaa templates from the spec and fixed live network NAKs.</li>
+  <li>Designed its public REST API (55 OpenAPI operations) with scoped, rotatable API keys, idempotent submission and signed webhooks — 59/59 endpoints verified live; added Azure Key Vault / HashiCorp Vault secrets, RBAC and offline TOTP 2FA.</li>
+</ul>
+<div class="group">AI test automation</div>
+<ul>
   <li>Built the GUI and production release pipeline for ZT-AMTP, a multi-agent LLM platform that crawls web apps and generates, runs and certifies Playwright tests (Temporal, Fastify, Drizzle/PostgreSQL, React); raised the customer-app pass rate from 41% to 67.7%.</li>
-  <li>Delivered FixPortal to production: QuickFIX/n dictionary validation, per-market rules and message diffing — ASP.NET Core, EF Core, PostgreSQL, React; 170+ automated tests and CI/CD.</li>
-  <li>Integrated exchange connectivity: Crypto.com FIX (HMAC logon, TLS pinning, market data + order entry), AIX FIX reference data, BVB SOAP reference data (845 instruments), CoinMENA REST with Ed25519 signing.</li>
-  <li>Added CMC Markets (FX), OKX and IDC feed readers; built the IDC historical reader (.NET 10, WebSocket → SQL Server) that replaced a legacy PHP job.</li>
-  <li>Created WatchList dashboard (React) with real-time SignalR market-data visualization.</li>
-  <li>Shipped ZagKeyGenWeb crypto licensing (AES/HMAC/TripleDES) to production on Docker Compose with PostgreSQL and an audit trail.</li>
-  <li>Migrated five Swift/FIX repositories from SVN to Gitea; analyzed ZagTraderConnector integrations and database architecture; self-contained apps via Inno Setup &amp; batch.</li>
+</ul>
+<div class="group">Trading connectivity</div>
+<ul>
+  <li>Delivered FixPortal to production: QuickFIX/n dictionary validation, per-market rules and message diffing (ASP.NET Core, EF Core, PostgreSQL, React), with 170+ automated tests and CI/CD.</li>
+  <li>Integrated exchanges and data feeds: Crypto.com FIX (HMAC logon, TLS pinning, market data and order entry), AIX, BVB (845 instruments), CoinMENA (Ed25519 signing), CMC Markets FX, OKX and IDC, whose historical reader replaced a legacy PHP job.</li>
+</ul>
+<div class="group">Internal tools &amp; DevOps</div>
+<ul>
+  <li>Shipped ZagKeyGenWeb licensing (AES/HMAC/TripleDES) to production on Docker Compose; built the WatchList real-time dashboard (React + SignalR); migrated five repositories from SVN to Gitea; analyzed ZagTraderConnector integrations; packaged apps via Inno Setup.</li>
 </ul>
 
 <div class="role"><span>Flutter &amp; Mobile Application Developer — Lightning Gate (JPECO)</span><span class="when">July 2024 – March 2025</span></div>

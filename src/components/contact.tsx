@@ -6,26 +6,30 @@ import { MaskLines, Reveal } from "./reveal";
 import { Magnetic } from "./magnetic";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { Bezel, CtaLink } from "@/components/ui/bezel";
-import { profile } from "@/lib/data";
+import { getContent } from "@/lib/content";
+import { ui, type Locale } from "@/lib/i18n";
 
 const EXPO = [0.16, 1, 0.3, 1] as const;
 
-export function Contact() {
+export function Contact({ locale }: { locale: Locale }) {
+  const { profile } = getContent(locale);
+  const t = ui[locale].contact;
+  const cvs = ui[locale].cvs;
   return (
     <section
       id="contact"
       className="relative mx-auto max-w-[1400px] px-5 pt-28 pb-12 sm:px-10 sm:pt-36"
     >
       <Reveal className="eyebrow mb-10 flex items-center gap-3" variant="slide-right" speed="fast">
-        <span className="h-px w-10 bg-brand" /> Contact
+        <span className="h-px w-10 bg-brand" /> {t.eyebrow}
       </Reveal>
 
       <h2 className="display-hero text-foreground text-h1">
         <MaskLines
           lines={[
-            <Fragment key="1">Let&apos;s build</Fragment>,
+            <Fragment key="1">{t.line1}</Fragment>,
             <Fragment key="2">
-              something that <span className="font-serif-it text-brand">holds</span>.
+              {t.line2} <span className="font-serif-it text-brand">{t.accent}</span>.
             </Fragment>,
           ]}
         />
@@ -48,7 +52,7 @@ export function Contact() {
             <Bezel innerClassName="flex h-full flex-col gap-8 p-8 sm:p-10">
               <div>
                 <div className="mono mb-4 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  Reach out
+                  {t.reach}
                 </div>
                 <Magnetic strength={0.18}>
                   <a
@@ -68,12 +72,23 @@ export function Contact() {
 
               <div className="flex flex-wrap items-center gap-3">
                 <CtaLink href={`mailto:${profile.email}`} variant="solid">
-                  Get in touch
+                  {t.touch}
                 </CtaLink>
                 <CtaLink href={profile.resumeUrl} variant="ghost">
-                  Résumé
+                  {t.resume}
                 </CtaLink>
               </div>
+              <p className="mono -my-3 text-xs leading-relaxed text-muted-foreground">
+                {t.alsoCvs}{" "}
+                {cvs.slice(1).map((c, k) => (
+                  <span key={c.file}>
+                    {k > 0 && " · "}
+                    <a href={c.file} className="inline-block py-2.5 text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-brand hover:decoration-brand">
+                      {c.label}
+                    </a>
+                  </span>
+                ))}
+              </p>
             </Bezel>
           </Reveal>
 
@@ -111,7 +126,7 @@ export function Contact() {
         <span aria-hidden className="grid h-7 w-7 place-items-center rounded-full border border-border text-[0.6rem] tracking-normal text-foreground">
           MO
         </span>
-        <span>MO · Amman</span>
+        <span>{t.footer}</span>
         <span className="hidden sm:inline">© 2026</span>
       </footer>
     </section>

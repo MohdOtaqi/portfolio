@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ui, type Locale } from "@/lib/i18n";
 
 const EXPO = [0.16, 1, 0.3, 1] as const;
 
-export function Dusk() {
+export function Dusk({ locale }: { locale: Locale }) {
+  const t = ui[locale].dusk;
   return (
     <section className="relative flex h-[66vh] w-full flex-col items-center justify-center overflow-hidden px-6">
       <motion.div
@@ -14,7 +16,7 @@ export function Dusk() {
         transition={{ duration: 0.9, ease: EXPO }}
         className="eyebrow mb-6 flex items-center gap-3 text-white/65"
       >
-        <span className="h-px w-8 bg-white/40" /> Night — after hours
+        <span className="h-px w-8 bg-white/40" /> {t.eyebrow}
         <span className="h-px w-8 bg-white/40" />
       </motion.div>
 
@@ -26,8 +28,8 @@ export function Dusk() {
         className="relative z-10 max-w-2xl text-center font-display text-3xl leading-[1.15] text-white sm:text-5xl"
         style={{ textShadow: "0 2px 40px rgba(0,0,0,0.5)" }}
       >
-        When the markets close,{" "}
-        <span className="font-serif-it">the building begins.</span>
+        {t.line}{" "}
+        <span className="font-serif-it">{t.accent}</span>
       </motion.p>
 
       {/* drawn horizon line — the "ground" the sun set behind */}

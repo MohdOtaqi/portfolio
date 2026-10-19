@@ -1,12 +1,14 @@
 import { Reveal } from "./reveal";
-import { experience } from "@/lib/data";
+import { getContent } from "@/lib/content";
+import { ui, type Locale } from "@/lib/i18n";
 
 /** Per-role domain accent hues — subtle, overlaid on the rail node so each
  *  role reads as its own "discipline" while staying in the observatory palette.
  *  Index-based with a modulo fallback so adding roles to data.ts never breaks. */
 const ACCENTS = ["var(--brand)", "var(--brand-2, var(--brand))", "var(--brand)"];
 
-export function ExperienceSection() {
+export function ExperienceSection({ locale }: { locale: Locale }) {
+  const { experience } = getContent(locale);
   return (
     <section className="relative mx-auto max-w-[1400px] px-5 py-24 sm:px-10 sm:py-36">
       <Reveal
@@ -14,14 +16,14 @@ export function ExperienceSection() {
         speed="normal"
         className="eyebrow mb-14 flex items-center gap-3"
       >
-        <span className="h-px w-10 bg-brand" /> Experience
+        <span className="h-px w-10 bg-brand" /> {ui[locale].experience.eyebrow}
       </Reveal>
 
       <ol className="relative">
         {/* Connecting rail — runs the full height of the timeline */}
         <span
           aria-hidden
-          className="pointer-events-none absolute bottom-3 left-[7px] top-2 w-px bg-gradient-to-b from-border via-border to-transparent sm:left-[9px]"
+          className="pointer-events-none absolute bottom-3 start-[7px] top-2 w-px bg-gradient-to-b from-border via-border to-transparent sm:start-[9px]"
         />
 
         {experience.map((job, i) => {

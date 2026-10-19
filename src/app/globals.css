@@ -229,3 +229,22 @@
   .sky-star { animation: none; opacity: var(--tw-base, 0.6); }
   .hero-in, .hero-line, .hero-bob { animation: none; }
 }
+
+/* ── Arabic (/ar) ─────────────────────────────────────────────────────────
+   Arabic fonts are subset to Arabic glyphs only, so Latin words (SWIFT, React,
+   the name) keep Fraunces / Spline. Letter-spacing breaks Arabic joining and
+   Arabic has no italic, so both are neutralised; Naskh needs taller lines. */
+.locale-ar {
+  --font-display: var(--font-naskh), var(--font-fraunces), Georgia, serif;
+  --font-serif: var(--font-naskh), var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-plex-ar), var(--font-spline), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-spline-mono), var(--font-plex-ar), ui-monospace, monospace;
+  font-family: var(--font-body);
+}
+.locale-ar :is(.eyebrow, .mono, [class*="tracking-"]) { letter-spacing: 0 !important; }
+.locale-ar .font-serif-it { font-style: normal; }
+.locale-ar :is(h2, h3, h1:not(.display-hero)) { line-height: 1.35 !important; }
+.locale-ar .text-lead, .locale-ar p { line-height: 1.85; }
+
+/* arrows that point "forward" flip in right-to-left pages */
+[dir="rtl"] .rtl-flip { display: inline-block; transform: scaleX(-1); }

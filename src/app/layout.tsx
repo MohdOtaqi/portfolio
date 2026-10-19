@@ -4,6 +4,8 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Cursor } from "@/components/cursor";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Display: Fraunces — optical high-contrast serif (the "astronomical instrument"
 // feel of the Meridian direction). Body: Spline Sans. Mono: Spline Sans Mono.
@@ -79,7 +81,7 @@ export const metadata: Metadata = {
       "Building the infrastructure that moves money — SWIFT/FIX messaging, market data, full-stack products.",
     images: ["/og.png"],
   },
-  alternates: { canonical: SITE_URL },
+  alternates: { canonical: SITE_URL, languages: { en: "/", ar: "/ar" } },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 };
 
@@ -123,6 +125,9 @@ export default function RootLayout({
         />
         <Cursor />
         <SmoothScroll>{children}</SmoothScroll>
+        {/* visitor + real-device performance stats (enable both in the Vercel project dashboard) */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

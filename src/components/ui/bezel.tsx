@@ -81,7 +81,7 @@ export function CtaLink({
           height="12"
           viewBox="0 0 12 12"
           fill="none"
-          className="stroke-current"
+          className={cn("stroke-current", !external && "rtl-flip")}
           strokeWidth="1.3"
           aria-hidden
         >

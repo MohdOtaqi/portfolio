@@ -3,7 +3,8 @@
 import { SmartImage } from "./smart-image";
 import { Reveal, Stagger, StaggerItem } from "./reveal";
 import { Bezel } from "./ui/bezel";
-import { events } from "@/lib/data";
+import { getContent } from "@/lib/content";
+import { ui, type Locale } from "@/lib/i18n";
 
 // Asymmetric bento rhythm: wide hero, two standard, wide closer.
 // Index-keyed so the layout stays deliberate rather than a uniform 4-grid.
@@ -21,16 +22,18 @@ const ASPECT = [
   "aspect-[16/9]",
 ] as const;
 
-export function EventsSection() {
+export function EventsSection({ locale }: { locale: Locale }) {
+  const { events } = getContent(locale);
+  const t = ui[locale].events;
   return (
     <section className="relative mx-auto max-w-[1400px] px-5 py-28 sm:px-10 sm:py-36">
       <Reveal variant="blur" speed="slow">
         <div className="eyebrow mb-4 flex items-center gap-3">
-          <span className="h-px w-10 bg-brand" /> Beyond the desk
+          <span className="h-px w-10 bg-brand" /> {t.eyebrow}
         </div>
         <h2 className="font-display text-h2 font-semibold text-foreground">
-          Hackathons, awards &amp;{" "}
-          <span className="font-serif-it text-brand">community</span>.
+          {t.title}{" "}
+          <span className="font-serif-it text-brand">{t.accent}</span>.
         </h2>
       </Reveal>
 

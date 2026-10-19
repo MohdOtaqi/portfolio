@@ -150,6 +150,10 @@ export type Project = {
   demoUrl?: string;
   /** honest release state shown next to the year, e.g. "Play closed testing" */
   status?: string;
+  /** URL segment of the project's own page (/work/<slug>); night projects only */
+  slug?: string;
+  /** "What I built" bullets for the project page (from the verified CV bullets) */
+  highlights?: string[];
   /** a second visual layered beside the main mockup: the phone app of a web product,
    *  or renders of a physical device */
   companion?: { kind: "phone" | "render"; media: string[]; caption?: string };
@@ -205,6 +209,7 @@ export const projects: Project[] = [
   // ---- NIGHT · personal ----
   {
     name: "Sudur",
+    slug: "sudur",
     year: "2026",
     internal: false,
     status: "Play closed testing",
@@ -218,9 +223,17 @@ export const projects: Project[] = [
       { label: "sudur.app", href: "https://sudur.app" },
       { label: "Hackathon repo", href: "https://github.com/aboodjq/SabaqHackathon" },
     ],
+    highlights: [
+      "Started as Sabaq with a 3-developer hackathon team; I owned the Django/DRF backend, the OAuth2 proxy and the MCP integration to the Quran Foundation API.",
+      "Built AI recitation grading — Whisper speech-to-text fuzzy-matched against the riwaya-correct text, with diff feedback.",
+      "Led the release as Sudur: Google Play closed testing and App Store submission, in Arabic and English, with its website at sudur.app.",
+      "Gesture-based Mushaf reader, verse-by-verse audio, prayer times with adhan, revision scheduling and Android home-screen widgets.",
+      "Release pipeline: push to main, 229 Jest tests, a signed build and a Play testing track with release notes; RevenueCat subscription and AdMob with UMP consent."
+    ],
   },
   {
     name: "Mabsim",
+    slug: "mabsim",
     year: "2026",
     internal: false,
     status: "Pre-launch",
@@ -230,9 +243,17 @@ export const projects: Project[] = [
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "RLS", "WhatsApp API"],
     device: "browser",
     media: ["/apps/mabsim-1.webp", "/apps/mabsim-2.webp"],
+    highlights: [
+      "Built a clinic platform for MENA practices: appointments, online booking with phone verification, patient records, invoices, recalls and a waitlist.",
+      "Specialty records: a dental odontogram and a 44-point orthopedic chart, plus insurance claims, lab cases, prescriptions and consent letters.",
+      "Integrated JoFotara (Jordan's national e-invoicing) and WhatsApp reminders over the Meta Cloud API behind a per-clinic sending gate.",
+      "Tenant isolation with PostgreSQL row-level security; an exclusion constraint blocks overlapping bookings, a unique index double invoices and a trigger overpayment.",
+      "Owner console with subscription warnings and one-click suspension; encrypted backups with a tested restore drill."
+    ],
   },
   {
     name: "Wared",
+    slug: "wared",
     year: "2026",
     internal: false,
     status: "Pre-launch",
@@ -242,9 +263,17 @@ export const projects: Project[] = [
     tags: ["Django", "DRF", "PostgreSQL", "django-tenants", "React", "TypeScript", "PWA"],
     device: "browser",
     media: ["/apps/wared-1.webp", "/apps/wared-2.webp"],
+    highlights: [
+      "Built a schema-per-tenant SaaS for Jordanian distributors and wholesalers, with an Arabic-first RTL React PWA and barcode scanning.",
+      "Append-only stock ledger with exact decimal money (JOD, 3 dp) and row-locked balances; weighted-average costing, FEFO expiry, serials and landed cost.",
+      "Purchasing, sales, put-away, stocktakes, supplier returns and proof of delivery; JoFotara e-invoicing with credit notes.",
+      "Plan tiers, an owner console, per-tenant subdomains with on-demand TLS, and backups proven by a real restore.",
+      "All 45 Phase-1 “must” requirements implemented and tested; dedicated review agents gate tenant isolation, permissions, money arithmetic and migrations."
+    ],
   },
   {
     name: "Word Oasis",
+    slug: "word-oasis",
     year: "2026",
     internal: false,
     status: "Play closed testing",
@@ -254,9 +283,17 @@ export const projects: Project[] = [
     tags: ["Flutter", "Dart", "AdMob", "RevenueCat", "Python"],
     device: "phone",
     media: ["/apps/wordoasis-1.webp", "/apps/wordoasis-2.webp", "/apps/wordoasis-3.webp"],
+    highlights: [
+      "Built an Arabic letter-wheel crossword with 827 levels across 18 landmark chapters.",
+      "Wrote a Python level builder that generates the levels from a 50,000-word Arabic list.",
+      "Daily challenge, lucky wheel, daily gift, chapter treasures, hints and a coin economy.",
+      "Monetization: AdMob banner, interstitial, rewarded and app-open ads with UMP consent; RevenueCat in-app purchases.",
+      "Prepared the store release (signing, listing, graphics, content rating) and submitted it to Google Play closed testing."
+    ],
   },
   {
     name: "VitalGuard",
+    slug: "vitalguard",
     year: "2025—26",
     internal: false,
     status: "In development",
@@ -275,9 +312,17 @@ export const projects: Project[] = [
       { label: "3D case viewer", href: "/vitalguard/wristband-viewer.html" },
       { label: "MedGuard (v1) repo", href: "https://github.com/Mo-Otaqi/Graduation-Project-MedGuard" },
     ],
+    highlights: [
+      "Rebuilding my MedGuard graduation project (Flutter + Firebase, BLE heart rate, Gemini health analysis, GPS emergency alerts) as a wearable product.",
+      "The companion app tracks vitals against personal baselines, alerts carers on falls and critical readings, and guides first aid step by step, in Arabic and English.",
+      "New backend on Fastify, PostgreSQL and Valkey, replacing Firebase.",
+      "Designed the wristband case in code (build123d to STL/STEP), 3D-printable for fit-and-feel testing, with Blender renders and an interactive web 3D viewer.",
+      "Wrote the device specification: sensors, display and buttons, connectivity, battery and materials."
+    ],
   },
   {
     name: "MOT",
+    slug: "mot",
     year: "2025—26",
     internal: false,
     status: "App on Play internal testing",
@@ -293,9 +338,17 @@ export const projects: Project[] = [
       { label: "App repo", href: "https://github.com/MohdOtaqi/MOT" },
       { label: "Web repo", href: "https://github.com/MohdOtaqi/Odispear" },
     ],
+    highlights: [
+      "One gaming platform across a Flutter mobile app and the n0tmot.com web app (formerly Odispear), under the MOT brand.",
+      "Mobile: profiles and look-for-group matchmaking by game, platform and playstyle; real-time 1:1 chat with typing/seen indicators and FCM push.",
+      "A live gaming-news feed and a 300+ game database via the RAWG API; content moderation (toxicity filtering, reporting, age-gating) and Cloud Functions for feed fan-out.",
+      "Web: Discord-style servers, channels, roles and DMs over Socket.IO, with LiveKit voice/video, RNNoise/Krisp noise filtering and push-to-talk.",
+      "JWT + Google OAuth, premium tiers with RevenueCat and Stripe, and S3 media on a PostgreSQL + Redis backend; deployed with Docker Compose behind Caddy."
+    ],
   },
   {
     name: "Masra",
+    slug: "masra",
     year: "2025",
     internal: false,
     blurb: "Islamic education platform — Flutter app + Node/Prisma API.",
@@ -305,9 +358,16 @@ export const projects: Project[] = [
     device: "phone",
     media: ["/apps/masra-1.webp", "/apps/masra-2.webp", "/apps/masra-3.webp"],
     links: [{ label: "GitHub", href: "https://github.com/MasraAppJo/masra-platform" }],
+    highlights: [
+      "Built a Flutter app with offline-first caching and Arabic/English localization for news, fatwa search, courses and gamified 30-day challenges.",
+      "Developed a Node.js/Express + Prisma API on PostgreSQL (Supabase) with row-level security and a secure points RPC.",
+      "Created a 12-panel admin CMS for news, fatwas, courses, challenges and users.",
+      "Set up GitHub Actions CI/CD for linting, builds and automated APK releases."
+    ],
   },
   {
     name: "Sehleh",
+    slug: "sehleh",
     year: "2025",
     internal: false,
     blurb: "On-demand local-services marketplace.",
@@ -316,9 +376,16 @@ export const projects: Project[] = [
     tags: ["Flutter", "BLoC", "Supabase", "PostGIS", "Next.js", "Stripe"],
     device: "phone",
     media: ["/apps/sehleh-1.webp", "/apps/sehleh-2.webp"],
+    highlights: [
+      "Built customer and provider Flutter apps (BLoC) for booking local services, with live provider GPS tracking and in-app chat.",
+      "Geolocation discovery with PostGIS spatial queries and multi-role access (customer / provider / admin).",
+      "Stripe and Tap payments via Supabase Edge Functions, FCM push notifications and KYC verification.",
+      "A Next.js admin dashboard for users, providers, bookings and promotions."
+    ],
   },
   {
     name: "Tabayyun",
+    slug: "tabayyun",
     year: "2025",
     internal: false,
     blurb: "AI Arabic news & image-tampering verifier.",
@@ -327,9 +394,16 @@ export const projects: Project[] = [
     tags: ["React", "Vite", "OpenAI", "Sightengine", "Tailwind"],
     device: "browser",
     media: ["/apps/tabayyun-1.webp", "/apps/tabayyun-2.webp"],
+    highlights: [
+      "Scores news credibility from a URL or text using LLM analysis plus keyword and sentiment heuristics.",
+      "Image forensics: EXIF metadata, Error-Level Analysis and Sightengine AI-generated-image detection.",
+      "A trusted-source database and reverse-image-search links, in a fully right-to-left, animated UI.",
+      "Hackathon project (Tech 3arabi)."
+    ],
   },
   {
     name: "FactQuest",
+    slug: "factquest",
     year: "2025",
     internal: false,
     blurb: "Gamified media-literacy trainer.",
@@ -338,6 +412,12 @@ export const projects: Project[] = [
     tags: ["React", "Vite", "Tailwind"],
     device: "browser",
     media: ["/apps/factquest-1.webp", "/apps/factquest-2.webp"],
+    highlights: [
+      "Teaches people to spot misinformation, deepfakes and bias through gamified challenges.",
+      "Eight challenge modules — deepfake, clickbait, bias, sponsored, satire, image and source verification — with guided lessons.",
+      "XP, streaks and level progression with an animated mascot for feedback.",
+      "Hackathon project."
+    ],
   },
 ];
 

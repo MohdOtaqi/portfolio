@@ -1,26 +1,27 @@
 import { Reveal } from "./reveal";
-import { projects } from "@/lib/data";
-
-const systems = projects.filter((p) => p.internal);
+import { getContent } from "@/lib/content";
+import { ui, type Locale } from "@/lib/i18n";
 
 /** The ZagTrader systems as an editorial index — hairline rows, mono metadata,
  *  no cards. Sits under the experience timeline in the day half. */
-export function DayWork() {
+export function DayWork({ locale }: { locale: Locale }) {
+  const systems = getContent(locale).projects.filter((p) => p.internal);
+  const t = ui[locale].systems;
   return (
     <section id="systems" className="relative mx-auto max-w-[1400px] px-5 pb-24 sm:px-10 sm:pb-36">
       <div className="mb-10 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
         <div>
           <Reveal variant="slide-right" speed="normal" className="eyebrow mb-4 flex items-center gap-3">
-            <span className="h-px w-10 bg-brand" /> Systems — ZagTrader
+            <span className="h-px w-10 bg-brand" /> {t.eyebrow}
           </Reveal>
           <Reveal variant="blur" speed="slow" delay={0.05}>
             <h2 className="font-display text-h2 font-semibold text-foreground">
-              What I&apos;ve built <span className="font-serif-it text-brand">on the clock</span>.
+              {t.title} <span className="font-serif-it text-brand">{t.accent}</span>.
             </h2>
           </Reveal>
         </div>
         <Reveal variant="fade" speed="normal" className="mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
-          {String(systems.length).padStart(2, "0")} systems
+          {String(systems.length).padStart(2, "0")} {t.count}
         </Reveal>
       </div>
 
