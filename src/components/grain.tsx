@@ -19,16 +19,18 @@ export function Atmosphere() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[60]" aria-hidden>
+      {/* film grain is desktop-only: a full-screen blend layer forces the whole page to
+          re-composite every scroll frame, which phones can't afford */}
       <motion.div
         style={{
           opacity: reduce ? 0.4 : vignette,
           background:
             "radial-gradient(125% 108% at 50% 38%, transparent 50%, rgba(2,4,12,0.72) 100%)",
         }}
-        className="absolute inset-0"
+        className="absolute inset-0 will-change-[opacity]"
       />
       <div
-        className="absolute inset-0 opacity-[0.045] mix-blend-soft-light"
+        className="absolute inset-0 hidden opacity-[0.045] mix-blend-soft-light md:block"
         style={{ backgroundImage: GRAIN, backgroundSize: "180px 180px" }}
       />
     </div>

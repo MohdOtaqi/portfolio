@@ -122,21 +122,29 @@ export function MaskLines({
   delay?: number;
   stagger?: number;
 }) {
+  // Observe the wrapper, not the lines: each line starts translated fully outside
+  // its overflow-hidden mask, so IntersectionObserver sees it as 100% clipped and
+  // never fires — the headings stayed invisible on the live site.
   return (
-    <span className={className}>
+    <motion.span
+      className={`block ${className ?? ""}`}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+    >
       {lines.map((line, i) => (
         <span key={i} className="block overflow-hidden">
           <motion.span
             className={`block ${lineClassName ?? ""}`}
-            initial={{ y: "110%" }}
-            whileInView={{ y: "0%" }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 1, ease: EXPO, delay: delay + i * stagger }}
+            variants={{
+              hidden: { y: "110%" },
+              visible: { y: "0%", transition: { duration: 1, ease: EXPO, delay: delay + i * stagger } },
+            }}
           >
             {line}
           </motion.span>
         </span>
       ))}
-    </span>
+    </motion.span>
   );
 }

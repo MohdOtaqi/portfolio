@@ -195,7 +195,37 @@
   will-change: opacity;
 }
 
+/* phones: half the stars and no twinkle — 65+ running animations cost a style
+   recalc every frame, which was ~60% of the scroll jank on a mid-range phone */
+@media (max-width: 767px) {
+  .sky-star:nth-child(even) { display: none; }
+  .sky-star { animation: none; will-change: auto; opacity: var(--tw-base, 0.6); }
+}
+
+/* hero entrance — CSS, not JS, so it plays from first paint (LCP) */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-line {
+  from { transform: translateY(115%); }
+  to { transform: none; }
+}
+@keyframes hero-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(7px); }
+}
+.hero-in { animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-line { animation: hero-line 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-bob { animation: hero-bob 1.6s ease-in-out infinite; }
+/* phones: the name is the LCP element and a fully-masked first frame waits for the
+   main thread (hydration) before it paints — show it immediately instead */
+@media (max-width: 767px) {
+  .hero-line { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .sky-star { animation: none; opacity: var(--tw-base, 0.6); }
+  .hero-in, .hero-line, .hero-bob { animation: none; }
 }

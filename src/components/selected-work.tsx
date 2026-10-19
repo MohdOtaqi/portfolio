@@ -266,7 +266,7 @@ export function SelectedWork() {
             aria-label={playing ? "Pause auto-rotation" : "Resume auto-rotation"}
             aria-pressed={!playing}
             data-cursor="hover"
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground ${focusRing}`}
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground ${focusRing}`}
           >
             {playing ? (
               <svg width="11" height="12" viewBox="0 0 11 12" aria-hidden className="fill-current">

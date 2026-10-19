@@ -64,6 +64,8 @@ export function SmartImage({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={src}
+          loading="lazy"
+          decoding="async"
           alt=""
           onError={() => {
             failedSrc.add(src);

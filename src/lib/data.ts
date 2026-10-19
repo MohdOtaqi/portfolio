@@ -213,7 +213,7 @@ export const projects: Project[] = [
       "A Hifz companion with a gesture-based Mushaf reader, AI recitation grading (Whisper), prayer times with adhan and home-screen widgets, in Arabic and English. It grew out of Sabaq, a 3-dev hackathon project where I owned the Django backend; I took it to release — Expo client, Django + PostgreSQL API, RevenueCat, AdMob and push-to-store CI.",
     tags: ["React Native", "Expo", "Django", "PostgreSQL", "Whisper", "RevenueCat"],
     device: "phone",
-    media: ["/apps/sudur-1.png", "/apps/sudur-2.png", "/apps/sudur-3.png"],
+    media: ["/apps/sudur-1.webp", "/apps/sudur-2.webp", "/apps/sudur-3.webp"],
     links: [
       { label: "sudur.app", href: "https://sudur.app" },
       { label: "Hackathon repo", href: "https://github.com/aboodjq/SabaqHackathon" },
@@ -229,7 +229,7 @@ export const projects: Project[] = [
       "Clinic software for MENA practices — online booking, patient records, a dental odontogram and orthopedic charts, JoFotara e-invoicing, insurance and lab cases, and WhatsApp reminders. Next.js 16 on Supabase PostgreSQL with per-clinic row-level security and database constraints that block double-bookings and overpayment. Arabic-first.",
     tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "RLS", "WhatsApp API"],
     device: "browser",
-    media: ["/apps/mabsim-1.png", "/apps/mabsim-2.png"],
+    media: ["/apps/mabsim-1.webp", "/apps/mabsim-2.webp"],
   },
   {
     name: "Wared",
@@ -241,7 +241,7 @@ export const projects: Project[] = [
       "Inventory and warehouse management for Jordanian distributors — purchasing, sales, put-away, stock counts, FEFO expiry, serials, landed cost and JoFotara e-invoicing. Django 5 + DRF on PostgreSQL with schema-per-tenant isolation, an append-only stock ledger with exact decimal money, and an Arabic-first React PWA with barcode scanning.",
     tags: ["Django", "DRF", "PostgreSQL", "django-tenants", "React", "TypeScript", "PWA"],
     device: "browser",
-    media: ["/apps/wared-1.png", "/apps/wared-2.png"],
+    media: ["/apps/wared-1.webp", "/apps/wared-2.webp"],
   },
   {
     name: "Word Oasis",
@@ -253,7 +253,7 @@ export const projects: Project[] = [
       "واحة الكلمات — an Arabic word game with 827 levels across 18 landmark chapters, generated from a 50,000-word Arabic list by my own Python level builder. Daily challenges, a lucky wheel, hints and a coin economy; AdMob (banner, interstitial, rewarded, app-open) with UMP consent, and RevenueCat in-app purchases. Built in Flutter.",
     tags: ["Flutter", "Dart", "AdMob", "RevenueCat", "Python"],
     device: "phone",
-    media: ["/apps/wordoasis-1.png", "/apps/wordoasis-2.png", "/apps/wordoasis-3.png"],
+    media: ["/apps/wordoasis-1.webp", "/apps/wordoasis-2.webp", "/apps/wordoasis-3.webp"],
   },
   {
     name: "VitalGuard",
@@ -265,11 +265,11 @@ export const projects: Project[] = [
       "A health wristband and companion app, rebuilt from my MedGuard graduation project. The app tracks vitals against personal baselines, alerts carers on falls and critical readings, and walks through first aid step by step, in Arabic and English. The case is modelled in code (build123d), 3D-printable, and rendered in Blender.",
     tags: ["Flutter", "Fastify", "PostgreSQL", "Valkey", "build123d", "Blender"],
     device: "phone",
-    media: ["/apps/vitalguard-1.png", "/apps/vitalguard-2.png", "/apps/vitalguard-3.png", "/apps/vitalguard-4.png"],
+    media: ["/apps/vitalguard-1.webp", "/apps/vitalguard-2.webp", "/apps/vitalguard-3.webp", "/apps/vitalguard-4.webp"],
     companion: {
       kind: "render",
       caption: "Printable case · Blender",
-      media: ["/apps/vitalguard-case-front.jpg", "/apps/vitalguard-case-back.jpg", "/apps/vitalguard-case-exploded.jpg"],
+      media: ["/apps/vitalguard-case-front.webp", "/apps/vitalguard-case-back.webp", "/apps/vitalguard-case-exploded.webp"],
     },
     links: [
       { label: "3D case viewer", href: "/vitalguard/wristband-viewer.html" },
@@ -287,8 +287,8 @@ export const projects: Project[] = [
     tags: ["Flutter", "Firebase", "React", "TypeScript", "Node.js", "PostgreSQL", "LiveKit"],
     device: "browser",
     demoUrl: "https://n0tmot.com",
-    media: ["/apps/odispear-1.png", "/apps/odispear-2.png"],
-    companion: { kind: "phone", media: ["/apps/mot-1.png", "/apps/mot-2.png", "/apps/mot-3.png"] },
+    media: ["/apps/odispear-1.webp", "/apps/odispear-2.webp"],
+    companion: { kind: "phone", media: ["/apps/mot-1.webp", "/apps/mot-2.webp", "/apps/mot-3.webp"] },
     links: [
       { label: "App repo", href: "https://github.com/MohdOtaqi/MOT" },
       { label: "Web repo", href: "https://github.com/MohdOtaqi/Odispear" },
@@ -303,7 +303,7 @@ export const projects: Project[] = [
       "An educational platform around Al-Aqsa & Jerusalem: curated news, fatwa search, courses and gamified 30-day challenges. A Flutter client with offline-first caching and AR/EN localization, backed by a Node.js/Express + Prisma API on PostgreSQL (Supabase) with row-level security, a 12-panel admin CMS and GitHub Actions CI/CD.",
     tags: ["Flutter", "Node.js", "Prisma", "Supabase", "PostgreSQL"],
     device: "phone",
-    media: ["/apps/masra-1.png", "/apps/masra-2.png", "/apps/masra-3.png"],
+    media: ["/apps/masra-1.webp", "/apps/masra-2.webp", "/apps/masra-3.webp"],
     links: [{ label: "GitHub", href: "https://github.com/MasraAppJo/masra-platform" }],
   },
   {
@@ -315,7 +315,7 @@ export const projects: Project[] = [
       "A services marketplace connecting customers with local providers — geolocation discovery (PostGIS), booking with live provider tracking, in-app chat, ratings, and Stripe + Tap payments. Flutter (BLoC) customer & provider apps, a Next.js admin dashboard, and a Supabase backend with Edge Functions and KYC verification.",
     tags: ["Flutter", "BLoC", "Supabase", "PostGIS", "Next.js", "Stripe"],
     device: "phone",
-    media: ["/apps/sehleh-1.png", "/apps/sehleh-2.png"],
+    media: ["/apps/sehleh-1.webp", "/apps/sehleh-2.webp"],
   },
   {
     name: "Tabayyun",
@@ -326,7 +326,7 @@ export const projects: Project[] = [
       "An Arabic-first web tool that scores news credibility and flags manipulation — it pulls article content and runs LLM analysis (OpenAI) plus keyword/sentiment heuristics, and checks images with EXIF metadata, Error-Level Analysis and Sightengine AI-image detection. React 19 + Vite + Tailwind.",
     tags: ["React", "Vite", "OpenAI", "Sightengine", "Tailwind"],
     device: "browser",
-    media: ["/apps/tabayyun-1.png", "/apps/tabayyun-2.png"],
+    media: ["/apps/tabayyun-1.webp", "/apps/tabayyun-2.webp"],
   },
   {
     name: "FactQuest",
@@ -337,7 +337,7 @@ export const projects: Project[] = [
       "An interactive web app that teaches people to spot misinformation, deepfakes and bias through gamified challenges across eight modules — XP, streaks and guided lessons with a friendly mascot. React + Vite + Tailwind.",
     tags: ["React", "Vite", "Tailwind"],
     device: "browser",
-    media: ["/apps/factquest-1.png", "/apps/factquest-2.png"],
+    media: ["/apps/factquest-1.webp", "/apps/factquest-2.webp"],
   },
 ];
 

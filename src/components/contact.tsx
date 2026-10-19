@@ -54,13 +54,13 @@ export function Contact() {
                   <a
                     href={`mailto:${profile.email}`}
                     data-cursor="hover"
-                    className="group relative inline-block mono break-all text-sm font-medium uppercase tracking-[0.08em] text-foreground transition-colors hover:text-brand focus-visible:text-brand focus-visible:outline-none sm:text-xl sm:tracking-[0.12em] md:text-2xl"
+                    className="group relative -my-2.5 inline-block py-2.5 mono break-all text-sm font-medium uppercase tracking-[0.08em] text-foreground transition-colors hover:text-brand focus-visible:text-brand focus-visible:outline-none sm:text-xl sm:tracking-[0.12em] md:text-2xl"
                   >
                     {profile.email}
                     {/* left→right growing underline */}
                     <span
                       aria-hidden
-                      className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-brand transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
+                      className="absolute bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-brand transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
                     />
                   </a>
                 </Magnetic>
