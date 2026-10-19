@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s · Mohammad Otaqi",
   },
   description:
-    "Mohammad Otaqi — Software Engineer building fintech trading infrastructure at ZagTrader. SWIFT & FIX messaging, market-data systems, C#/.NET, React, Flutter. Based in Amman, Jordan.",
+    "Mohammad Otaqi — Software Engineer building fintech trading infrastructure at ZagTrader. SWIFT & FIX messaging, exchange connectivity, AI test automation, C#/.NET, TypeScript, React, Flutter. Based in Amman, Jordan.",
   keywords: [
     "Mohammad Otaqi",
     "Mohammad Alotaqi",
@@ -50,6 +50,10 @@ export const metadata: Metadata = {
     "ASP.NET Core",
     "React",
     "Flutter",
+    "React Native",
+    "Next.js",
+    "Django",
+    "PostgreSQL",
     "SWIFT messaging",
     "FIX protocol",
     "fintech",
@@ -99,9 +103,9 @@ const jsonLd = {
     "https://github.com/MohdOtaqi",
     "https://jo.linkedin.com/in/mohammad-otaqi-ba5a17257",
   ],
-  knowsAbout: ["C#", ".NET", "ASP.NET Core", "React", "TypeScript", "Flutter", "SQL Server", "SWIFT messaging", "FIX protocol", "fintech software"],
+  knowsAbout: ["C#", ".NET", "ASP.NET Core", "React", "TypeScript", "Flutter", "SQL Server", "PostgreSQL", "Next.js", "Django", "React Native", "Playwright", "SWIFT messaging", "FIX protocol", "fintech software"],
   image: "https://mohammadotaqi.com/og.png",
-  description: "Software Engineer specializing in C#/.NET and full-stack development. At ZagTrader: SWIFT (ISO 15022) securities-settlement messaging, FIX-protocol connectivity, market-data feeds, and cryptographic licensing. Google-certified in IT Support and Project Management.",
+  description: "Software Engineer specializing in C#/.NET and full-stack development. At ZagTrader: SWIFT (ISO 15022) securities-settlement messaging, FIX-protocol connectivity, exchange and market-data connectors, cryptographic licensing, and an AI-driven test-automation platform. Google-certified in IT Support and Project Management.",
 };
 
 export default function RootLayout({

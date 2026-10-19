@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { profile } from "@/lib/data";
 
 const EXPO = [0.16, 1, 0.3, 1] as const;
 const fade: Variants = {
@@ -57,8 +56,8 @@ export function Hero() {
               Fintech Engineer <span className="text-muted-foreground">@ ZagTrader</span>
             </p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              SWIFT &amp; FIX settlement systems, market-data feeds, and trading
-              infrastructure in C#/.NET.
+              SWIFT &amp; FIX systems, exchange connectivity and AI test
+              automation in C#/.NET and TypeScript.
             </p>
             <a href="#day" data-cursor="hover" className="mono mt-5 inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-brand">
               Enter the day <span aria-hidden>↓</span>
@@ -82,8 +81,8 @@ export function Hero() {
               Maker &amp; <span className="text-muted-foreground">app builder</span>
             </p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              I design and ship products after hours — Flutter, React &amp; Node —
-              turning ideas into real apps.
+              I design and ship products after hours — mobile apps and SaaS in
+              Flutter, React Native, Next.js &amp; Django.
             </p>
             <a href="#night" data-cursor="hover" className="mono mt-5 inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-brand md:flex-row-reverse">
               Enter the night <span aria-hidden>↓</span>

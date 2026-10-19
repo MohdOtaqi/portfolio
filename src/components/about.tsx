@@ -3,7 +3,7 @@ import { Reveal, MaskLines, Stagger, StaggerItem } from "./reveal";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Bezel } from "@/components/ui/bezel";
-import { profile, certifications } from "@/lib/data";
+import { profile, certifications, projects } from "@/lib/data";
 
 const spring = "duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]";
 
@@ -64,9 +64,9 @@ export function About() {
             </StaggerItem>
 
             {[
-              { n: 7, s: "+", l: "systems shipped" },
+              { n: projects.filter((p) => p.internal).length, s: "", l: "platforms built" },
+              { n: 7, s: "", l: "venue & feed integrations" },
               { n: 3, s: "", l: "years building" },
-              { n: 5, s: "", l: "core platforms" },
             ].map((x, i) => (
               <StaggerItem key={i} variant="up" speed="fast" className="group">
                 <Bezel

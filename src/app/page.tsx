@@ -4,6 +4,7 @@ import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
 import { Network } from "@/components/network";
 import { ExperienceSection } from "@/components/experience";
+import { DayWork } from "@/components/day-work";
 import { Dusk } from "@/components/dusk";
 import { SelectedWork } from "@/components/selected-work";
 import { EventsSection } from "@/components/events-section";
@@ -25,6 +26,7 @@ export default function Home() {
           <About />
           <Network />
           <ExperienceSection />
+          <DayWork />
         </div>
 
         {/* dusk transition (sky dims continuously behind) */}

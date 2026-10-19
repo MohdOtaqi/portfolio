@@ -10,16 +10,12 @@ export const profile = {
   },
   // Day = the professional engineer
   dayBlurb:
-    "By day I'm a Software Engineer at ZagTrader, building post-trade and market-data infrastructure for capital markets: a SWIFT (ISO 15022) securities-settlement platform, FIX connectivity, exchange/market-data connectors, and cryptographic licensing — in C#/.NET, ASP.NET Core, SignalR and React.",
+    "By day I'm a Software Engineer at ZagTrader, building capital-markets infrastructure: a SWIFT (ISO 15022) securities-settlement platform and its public API, FIX connectivity, exchange and market-data connectors, cryptographic licensing, and an AI-driven test-automation platform — in C#/.NET, TypeScript, SQL Server and PostgreSQL.",
   // Night = the maker
   nightBlurb:
-    "By night I design and ship my own products — mobile and full-stack apps built with Flutter, React, Node and Firebase. It's where I experiment, learn fast, and turn ideas into things people can actually use.",
+    "By night I design and ship my own products — mobile apps on Google Play and multi-tenant SaaS built with Flutter, React Native, Next.js, Django and Node. It's where I experiment, learn fast, and turn ideas into things people can actually use.",
   blurb:
-    "Software Engineer building fintech infrastructure at ZagTrader by day — SWIFT & FIX messaging, market-data systems, cryptographic licensing — and shipping my own Flutter / React / Node apps by night.",
-  stats: [
-    { value: 12, suffix: "+", label: "apps & systems built" },
-    { value: 3, suffix: "", label: "years building software" },
-  ],
+    "Software Engineer building fintech infrastructure at ZagTrader by day — SWIFT & FIX messaging, exchange connectivity, an AI test-automation platform — and shipping my own mobile apps and SaaS products by night.",
 };
 
 export const skillGroups: { title: string; items: string[] }[] = [
@@ -29,23 +25,27 @@ export const skillGroups: { title: string; items: string[] }[] = [
   },
   {
     title: ".NET & Backend",
-    items: [".NET 8–10", "ASP.NET Core", "SignalR", "Entity Framework Core", "Web APIs", "Background Services"],
+    items: [".NET 8–10", "ASP.NET Core", "SignalR", "Entity Framework Core", "Web APIs", "Background Services", "Node.js · Fastify", "NestJS", "Django · DRF", "REST / OpenAPI", "Webhooks"],
   },
   {
     title: "Fintech & Protocols",
-    items: ["SWIFT (ISO 15022 · MT540–548)", "FIX", "SoupBinTCP", "SOAP / CoreWCF", "SFTP", "Market data"],
+    items: ["SWIFT (ISO 15022 · MT540–548)", "FIX 4.4 / 5.0 SP2 (QuickFIX/n)", "SoupBinTCP", "ITCH", "SOAP / CoreWCF", "SFTP", "Market data", "JoFotara e-invoicing"],
   },
   {
     title: "Frontend & Mobile",
-    items: ["React", "Next.js", "Flutter", "Tailwind CSS", "Material UI", "Vite"],
+    items: ["React", "Next.js", "Flutter", "React Native · Expo", "TanStack Query", "Tailwind CSS", "Material UI", "Vite"],
   },
   {
     title: "Security & Interop",
-    items: ["Cryptography (AES · 3DES · HMAC · PBKDF2)", "JWT", "OTP / 2FA", "Azure Key Vault", "IKVM (Java↔.NET)", "Prowide"],
+    items: ["Cryptography (AES · 3DES · HMAC · PBKDF2)", "Ed25519 · TLS pinning", "JWT", "OAuth · Entra SSO", "OTP / 2FA", "RBAC", "Azure Key Vault", "HashiCorp Vault", "IKVM (Java↔.NET)", "Prowide"],
   },
   {
     title: "Data & Tooling",
-    items: ["SQL Server", "MongoDB", "Firebase", "Git / GitHub", "MessagePack", "Inno Setup"],
+    items: ["SQL Server", "PostgreSQL", "Supabase", "Valkey / Redis", "Prisma · Drizzle", "MongoDB", "Firebase", "Docker Compose", "CI/CD (GitHub · Gitea · EAS)", "Git / GitHub", "MessagePack", "Inno Setup"],
+  },
+  {
+    title: "Testing & Automation",
+    items: ["Playwright", "Vitest", "xUnit", "Jest", "Temporal workflows", "LLM test agents"],
   },
   {
     title: "Local LLMs & Hardware",
@@ -74,15 +74,20 @@ export const experience: Experience[] = [
     summary:
       "Post-trade and market-data infrastructure for a capital-markets platform.",
     highlights: [
-      "Built the Swift Suite — Engine, Bridge & Monitor — an end-to-end SWIFT securities-settlement platform processing ISO 15022 MT540–MT548 and MT564 with a maker-checker approval workflow.",
+      "Built the Swift Suite — Engine, Bridge & Monitor — an end-to-end SWIFT securities-settlement platform processing ISO 15022 MT540–MT548, MT564 and MT598/599 with a maker-checker approval workflow.",
       "Engineered the Swift Engine: an async task pipeline (reader → validator → builder → SWIFT validator → sender → archiver) that builds MT messages from SQL Server templates and validates them with Prowide via IKVM (Java↔.NET interop).",
-      "Built the Swift Bridge gateway relaying messages between the engine (TCP / MessagePack) and external operators — Fineksus (SOAP/CoreWCF), Tadawul·Edaa (SoupBinTCP) and SFTP — with secrets in Azure Key Vault.",
+      "Built the Swift Bridge gateway relaying messages between the engine (TCP / MessagePack) and external operators — Fineksus (SOAP/CoreWCF), Tadawul·Edaa (SoupBinTCP) and SFTP — and rebuilt the Tadawul·Edaa templates from the ISO 15022 spec, fixing real network NAKs.",
+      "Designed the platform's public REST API (55 OpenAPI operations): scoped, rotatable API keys with deprecation/sunset headers, idempotent submission, signed webhooks with an event outbox and RFC 7807 errors — 59/59 endpoints verified live.",
+      "Added Azure Key Vault / HashiCorp Vault secrets management, an RBAC permission system with custom roles, and offline TOTP 2FA enrollment across the suite.",
+      "Built the GUI and production release pipeline for ZT-AMTP, a multi-agent LLM platform that crawls web apps and generates, runs and certifies Playwright tests (Temporal, Fastify, Drizzle/PostgreSQL, React); raised the customer-app pass rate from 41% to 67.7%.",
+      "Delivered FixPortal to production: FIX validation against QuickFIX/n dictionaries, per-market rules and message diffing — ASP.NET Core + EF Core + PostgreSQL + React, 170+ automated tests and CI/CD.",
+      "Integrated exchange connectivity: Crypto.com FIX (HMAC logon, TLS pinning, market data + order entry), AIX FIX reference data, BVB SOAP reference data (845 instruments) and CoinMENA REST with Ed25519 signing — alongside CMC Markets FX and OKX (WebSocket v5) connectors.",
+      "Built the IDC historical-data reader (.NET 10, WebSocket → SQL Server) that replaced a legacy PHP job and added intraday resolutions.",
       "Created WatchList dashboard (React + SignalR) for real-time market-data visualization; built the Swift Monitor dashboard (React 19 + TypeScript, SignalR) with audit trail, template versioning/diff, and OTP/2FA auth.",
-      "Built ZagKeyGenWeb (hardware-bound licensing: TripleDES, HMAC-SHA256, AES-256/PBKDF2) and FixPortal (ASP.NET Core, EF Core, React, JWT) — a FIX portal with a 150+ tag dictionary, per-market rules and message diffing.",
-      "Added CMC Markets FX reader (FIX SecurityList + level-1 bid/ask), IDC feed readers, and OKX exchange connector (WebSocket v5, HMAC-signed) to the market-data framework; packaged all apps via Inno Setup and batch scripts.",
-      "Analyzed ZagTraderConnector integrations and database architecture to inform future middleware planning.",
+      "Shipped ZagKeyGenWeb hardware-bound licensing (TripleDES, HMAC-SHA256, AES-256/PBKDF2) to production on Docker Compose with PostgreSQL, role-based access and an audit trail.",
+      "Migrated five Swift/FIX repositories from SVN to Gitea; analyzed ZagTraderConnector integrations and database architecture to inform middleware planning; packaged apps via Inno Setup.",
     ],
-    tags: ["C#", ".NET 10", "ASP.NET Core", "React", "SignalR", "SWIFT", "FIX", "SQL Server"],
+    tags: ["C#", ".NET 10", "ASP.NET Core", "React", "TypeScript", "SignalR", "SWIFT", "FIX", "SQL Server", "PostgreSQL", "Docker", "Playwright"],
   },
   {
     role: "Flutter & Mobile Developer",
@@ -143,6 +148,8 @@ export type Project = {
   /** "phone" = mobile mockup, "browser" = desktop mockup */
   device?: "phone" | "browser";
   demoUrl?: string;
+  /** honest release state shown next to the year, e.g. "Play closed testing" */
+  status?: string;
 };
 
 export const projects: Project[] = [
@@ -151,47 +158,108 @@ export const projects: Project[] = [
     name: "Swift Suite",
     year: "2025—26",
     internal: true,
-    blurb: "SWIFT securities-settlement platform (Engine · Bridge · Monitor).",
+    blurb: "SWIFT securities-settlement platform (Engine · Bridge · Monitor) and its public API.",
     description:
-      "End-to-end platform processing ISO 15022 MT540–548 / MT564 settlement messages. Async .NET engine builds & validates messages (Prowide via IKVM); a bridge relays to Fineksus / Tadawul·Edaa / SFTP; a React + SignalR monitor adds real-time status, audit, maker-checker approval and 2FA.",
-    tags: ["C#", ".NET 10", "React", "SignalR", "IKVM", "SQL Server"],
+      "End-to-end platform processing ISO 15022 MT540–548, MT564 and MT598/599 settlement messages. An async .NET engine builds & validates messages (Prowide via IKVM); a bridge relays to Fineksus / Tadawul·Edaa / SFTP; a React + SignalR monitor adds real-time status, audit, maker-checker approval, RBAC and TOTP 2FA. A public REST API (55 operations) exposes it to clients with scoped API keys, idempotent submission and signed webhooks; secrets load from Azure Key Vault or HashiCorp Vault.",
+    tags: ["C#", ".NET 10", "React", "SignalR", "IKVM", "SQL Server", "OpenAPI"],
+  },
+  {
+    name: "ZT-AMTP",
+    year: "2026",
+    internal: true,
+    blurb: "AI-driven test-automation platform.",
+    description:
+      "A multi-agent platform that crawls a web app, generates test cases with LLMs, writes Playwright tests and runs and certifies them, orchestrated with Temporal. I built the GUI — a Fastify + Zod + Drizzle API on PostgreSQL and a React + TanStack Query front end with live run updates (LISTEN/NOTIFY → SSE), per-project RBAC, GitHub / Entra SSO and LLM token accounting — and the production release pipeline. Raised the customer-app pass rate from 41% to 67.7%.",
+    tags: ["TypeScript", "Fastify", "Drizzle", "PostgreSQL", "React", "Temporal", "Playwright"],
   },
   {
     name: "FixPortal",
-    year: "2025",
+    year: "2025—26",
     internal: true,
-    blurb: "FIX-protocol administration portal.",
+    blurb: "FIX-protocol administration portal — in production.",
     description:
-      "Parses, validates and diffs FIX messages against a 150+ tag dictionary with per-market rules; manages customers, markets, billing and sessions. ASP.NET Core + EF Core API with a React front end and JWT auth.",
-    tags: ["ASP.NET Core", "EF Core", "React", "JWT"],
+      "Validates FIX messages against QuickFIX/n dictionaries (standard, engine and uploaded), with per-market rules, saved messages, diffing and a file catalog; manages customers, markets, billing and sessions. ASP.NET Core + EF Core on PostgreSQL with a React front end, JWT token versioning and login rate limiting; 170+ automated tests and push-to-main CI/CD.",
+    tags: ["ASP.NET Core", "EF Core", "PostgreSQL", "React", "QuickFIX/n"],
   },
   {
     name: "ZagKeyGenWeb",
-    year: "2025",
+    year: "2025—26",
     internal: true,
-    blurb: "Cryptographic, hardware-bound licensing.",
+    blurb: "Cryptographic, hardware-bound licensing — in production.",
     description:
-      "Generates and validates software licenses bound to host, database and operator limits, with tamper detection — TripleDES + HMAC-SHA256 integrity and AES-256/PBKDF2 secure-config decryption.",
-    tags: ["ASP.NET Core", "TripleDES", "HMAC", "AES"],
+      "Generates and validates software licenses bound to host, database and operator limits, with tamper detection — TripleDES + HMAC-SHA256 integrity and AES-256/PBKDF2 secure-config decryption. Runs in production on Docker Compose with PostgreSQL, Admin/Operator roles and an audit trail.",
+    tags: ["ASP.NET Core", "PostgreSQL", "Docker", "TripleDES", "HMAC", "AES"],
   },
   {
-    name: "Market-data connectors",
-    year: "2025",
+    name: "Exchange & market-data connectors",
+    year: "2025—26",
     internal: true,
-    blurb: "CMC Markets (FX/FIX), IDC historical & OKX.",
+    blurb: "Crypto.com, AIX, BVB, CoinMENA, CMC Markets, OKX & IDC.",
     description:
-      "A CMC Markets FX reader (FIX SecurityList + level-1 bid/ask) for the market-data framework, an IDC historical-bar importer (WebSocket → SQL Server), and an OKX exchange connector (WebSocket v5, HMAC-signed) for order routing.",
-    tags: ["C#", "FIX", "WebSocket", "SQL Server"],
+      "Crypto.com FIX end to end (HMAC-signed logon, TLS certificate pinning, market data and order entry), AIX FIX 5.0 SP2 reference data, BVB SOAP reference data across 845 instruments, a CoinMENA FIX ↔ REST order bridge with Ed25519 signing, a CMC Markets FX reader, an OKX connector (WebSocket v5) and an IDC historical reader (WebSocket → SQL Server) that replaced a legacy PHP job.",
+    tags: ["C#", "FIX", "WebSocket", "SOAP", "Ed25519", "SQL Server"],
   },
   // ---- NIGHT · personal ----
+  {
+    name: "Sudur",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Quran-memorization app with AI recitation grading.",
+    description:
+      "A Hifz companion with a gesture-based Mushaf reader, AI recitation grading (Whisper), prayer times with adhan and home-screen widgets, in Arabic and English. It grew out of Sabaq, a 3-dev hackathon project where I owned the Django backend; I took it to release — Expo client, Django + PostgreSQL API, RevenueCat, AdMob and push-to-store CI.",
+    tags: ["React Native", "Expo", "Django", "PostgreSQL", "Whisper", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/sudur-1.png", "/apps/sudur-2.png", "/apps/sudur-3.png"],
+    links: [
+      { label: "sudur.app", href: "https://sudur.app" },
+      { label: "Hackathon repo", href: "https://github.com/aboodjq/SabaqHackathon" },
+    ],
+  },
+  {
+    name: "Mabsim",
+    year: "2026",
+    internal: false,
+    status: "Pre-launch",
+    blurb: "Multi-tenant clinic management SaaS.",
+    description:
+      "Clinic software for MENA practices — online booking, patient records, a dental odontogram and orthopedic charts, JoFotara e-invoicing, insurance and lab cases, and WhatsApp reminders. Next.js 16 on Supabase PostgreSQL with per-clinic row-level security and database constraints that block double-bookings and overpayment. Arabic-first.",
+    tags: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "RLS", "WhatsApp API"],
+    device: "browser",
+    media: ["/apps/mabsim-1.png", "/apps/mabsim-2.png"],
+  },
+  {
+    name: "Wared",
+    year: "2026",
+    internal: false,
+    status: "Pre-launch",
+    blurb: "Inventory & warehouse system for distributors.",
+    description:
+      "Inventory and warehouse management for Jordanian distributors — purchasing, sales, put-away, stock counts, FEFO expiry, serials, landed cost and JoFotara e-invoicing. Django 5 + DRF on PostgreSQL with schema-per-tenant isolation, an append-only stock ledger with exact decimal money, and an Arabic-first React PWA with barcode scanning.",
+    tags: ["Django", "DRF", "PostgreSQL", "django-tenants", "React", "TypeScript", "PWA"],
+    device: "browser",
+    media: ["/apps/wared-1.png", "/apps/wared-2.png"],
+  },
+  {
+    name: "Word Oasis",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Arabic letter-wheel crossword game.",
+    description:
+      "واحة الكلمات — an Arabic word game with 827 levels across 18 landmark chapters, generated from a 50,000-word Arabic list by my own Python level builder. Daily challenges, a lucky wheel, hints and a coin economy; AdMob (banner, interstitial, rewarded, app-open) with UMP consent, and RevenueCat in-app purchases. Built in Flutter.",
+    tags: ["Flutter", "Dart", "AdMob", "RevenueCat", "Python"],
+    device: "phone",
+    media: ["/apps/wordoasis-1.png", "/apps/wordoasis-2.png", "/apps/wordoasis-3.png"],
+  },
   {
     name: "Odispear",
     year: "2025",
     internal: false,
     blurb: "Discord-style community platform with real-time voice & video.",
     description:
-      "A full-stack community platform — servers, channels, roles and DMs — with real-time messaging (Socket.IO) and LiveKit voice/video, including RNNoise/Krisp noise filtering. Node/Express + PostgreSQL (AWS RDS) + Redis backend, React + TypeScript front end, Stripe billing and Google OAuth, deployed on AWS EC2 behind nginx.",
-    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Socket.IO", "LiveKit", "AWS"],
+      "A full-stack community platform — servers, channels, roles and DMs — with real-time messaging (Socket.IO) and LiveKit voice/video, including RNNoise/Krisp noise filtering. Node/Express + PostgreSQL + Redis backend, React + TypeScript front end, Stripe billing and Google OAuth.",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Socket.IO", "LiveKit"],
     device: "browser",
     demoUrl: "https://n0tmot.com",
     media: ["/apps/odispear-1.png", "/apps/odispear-2.png"],
@@ -201,24 +269,13 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "MedGuard",
-    year: "2025",
-    internal: false,
-    blurb: "Real-time health-vitals companion (graduation project).",
-    description:
-      "A mobile app that lets a care receiver share live vitals (heart rate, SpO₂, stress) with a carer in real time via Firestore — role-based views, optional BLE heart-rate reading (GATT), an AI health-analysis Cloud Function (Gemini), and a GPS emergency-alert pipeline that pushes critical alerts to the carer over FCM.",
-    tags: ["Flutter", "Firebase", "BLE", "Gemini", "Provider"],
-    device: "phone",
-    media: ["/apps/medguard-1.png", "/apps/medguard-2.png", "/apps/medguard-3.png"],
-    links: [{ label: "GitHub", href: "https://github.com/Mo-Otaqi/Graduation-Project-MedGuard" }],
-  },
-  {
     name: "MOT",
-    year: "2025",
+    year: "2025—26",
     internal: false,
+    status: "Play internal testing",
     blurb: "Gamer social network & LFG matchmaking.",
     description:
-      "A cross-platform app for gamers to find teammates and connect — profiles, look-for-group matchmaking by game/platform/playstyle, real-time 1:1 chat, a gaming-news feed (RAWG + RSS) and content moderation. Flutter + Firebase (Firestore, Auth, Cloud Functions, FCM) with Riverpod state and RevenueCat premium tiers.",
+      "A cross-platform app for gamers to find teammates and connect — profiles, look-for-group matchmaking by game/platform/playstyle, real-time 1:1 chat, a gaming-news feed (RAWG + RSS) and content moderation. Flutter + Firebase (Firestore, Auth, Cloud Functions, FCM) with Riverpod state and RevenueCat subscriptions.",
     tags: ["Flutter", "Firebase", "Riverpod", "RevenueCat"],
     device: "phone",
     media: ["/apps/mot-1.png", "/apps/mot-2.png", "/apps/mot-3.png"],
@@ -248,16 +305,16 @@ export const projects: Project[] = [
     media: ["/apps/sehleh-1.png", "/apps/sehleh-2.png"],
   },
   {
-    name: "Sabaq",
+    name: "MedGuard",
     year: "2025",
     internal: false,
-    blurb: "Quran-memorization app with AI audio grading.",
+    blurb: "Real-time health-vitals companion (graduation project).",
     description:
-      "A Hifz companion with a gesture-based Mushaf reader, verse-by-verse audio and AI recitation grading (Whisper STT + fuzzy matching against riwaya text). Built with a 3-developer team where I owned the Django/DRF backend and the OAuth2 proxy + MCP integration to the Quran Foundation API; React Native / Expo front end.",
-    tags: ["React Native", "Expo", "Django", "DRF", "PostgreSQL", "Whisper"],
+      "A mobile app that lets a care receiver share live vitals (heart rate, SpO₂, stress) with a carer in real time via Firestore — role-based views, optional BLE heart-rate reading (GATT), an AI health-analysis Cloud Function (Gemini), and a GPS emergency-alert pipeline that pushes critical alerts to the carer over FCM.",
+    tags: ["Flutter", "Firebase", "BLE", "Gemini", "Provider"],
     device: "phone",
-    media: ["/apps/sabaq-1.png", "/apps/sabaq-2.png"],
-    links: [{ label: "GitHub", href: "https://github.com/aboodjq/SabaqHackathon" }],
+    media: ["/apps/medguard-1.png", "/apps/medguard-2.png", "/apps/medguard-3.png"],
+    links: [{ label: "GitHub", href: "https://github.com/Mo-Otaqi/Graduation-Project-MedGuard" }],
   },
   {
     name: "Tabayyun",
@@ -283,13 +340,48 @@ export const projects: Project[] = [
   },
 ];
 
-/** Events / highlights — drop images in /public/events/ and list the path here. */
+/** Night projects still in the workshop — no screenshots yet, shown as a text index under Selected work. */
+export type WorkshopItem = { name: string; kind: string; description: string; tags: string[] };
+export const workshop: WorkshopItem[] = [
+  {
+    name: "onecli",
+    kind: "Developer tool",
+    description:
+      "My multi-model AI coding CLI: one streaming REPL over the Claude, Codex, Gemini and Qwen CLIs with mid-chat model switching, a shared project “brain” that syncs context files, a planner → workers → auditor pipeline, and a council mode where several models answer and one judges.",
+    tags: ["Node.js", "Zero dependencies", "LLM orchestration"],
+  },
+  {
+    name: "VitalGuard",
+    kind: "Health wearable · in progress",
+    description:
+      "A ground-up rebuild of MedGuard: a new app and real-time backend replacing Firebase, personal vital-sign baselines, carer alerts and first-aid guidance, alongside the specification for a multi-sensor wristband.",
+    tags: ["Flutter", "TypeScript", "Valkey", "Hardware spec"],
+  },
+  {
+    name: "Rental marketplace",
+    kind: "Two-sided marketplace · in progress",
+    description:
+      "Apartment rentals with long-term leases and nightly stays over one inventory — building stack diagrams, 2D floor plans and 360° tours, and a double-entry ledger with commission at lease origination.",
+    tags: ["NestJS", "Prisma", "PostGIS", "Flutter", "Next.js"],
+  },
+  {
+    name: "QrBooking",
+    kind: "SaaS for cafés · in progress",
+    description:
+      "A QR code per table opens the menu and reveals the Wi-Fi password once the café's ordering rule is met; an on-site router agent rotates passwords nightly. Multi-tenant with PostgreSQL row-level security.",
+    tags: ["Next.js", "PostgreSQL", "RLS", "WebSockets"],
+  },
+];
+
+/** Events / highlights — drop a photo in /public/events/ (e.g. ahli-fintech.jpg,
+ *  tech-3arabi.jpg, gdvc.jpg, acm.jpg) and add `image: "/events/<file>"`. Without an
+ *  image the card shows its designed cover; listing a missing file just 404s. */
 export type EventItem = { title: string; caption: string; image?: string };
 export const events: EventItem[] = [
-  { title: "Ahli Fintech Hackathon", caption: "Top 24 Finalist · 2025", image: "/events/ahli-fintech.jpg" },
-  { title: "Tech 3arabi Hackathon", caption: "7th Place · 2025", image: "/events/tech-3arabi.jpg" },
-  { title: "GDVC", caption: "Best Member Award · 2024", image: "/events/gdvc.jpg" },
-  { title: "ACM @ HTU", caption: "Treasurer & IT Support", image: "/events/acm.jpg" },
+  { title: "Ahli Fintech Hackathon", caption: "Top 24 Finalist · 2025" },
+  { title: "Tech 3arabi Hackathon", caption: "7th Place · 2025" },
+  { title: "GDVC", caption: "Best Member Award · 2024" },
+  { title: "ACM @ HTU", caption: "Treasurer & IT Support" },
 ];
 
 export const certifications: string[] = [

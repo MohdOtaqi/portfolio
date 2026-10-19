@@ -12,7 +12,7 @@ import { BrowserMockup } from "./browser-mockup";
 import { Magnetic } from "./magnetic";
 import { Reveal } from "./reveal";
 import { Bezel, CtaLink } from "./ui/bezel";
-import { projects } from "@/lib/data";
+import { projects, workshop } from "@/lib/data";
 
 const apps = projects.filter((p) => !p.internal);
 const AUTOPLAY_MS = 6800;
@@ -38,6 +38,7 @@ export function SelectedWork() {
   const [focusPaused, setFocusPaused] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const railRef = useRef<HTMLDivElement | null>(null);
 
   const count = apps.length;
   // autoplay runs only when nothing is holding it: no reduced-motion, not hovered,
@@ -65,6 +66,18 @@ export function SelectedWork() {
     const t = setTimeout(() => go((active + 1) % count), AUTOPLAY_MS);
     return () => clearTimeout(t);
   }, [playing, active, count, go]);
+
+  // keep the active tab visible when the rail overflows (autoplay walks past the
+  // visible edge). Scrolls the rail only — scrollIntoView would also move the page.
+  useEffect(() => {
+    const rail = railRef.current;
+    const tab = tabRefs.current[active];
+    if (!rail || !tab) return;
+    const left = tab.offsetLeft; // rail is `relative`, so this is rail-relative
+    if (left < rail.scrollLeft || left + tab.offsetWidth > rail.scrollLeft + rail.clientWidth) {
+      rail.scrollTo({ left: left - 16, behavior: reduced ? "auto" : "smooth" });
+    }
+  }, [active, reduced]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     const k = e.key;
@@ -112,7 +125,7 @@ export function SelectedWork() {
           </Reveal>
         </div>
         <Reveal variant="fade" speed="normal" className="mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
-          {String(count).padStart(2, "0")} projects · shipped
+          {String(count).padStart(2, "0")} projects
         </Reveal>
       </div>
 
@@ -158,10 +171,17 @@ export function SelectedWork() {
                   <span className="text-muted-foreground">
                     {p.device === "browser" ? "Web" : "Mobile"}
                   </span>
-                  {p.demoUrl && (
+                  {p.demoUrl ? (
                     <span className="inline-flex items-center gap-1.5 text-emerald-400/90">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
                     </span>
+                  ) : (
+                    p.status && (
+                      <>
+                        <span className="text-muted-foreground">·</span>
+                        <span className="text-foreground/80">{p.status}</span>
+                      </>
+                    )
                   )}
                 </div>
 
@@ -254,6 +274,7 @@ export function SelectedWork() {
         )}
 
         <div
+          ref={railRef}
           role="tablist"
           aria-label="Selected projects"
           onKeyDown={onKeyDown}
@@ -307,6 +328,41 @@ export function SelectedWork() {
 
       {/* baseline flush under the rail so the brand indicator reads as a moving underline */}
       <div className="h-px w-full bg-border" />
+
+      {/* workshop — projects without screenshots yet, as a quiet text index */}
+      {workshop.length > 0 && (
+        <div className="mt-20">
+          <Reveal variant="fade" speed="normal" className="mono mb-6 text-xs uppercase tracking-[0.22em] text-muted-foreground">
+            Also on the bench
+          </Reveal>
+          <ul className="border-t border-border">
+            {workshop.map((w, i) => (
+              <li key={w.name} className="border-b border-border">
+                <Reveal
+                  variant="up"
+                  speed="fast"
+                  delay={i * 0.05}
+                  className="grid gap-x-8 gap-y-2 py-6 md:grid-cols-[3rem_14rem_1fr]"
+                >
+                  <span className="mono text-[11px] tabular-nums text-brand">
+                    {String(count + i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl font-semibold text-foreground">{w.name}</h3>
+                    <div className="mono mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">
+                      {w.kind}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{w.description}</p>
+                    <div className="mono mt-3 text-[11px] text-muted-foreground/80">{w.tags.join(" · ")}</div>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }
