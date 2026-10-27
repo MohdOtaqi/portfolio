@@ -214,7 +214,7 @@ export const projects: Project[] = [
     slug: "sudur",
     year: "2026",
     internal: false,
-    status: "Play closed testing",
+    status: "Live on Google Play",
     blurb: "Quran-memorization app with AI recitation grading.",
     description:
       "A Hifz companion with a gesture-based Mushaf reader, AI recitation grading (Whisper), prayer times with adhan and home-screen widgets, in Arabic and English. It grew out of Sabaq, a 3-dev hackathon project where I owned the Django backend; I took it to release — Expo client, Django + PostgreSQL API, RevenueCat, AdMob and push-to-store CI.",
@@ -228,7 +228,7 @@ export const projects: Project[] = [
     highlights: [
       "Started as Sabaq with a 3-developer hackathon team; I owned the Django/DRF backend, the OAuth2 proxy and the MCP integration to the Quran Foundation API.",
       "Built AI recitation grading — Whisper speech-to-text fuzzy-matched against the riwaya-correct text, with diff feedback.",
-      "Led the release as Sudur: Google Play closed testing and App Store submission, in Arabic and English, with its website at sudur.app.",
+      "Led the release as Sudur: live on Google Play and submitted to the App Store, in Arabic and English, with its website at sudur.app.",
       "Gesture-based Mushaf reader, verse-by-verse audio, prayer times with adhan, revision scheduling and Android home-screen widgets.",
       "Release pipeline: push to main, 229 Jest tests, a signed build and a Play testing track with release notes; RevenueCat subscription and AdMob with UMP consent."
     ],
