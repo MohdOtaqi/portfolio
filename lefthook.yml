@@ -1,0 +1,21 @@
+# Git hooks via lefthook (https://lefthook.dev) - one-time per clone: `lefthook install`
+#   pre-commit : gitleaks blocks a commit that stages a secret
+#                (false positive -> add its fingerprint to .gitleaksignore)
+#   audit      : on demand, run before merging to main: `lefthook run audit`
+#                osv-scanner = known-vulnerable dependencies (all lockfiles)
+#                knip        = unused files / exports / dependencies (JS/TS)
+#                jscpd       = copy-pasted code blocks (JS/TS)
+# Needs on PATH: gitleaks, osv-scanner (winget install Gitleaks.Gitleaks Google.OSVScanner)
+pre-commit:
+  commands:
+    gitleaks:
+      run: gitleaks git --staged --no-banner --redact -v
+
+audit:
+  commands:
+    osv-scanner:
+      run: osv-scanner scan source -r .
+    knip:
+      run: npx --yes knip@6 --no-progress --reporter compact
+    jscpd:
+      run: npx --yes jscpd@5 src --ignore "**/node_modules/**,**/.next/**,**/dist/**,**/build/**,**/out/**,**/coverage/**,**/public/**,**/*.min.js,**/.expo/**,**/android/**,**/ios/**,**/docs/**,**/marketing/**" --format "javascript,typescript,jsx,tsx" --min-tokens 60 --reporters console --silent
