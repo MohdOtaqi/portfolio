@@ -63,6 +63,8 @@ export type Experience = {
   period: string;
   summary: string;
   highlights: string[];
+  /** Indexes of the highlights shown before "Show more"; the rest stay behind it. */
+  lead?: number[];
   tags: string[];
 };
 
@@ -87,6 +89,7 @@ export const experience: Experience[] = [
       "Shipped ZagKeyGenWeb hardware-bound licensing (TripleDES, HMAC-SHA256, AES-256/PBKDF2) to production on Docker Compose with PostgreSQL, role-based access and an audit trail.",
       "Migrated five Swift/FIX repositories from SVN to Gitea; analyzed ZagTraderConnector integrations and database architecture to inform middleware planning; packaged apps via Inno Setup.",
     ],
+    lead: [0, 3, 5, 6, 7],
     tags: ["C#", ".NET 10", "ASP.NET Core", "React", "TypeScript", "SignalR", "SWIFT", "FIX", "SQL Server", "PostgreSQL", "Docker", "Playwright"],
   },
   {

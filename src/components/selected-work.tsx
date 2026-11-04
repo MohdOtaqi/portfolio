@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
-  useReducedMotion,
   type Variants,
 } from "framer-motion";
 import { PhoneMockup } from "./phone-mockup";
@@ -17,14 +16,13 @@ import { getContent, type Project } from "@/lib/content";
 import { href, ui, type Locale } from "@/lib/i18n";
 import { kindLabel } from "@/lib/kind";
 
-const AUTOPLAY_MS = 6800;
 const EXPO = [0.16, 1, 0.3, 1] as const;
 
 // direction-aware: +1 forward, -1 back — content slides toward the new tab
 const contentV: Variants = {
-  enter: (d: number) => ({ opacity: 0, x: d > 0 ? 36 : -36, filter: "blur(10px)" }),
-  center: { opacity: 1, x: 0, filter: "blur(0px)" },
-  exit: (d: number) => ({ opacity: 0, x: d > 0 ? -28 : 28, filter: "blur(10px)" }),
+  enter: (d: number) => ({ opacity: 0, x: d > 0 ? 36 : -36 }),
+  center: { opacity: 1, x: 0 },
+  exit: (d: number) => ({ opacity: 0, x: d > 0 ? -28 : 28 }),
 };
 
 const mockupV: Variants = {
@@ -65,64 +63,16 @@ export function SelectedWork({ locale }: { locale: Locale }) {
   const t = labels(locale);
   const rtl = locale === "ar";
 
-  const reduced = useReducedMotion();
   const [[active, dir], setActive] = useState<[number, number]>([0, 0]);
-  const [hoverPaused, setHoverPaused] = useState(false);
-  const [focusPaused, setFocusPaused] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
-  // the tabbed showcase is desktop-only; phones get a plain list, so don't autoplay a hidden panel
-  const [wide, setWide] = useState(false);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const railRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const on = () => setWide(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
 
   const count = apps.length;
-  // autoplay runs only when nothing is holding it: no reduced-motion, not hovered,
-  // not focused-within (so a keyboard reader is never swapped out), not user-paused.
-  const playing = wide && !reduced && !hoverPaused && !focusPaused && !userPaused;
   const p = apps[active];
 
-  const go = useCallback((next: number) => {
+  const select = useCallback((next: number) => {
     setActive(([cur]) => [next, next > cur ? 1 : -1]);
+    tabRefs.current[next]?.focus();
   }, []);
-
-  // explicit user selection — claims control (stops autoplay) + moves keyboard focus
-  const select = useCallback(
-    (next: number) => {
-      setUserPaused(true);
-      go(next);
-      tabRefs.current[next]?.focus();
-    },
-    [go]
-  );
-
-  // autoplay: re-armed on every active change via deps, paused/stopped cleanly
-  useEffect(() => {
-    if (!playing) return;
-    const timer = setTimeout(() => go((active + 1) % count), AUTOPLAY_MS);
-    return () => clearTimeout(timer);
-  }, [playing, active, count, go]);
-
-  // keep the active tab visible when the rail overflows (autoplay walks past the
-  // visible edge). Relative scrollBy works in both LTR and RTL; scrollIntoView
-  // would also move the page.
-  useEffect(() => {
-    const rail = railRef.current;
-    const tab = tabRefs.current[active];
-    if (!rail || !tab) return;
-    const r = rail.getBoundingClientRect();
-    const a = tab.getBoundingClientRect();
-    const behavior = reduced ? "auto" : "smooth";
-    if (a.left < r.left) rail.scrollBy({ left: a.left - r.left - 16, behavior });
-    else if (a.right > r.right) rail.scrollBy({ left: a.right - r.right + 16, behavior });
-  }, [active, reduced]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     const k = e.key;
@@ -143,7 +93,6 @@ export function SelectedWork({ locale }: { locale: Locale }) {
     }
   };
 
-  const ord = String(active + 1).padStart(2, "0");
   const focusRing =
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
@@ -151,12 +100,6 @@ export function SelectedWork({ locale }: { locale: Locale }) {
     <section
       id="work"
       className="relative mx-auto max-w-[1400px] px-5 py-24 sm:px-10 sm:py-36"
-      onMouseEnter={() => setHoverPaused(true)}
-      onMouseLeave={() => setHoverPaused(false)}
-      onFocusCapture={() => setFocusPaused(true)}
-      onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocusPaused(false);
-      }}
     >
       {/* header */}
       <div className="mb-10 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
@@ -178,7 +121,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
 
       {/* PHONES — a plain list: tap a project to open its page */}
       <ol className="border-t border-border md:hidden">
-        {apps.map((a, i) => (
+        {apps.map((a) => (
           <li key={a.name} className="border-b border-border">
             <a
               href={a.slug ? href(locale, `/work/${a.slug}`) : a.demoUrl}
@@ -186,7 +129,6 @@ export function SelectedWork({ locale }: { locale: Locale }) {
             >
               <div className="min-w-0">
                 <div className="mono flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] uppercase tracking-[0.18em]">
-                  <span className="text-brand">{String(i + 1).padStart(2, "0")}</span>
                   <span className="text-muted-foreground">{kindLabel(a, t)}</span>
                   {a.demoUrl && (
                     <span className="inline-flex items-center gap-1.5 text-emerald-400/90">
@@ -216,22 +158,6 @@ export function SelectedWork({ locale }: { locale: Locale }) {
             aria-labelledby={`sw-tab-${active}`}
             className="relative grid items-center gap-8 p-7 sm:p-10 md:grid-cols-2 md:gap-10"
           >
-            {/* ghosted ordinal — decorative depth, only where the column is wide enough */}
-            <div aria-hidden className="pointer-events-none absolute end-2 top-1/2 hidden -translate-y-1/2 select-none lg:block">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={ord}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 0.07, y: 0 }}
-                  exit={{ opacity: 0, y: -18 }}
-                  transition={{ duration: 0.5, ease: EXPO }}
-                  className="block font-display text-[16rem] font-bold leading-none text-foreground"
-                >
-                  {ord}
-                </motion.span>
-              </AnimatePresence>
-            </div>
-
             {/* copy */}
             <div className="relative z-10 min-h-[280px] sm:min-h-[260px]">
               <AnimatePresence mode="wait" custom={dir}>
@@ -334,85 +260,48 @@ export function SelectedWork({ locale }: { locale: Locale }) {
           </div>
         </Bezel>
 
-        {/* control row: pause/play toggle (keyboard + touch reachable) + numbered tab rail */}
-        <div className="mt-6 flex items-center gap-3">
-          {!reduced && (
-            <button
-              type="button"
-              onClick={() => setUserPaused((v) => !v)}
-              aria-label={playing ? t.pause : t.resume}
-              aria-pressed={!playing}
-              data-cursor="hover"
-              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground ${focusRing}`}
-            >
-              {playing ? (
-                <svg width="11" height="12" viewBox="0 0 11 12" aria-hidden className="fill-current">
-                  <rect x="0" y="0" width="3.4" height="12" rx="1" />
-                  <rect x="7.6" y="0" width="3.4" height="12" rx="1" />
-                </svg>
-              ) : (
-                <svg width="11" height="12" viewBox="0 0 11 12" aria-hidden className="rtl-flip fill-current">
-                  <path d="M1 0.7L10.5 6L1 11.3V0.7Z" />
-                </svg>
-              )}
-            </button>
-          )}
-
-          <div
-            ref={railRef}
-            role="tablist"
-            aria-label={t.tablist}
-            onKeyDown={onKeyDown}
-            className="no-scrollbar relative flex flex-1 gap-1 overflow-x-auto"
-          >
-            {apps.map((a, i) => {
-              const on = i === active;
-              return (
-                <button
-                  key={a.name}
-                  ref={(el) => {
-                    tabRefs.current[i] = el;
-                  }}
-                  id={`sw-tab-${i}`}
-                  role="tab"
-                  aria-selected={on}
-                  aria-controls="sw-panel"
-                  tabIndex={on ? 0 : -1}
-                  data-cursor="hover"
-                  onClick={() => select(i)}
-                  className={`group relative flex shrink-0 items-baseline gap-2 rounded-md px-3.5 pb-3 pt-2 text-start ${focusRing}`}
+        {/* every project visible at once; pick one to fill the panel above */}
+        <div
+          role="tablist"
+          aria-label={t.tablist}
+          onKeyDown={onKeyDown}
+          className="mt-6 flex flex-wrap gap-x-1 gap-y-1 border-b border-border pb-px"
+        >
+          {apps.map((a, i) => {
+            const on = i === active;
+            return (
+              <button
+                key={a.name}
+                ref={(el) => {
+                  tabRefs.current[i] = el;
+                }}
+                id={`sw-tab-${i}`}
+                role="tab"
+                aria-selected={on}
+                aria-controls="sw-panel"
+                tabIndex={on ? 0 : -1}
+                data-cursor="hover"
+                onClick={() => select(i)}
+                className={`group relative rounded-md px-3.5 pb-3 pt-2 text-start ${focusRing}`}
+              >
+                <span
+                  className={`whitespace-nowrap text-sm font-medium tracking-tight transition-colors ${
+                    on ? "text-foreground" : "text-muted-foreground group-hover:text-foreground/80"
+                  }`}
                 >
-                  <span
-                    className={`mono text-[11px] tabular-nums transition-colors ${
-                      on ? "text-brand" : "text-muted-foreground"
-                    }`}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className={`whitespace-nowrap text-sm font-medium tracking-tight transition-colors ${
-                      on ? "text-foreground" : "text-muted-foreground group-hover:text-foreground/80"
-                    }`}
-                  >
-                    {a.name}
-                  </span>
-
-                  {/* sliding active indicator — rides the baseline below */}
-                  {on && (
-                    <motion.span
-                      layoutId="sw-active-rail"
-                      className="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-brand"
-                      transition={{ type: "spring", stiffness: 420, damping: 38 }}
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </div>
+                  {a.name}
+                </span>
+                {on && (
+                  <motion.span
+                    layoutId="sw-active-rail"
+                    className="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-brand"
+                    transition={{ type: "spring", stiffness: 420, damping: 38 }}
+                  />
+                )}
+              </button>
+            );
+          })}
         </div>
-
-        {/* baseline flush under the rail so the brand indicator reads as a moving underline */}
-        <div className="h-px w-full bg-border" />
       </div>
 
       {/* workshop — projects without screenshots yet, as a quiet text index */}
@@ -428,11 +317,8 @@ export function SelectedWork({ locale }: { locale: Locale }) {
                   variant="up"
                   speed="fast"
                   delay={i * 0.05}
-                  className="grid gap-x-8 gap-y-2 py-6 md:grid-cols-[3rem_14rem_1fr]"
+                  className="grid gap-x-8 gap-y-2 py-6 md:grid-cols-[14rem_1fr]"
                 >
-                  <span className="mono text-[11px] tabular-nums text-brand">
-                    {String(count + i + 1).padStart(2, "0")}
-                  </span>
                   <div>
                     <h3 className="font-display text-xl font-semibold text-foreground">{w.name}</h3>
                     <div className="mono mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">

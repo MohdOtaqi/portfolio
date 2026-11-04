@@ -1,7 +1,5 @@
 import { Fragment } from "react";
 import { Reveal, MaskLines, Stagger, StaggerItem } from "./reveal";
-import { NumberTicker } from "@/components/ui/number-ticker";
-import { BorderBeam } from "@/components/ui/border-beam";
 import { Bezel } from "@/components/ui/bezel";
 import { getContent } from "@/lib/content";
 import { ui, type Locale } from "@/lib/i18n";
@@ -9,7 +7,7 @@ import { ui, type Locale } from "@/lib/i18n";
 const spring = "duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]";
 
 export function About({ locale }: { locale: Locale }) {
-  const { profile, certifications, projects } = getContent(locale);
+  const { profile, certifications } = getContent(locale);
   const t = ui[locale].about;
   return (
     <section id="about" className="relative mx-auto max-w-[1400px] px-5 py-28 sm:px-10 sm:py-36">
@@ -27,7 +25,6 @@ export function About({ locale }: { locale: Locale }) {
                   <span className="font-serif-it text-brand">{t.accent}</span>
                   {t.line2}
                 </Fragment>,
-                <Fragment key="3">{t.line3}</Fragment>,
               ]}
             />
           </h2>
@@ -38,53 +35,22 @@ export function About({ locale }: { locale: Locale }) {
             </p>
           </Reveal>
 
-          {/* Asymmetric bento: one large feature stat + three smaller ones, each a machined plate */}
+          {/* Three checkable facts from the day job, on the same hairlines as the systems index */}
           <Stagger
             amount={0.09}
             delay={0.2}
-            className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:grid-rows-2"
+            className="mt-14 grid border-t border-border sm:grid-cols-[1.5fr_1fr_1fr]"
           >
-            <StaggerItem
-              variant="up"
-              speed="normal"
-              className="group col-span-2 sm:col-span-1 sm:row-span-2"
-            >
-              <Bezel
-                className={`h-full transition-transform ${spring} group-hover:-translate-y-1`}
-                innerClassName="flex h-full flex-col justify-between p-6 sm:p-7"
-              >
-                <div className="mono text-[11px] uppercase tracking-[0.25em] text-brand">
-                  {t.settlement}
-                </div>
-                <div className="mt-10">
-                  <div className="font-display text-5xl font-semibold leading-none text-foreground sm:text-6xl">
-                    <span className="text-brand">MT54x</span>
-                  </div>
-                  <div className="mono mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {t.settlementNote}
-                  </div>
-                </div>
-              </Bezel>
-            </StaggerItem>
-
             {[
-              { n: projects.filter((p) => p.internal).length, s: "", l: t.platforms },
-              { n: 7, s: "", l: t.integrations },
-              { n: 3, s: "", l: t.years },
-            ].map((x, i) => (
-              <StaggerItem key={i} variant="up" speed="fast" className="group">
-                <Bezel
-                  className={`h-full transition-transform ${spring} group-hover:-translate-y-1`}
-                  innerClassName="flex h-full flex-col justify-center p-5"
-                >
-                  <div className="font-display text-3xl font-semibold text-foreground sm:text-4xl">
-                    <NumberTicker value={x.n} className="text-foreground" />
-                    <span className="text-brand">{x.s}</span>
-                  </div>
-                  <div className="mono mt-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {x.l}
-                  </div>
-                </Bezel>
+              { v: "MT540–548", l: t.settlementNote },
+              { v: "55", l: t.apiOps },
+              { v: "170+", l: t.fixTests },
+            ].map((x) => (
+              <StaggerItem key={x.v} variant="up" speed="fast" className="border-b border-border py-6 sm:pe-6">
+                <div dir="ltr" className="font-display text-4xl font-semibold tabular-nums text-foreground rtl:text-end sm:text-5xl">
+                  {x.v}
+                </div>
+                <div className="mt-2 max-w-[24ch] text-sm text-muted-foreground">{x.l}</div>
               </StaggerItem>
             ))}
           </Stagger>
@@ -95,11 +61,10 @@ export function About({ locale }: { locale: Locale }) {
             className={`h-full transition-transform ${spring} group-hover:-translate-y-1`}
             innerClassName="relative flex h-full flex-col p-7"
           >
-            <BorderBeam size={140} duration={10} colorFrom="#5ef0ff" colorTo="#7c83ff" />
             <div className="mono mb-5 text-xs uppercase tracking-[0.25em] text-brand">
               {t.recognition}
             </div>
-            <ul className="space-y-4">
+            <ul className="mb-8 space-y-4">
               {certifications.map((c) => (
                 <li key={c} className="flex gap-3 text-sm text-muted-foreground">
                   <span className="mono text-brand">+</span>
@@ -107,7 +72,7 @@ export function About({ locale }: { locale: Locale }) {
                 </li>
               ))}
             </ul>
-            <div className="mono mt-8 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
+            <div className="mono mt-auto border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
               {t.degree}
               <br />
               {t.school}

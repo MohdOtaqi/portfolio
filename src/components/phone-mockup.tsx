@@ -28,7 +28,7 @@ export function PhoneMockup({
       <div className="relative aspect-[9/19] rounded-[2.4rem] border border-white/15 bg-[#0c0e1c] p-2 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)]">
         <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-black" aria-hidden />
         <div className="relative h-full w-full overflow-hidden rounded-[1.9rem]">
-          <AnimatePresence mode="wait">
+          <AnimatePresence initial={false}>
             <motion.div
               key={i}
               initial={{ opacity: 0 }}

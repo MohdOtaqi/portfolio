@@ -44,12 +44,9 @@ export function Network({ locale }: { locale: Locale }) {
     <section className="relative mx-auto max-w-[1400px] px-5 py-28 sm:px-10 sm:py-36">
       <div className="grid items-center gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <Reveal className="eyebrow mb-6 flex items-center gap-3">
-            <span className="h-px w-10 bg-brand" /> {t.eyebrow}
-          </Reveal>
           <Reveal delay={0.05}>
             <h2 className="text-h1 text-foreground">
-              {t.title} <span className="font-serif-it text-brand">{t.accent}</span>.
+              {t.title} {t.accent}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>

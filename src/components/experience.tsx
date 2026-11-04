@@ -1,4 +1,5 @@
 import { Reveal } from "./reveal";
+import { ExpandList } from "./expand-list";
 import { getContent } from "@/lib/content";
 import { ui, type Locale } from "@/lib/i18n";
 
@@ -7,8 +8,24 @@ import { ui, type Locale } from "@/lib/i18n";
  *  Index-based with a modulo fallback so adding roles to data.ts never breaks. */
 const ACCENTS = ["var(--brand)", "var(--brand-2, var(--brand))", "var(--brand)"];
 
+function Highlights({ items, accent, className = "mt-5" }: { items: string[]; accent: string; className?: string }) {
+  return (
+    <ul className={`${className} space-y-3`}>
+      {items.map((h) => (
+        <li key={h} className="flex max-w-3xl gap-4 text-sm leading-relaxed text-muted-foreground">
+          <span aria-hidden className="mono mt-[2px] shrink-0" style={{ color: accent }}>
+            —
+          </span>
+          <span>{h}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function ExperienceSection({ locale }: { locale: Locale }) {
   const { experience } = getContent(locale);
+  const t = ui[locale].experience;
   return (
     <section className="relative mx-auto max-w-[1400px] px-5 py-24 sm:px-10 sm:py-36">
       <Reveal
@@ -16,7 +33,7 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
         speed="normal"
         className="eyebrow mb-14 flex items-center gap-3"
       >
-        <span className="h-px w-10 bg-brand" /> {ui[locale].experience.eyebrow}
+        <span className="h-px w-10 bg-brand" /> {t.eyebrow}
       </Reveal>
 
       <ol className="relative">
@@ -28,6 +45,8 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
 
         {experience.map((job, i) => {
           const accent = ACCENTS[i % ACCENTS.length];
+          const lead = job.lead ? job.lead.map((n) => job.highlights[n]) : job.highlights;
+          const rest = job.lead ? job.highlights.filter((_, n) => !job.lead?.includes(n)) : [];
           return (
             <li key={job.company} className="relative">
               <Reveal
@@ -70,34 +89,16 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
                     {job.summary}
                   </p>
 
-                  <ul className="mt-5 space-y-3">
-                    {job.highlights.map((h) => (
-                      <li
-                        key={h}
-                        className="flex max-w-3xl gap-4 text-sm leading-relaxed text-muted-foreground"
-                      >
-                        <span
-                          aria-hidden
-                          className="mono mt-[2px] shrink-0"
-                          style={{ color: accent }}
-                        >
-                          —
-                        </span>
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <Highlights items={lead} accent={accent} />
+                  {rest.length > 0 && (
+                    <ExpandList label={t.more(rest.length)}>
+                      <Highlights items={rest} accent={accent} className="mt-2" />
+                    </ExpandList>
+                  )}
 
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {job.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="mono rounded-full border border-border px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-brand/50 hover:text-foreground"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="mono mt-6 max-w-3xl text-[11px] leading-relaxed text-muted-foreground/80">
+                    {job.tags.join(" · ")}
+                  </p>
                 </div>
               </Reveal>
             </li>

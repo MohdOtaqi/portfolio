@@ -111,7 +111,12 @@ export function ScrollSky({ rtl = false }: { rtl?: boolean }) {
   // MOON: holds back until the sky is genuinely dark (otherwise its phase
   // shadow reads as an ugly black disc on the bright sunset), then rises high.
   const moonY = useTransform(p, [deepDusk, b], narrow ? ["78vh", "8vh"] : ["78vh", "15vh"]);
-  const moonX = useTransform(p, [deepDusk, 1], narrow ? [edge("84vw"), edge("86vw")] : ["26vw", "20vw"]);
+  // the moon crosses the night as you scroll, the way the sun crosses the day
+  const moonX = useTransform(
+    p,
+    [deepDusk, b, 1],
+    narrow ? [edge("84vw"), edge("85vw"), edge("86vw")] : ["26vw", "26vw", rtl ? "50vw" : "74vw"],
+  );
   const moonOpacity = useTransform(p, [deepDusk, deepDusk + (b - deepDusk) * 0.4, b], [0, 0.85, 1]);
 
   // stars fade in through the violet hour; parallax by depth layer

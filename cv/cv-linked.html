@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mohammad Otaqi — CV</title>
+<!-- MASTER CV (full, 4 pages) → public/Mohammad-Otaqi-CV.pdf. Build all CVs: node cv/build.mjs -->
+<link rel="stylesheet" href="fonts.css">
+<style>
+  @page { size: A4; margin: 13mm 14mm 12mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; font-family: Inter, Arial, sans-serif; font-size: 8.9pt; line-height: 1.34; color: #111; }
+  a { color: inherit; }
+
+  header { display: grid; grid-template-columns: 1fr auto; gap: 8mm; align-items: start; padding-bottom: 3mm; border-bottom: 1.6pt solid #111; }
+  h1 { margin: 0; font-size: 25pt; font-weight: 800; letter-spacing: 0.01em; line-height: 1.05; text-transform: uppercase; }
+  .title { margin-top: 2.5mm; font-size: 13pt; font-weight: 700; text-transform: uppercase; }
+  .site { margin-top: 2mm; font-size: 8.6pt; font-weight: 600; }
+  .contact { font-size: 9.2pt; }
+  .contact .h { font-size: 10pt; font-weight: 800; letter-spacing: 0.22em; margin-bottom: 1.5mm; }
+  .contact div.row { display: flex; align-items: center; gap: 2.4mm; margin: 1.3mm 0; font-weight: 700; }
+  .contact a { text-decoration: none; }
+  .contact a.u { text-decoration: underline; text-underline-offset: 1.5pt; }
+  .contact .ic { width: 13pt; height: 13pt; flex: none; object-fit: contain; }
+  .contact .ic-linkedin { border-radius: 1.5pt; }
+  .site { display: flex; align-items: center; gap: 2.2mm; }
+  .site a { text-decoration: underline; text-underline-offset: 1.5pt; }
+  .folder { width: 27pt; height: auto; flex: none; }
+
+  h2 { margin: 4.2mm 0 1.6mm; padding-bottom: 0.7mm; border-bottom: 0.8pt solid #111; font-size: 10.6pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; break-after: avoid; }
+  .role { display: flex; justify-content: space-between; gap: 6mm; margin-top: 2mm; font-weight: 700; font-size: 9.4pt; break-after: avoid; }
+  .role .when { white-space: nowrap; }
+  .sub { font-weight: 500; }
+  ul { margin: 0.6mm 0 0; padding-left: 4.2mm; }
+  li { margin: 0.35mm 0; }
+  li::marker { font-size: 0.8em; }
+  p { margin: 0.8mm 0; }
+
+  .skills { display: grid; grid-template-columns: 1.55fr 1fr 0.8fr; gap: 6mm; }
+  .skills h3, .proj h3 { margin: 0 0 0.6mm; font-size: 8.9pt; font-weight: 700; }
+  .skills b { font-weight: 600; }
+
+  .projects { columns: 2; column-gap: 6mm; }
+  .proj { break-inside: avoid; margin-bottom: 3.2mm; }
+  .proj h3 { font-weight: 700; line-height: 1.3; }
+  .proj h3 span { font-weight: 500; }
+  .proj ul { padding-left: 4mm; }
+  .page-break { break-before: page; }
+  .group { margin: 1.4mm 0 0; font-size: 7.6pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #555; break-after: avoid; }
+  .pair { display: grid; grid-template-columns: 1.4fr 1fr; gap: 6mm; }
+  .pair h2 { margin-top: 3.4mm; }
+</style>
+<style>a.pl{color:#1a4fa0;text-decoration:underline;text-underline-offset:1.5pt}.kl{margin:.8mm 0;line-height:1.38}.note2{color:#444}</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Mohammad Otaqi</h1>
+    <div class="title">Software Engineer</div>
+    <div class="site"><img class="folder" src="icons/portfolio.svg" alt="Portfolio"><a href="https://mohammadotaqi.com/">https://mohammadotaqi.com/</a></div>
+  </div>
+  <div class="contact">
+    <div class="h">CONTACT</div>
+    <div class="row"><img class="ic ic-phone" src="icons/phone.svg" alt="">+962799653459</div>
+    <div class="row"><img class="ic ic-mail" src="icons/mail.svg" alt=""><a href="mailto:otaqi.mohammad11@gmail.com">otaqi.mohammad11@gmail.com</a></div>
+    <div class="row"><img class="ic ic-pin" src="icons/pin.svg" alt="">Amman, Jordan</div>
+    <div class="row"><img class="ic ic-linkedin" src="icons/linkedin.png" alt=""><a class="u" href="https://jo.linkedin.com/in/mohammad-otaqi-ba5a17257">Mohammad Otaqi</a></div>
+    <div class="row"><img class="ic ic-github" src="icons/github.svg" alt=""><a class="u" href="https://github.com/MohdOtaqi">MohdOtaqi</a></div>
+  </div>
+</header>
+
+<h2>Summary</h2>
+<p>Software Engineer at ZagTrader building capital-markets infrastructure: SWIFT (ISO 15022) securities settlement and its public REST API, FIX connectivity, exchange and market-data connectors, cryptographic licensing, and an AI-driven test-automation platform. Works across C#/.NET 10, ASP.NET Core, TypeScript (React, Node/Fastify), SQL Server and PostgreSQL, with Docker-based CI/CD to production. Also builds and ships his own mobile apps and multi-tenant SaaS products end to end with Flutter, React Native, Next.js and Django. Google-certified in IT Support and Project Management.</p>
+
+<h2>Education</h2>
+<div class="role"><span>Al Hussein Technical University (HTU)</span><span class="when">Oct 2021 – July 2025</span></div>
+<ul>
+  <li>Bachelor in Computer Science</li>
+  <li>GPA: Excellent</li>
+</ul>
+<div class="role"><span>Jubilee Institute</span></div>
+<ul>
+  <li>Organized Sports Day event as part of school leadership activities.</li>
+  <li>Participated in Line Robotics Competition (5th place).</li>
+  <li>Engaged in extracurricular activities including Model United Nations (MUN) and volunteering programs.</li>
+</ul>
+
+<h2>Professional Experience</h2>
+<div class="role"><span>Software Engineer — ZagTrader</span><span class="when">September 2025 – Present</span></div>
+<div class="group">SWIFT settlement platform</div>
+<ul>
+  <li>Built the Swift Suite (Engine, Bridge, Monitor) in C#/.NET 10: end-to-end ISO 15022 securities settlement (MT540–548, MT564, MT598/599) with maker-checker approval, an async build-and-validate pipeline (Prowide/IKVM) and gateways to Fineksus, Tadawul/Edaa and SFTP; rebuilt the Tadawul/Edaa templates from the spec and fixed live network NAKs.</li>
+  <li>Designed its public REST API (55 OpenAPI operations) with scoped, rotatable API keys, idempotent submission and signed webhooks — 59/59 endpoints verified live; added Azure Key Vault / HashiCorp Vault secrets, RBAC and offline TOTP 2FA.</li>
+</ul>
+<div class="group">AI test automation</div>
+<ul>
+  <li>Built the GUI and production release pipeline for ZT-AMTP, a multi-agent LLM platform that crawls web apps and generates, runs and certifies Playwright tests (Temporal, Fastify, Drizzle/PostgreSQL, React); raised the customer-app pass rate from 41% to 67.7%.</li>
+</ul>
+<div class="group">Trading connectivity</div>
+<ul>
+  <li>Delivered FixPortal to production: QuickFIX/n dictionary validation, per-market rules and message diffing (ASP.NET Core, EF Core, PostgreSQL, React), with 170+ automated tests and CI/CD.</li>
+  <li>Integrated exchanges and data feeds: Crypto.com FIX (HMAC logon, TLS pinning, market data and order entry), AIX, BVB (845 instruments), CoinMENA (Ed25519 signing), CMC Markets FX, OKX and IDC, whose historical reader replaced a legacy PHP job.</li>
+</ul>
+<div class="group">Internal tools &amp; DevOps</div>
+<ul>
+  <li>Shipped ZagKeyGenWeb licensing (AES/HMAC/TripleDES) to production on Docker Compose; built the WatchList real-time dashboard (React + SignalR); migrated five repositories from SVN to Gitea; analyzed ZagTraderConnector integrations; packaged apps via Inno Setup.</li>
+</ul>
+
+<div class="role"><span>Flutter &amp; Mobile Application Developer — Lightning Gate (JPECO)</span><span class="when">July 2024 – March 2025</span></div>
+<ul>
+  <li>Developed and maintained mobile applications using Flutter &amp; Firebase, ensuring stability and scalability.</li>
+  <li>Partnered with developers and designers to implement features and fix bugs, improving user experience and app reliability.</li>
+</ul>
+
+<div class="role"><span>Technical Support System Controller — HTU Student Activities</span><span class="when">November 2021 – July 2024</span></div>
+<ul>
+  <li>Managed IT systems and coordinated technical support for student events and activities.</li>
+  <li>Led technical operations for large-scale events, including MACH1 with AreoSquad at King's Academy.</li>
+</ul>
+
+<div class="role"><span>Esports Staff — Jordan Esports Federation (JEF/JEG)</span><span class="when">July 2023 – May 2025</span></div>
+<ul>
+  <li>Provided IT support and served as a referee during official esports tournaments.</li>
+  <li>Ensured smooth execution of competitive events by managing technical infrastructure.</li>
+</ul>
+
+<div class="role"><span>Technical Support and Web Development — HTU Online Learning Center</span><span class="when">June 2023 – Oct 2023</span></div>
+<ul>
+  <li>Contributed to the HTUx platform, drafting user manuals and technical documentation to streamline onboarding.</li>
+  <li>Delivered IT support to staff, reducing issue resolution time and improving workflow continuity.</li>
+</ul>
+
+<h2>Skills</h2>
+<div class="skills">
+  <div>
+    <h3>Technical Skills:</h3>
+    <ul>
+      <li><b>Programming:</b> C, C#, .NET, ASP.NET Core, React, TypeScript, Node.js, Flutter, React Native, Firebase, Python, Java, JavaScript, Dart, HTML/CSS, SQL.</li>
+      <li><b>Backend &amp; APIs:</b> ASP.NET Core, EF Core, Fastify, Zod, Drizzle ORM, NestJS, Prisma, Django/DRF, REST/OpenAPI, Webhooks, SignalR.</li>
+      <li><b>Software Engineering:</b> Algorithms, Data Structures, OOP, Multi-tenant SaaS, Operating Systems.</li>
+      <li><b>Data &amp; Analytics:</b> SQL Server, PostgreSQL, Supabase, Valkey/Redis, Power BI, Tableau, NumPy, pandas, Excel.</li>
+      <li><b>Tools &amp; Platforms:</b> Git/GitHub, Gitea, SVN, Docker Compose, CI/CD (GitHub/Gitea Actions, EAS), Linux servers, IIS, Visual Studio, VS Code, Inno Setup, Android Studio, Figma, Justinmind, Adalo.</li>
+      <li><b>Security &amp; Protocols:</b> SWIFT (ISO 15022/MT), FIX 4.4/5.0 SP2 (QuickFIX/n), SoupBinTCP, ITCH, SOAP, Cryptography (AES/HMAC/Ed25519), TLS pinning, JWT, OAuth/Entra SSO, TOTP 2FA, RBAC, Azure Key Vault, HashiCorp Vault, IKVM.</li>
+      <li><b>Testing &amp; Automation:</b> Playwright, Vitest, Jest, xUnit, Temporal, LLM test agents.</li>
+      <li><b>IT Support:</b> Troubleshooting, Networking basics, Documentation, System Maintenance.</li>
+      <li><b>AI &amp; Local LLMs:</b> Ollama, LM Studio, llama.cpp/GGUF (K-quants, layer offload), CUDA, GPU/VRAM sizing, PC builds, Hugging Face (Llama/Qwen/Mistral).</li>
+      <li><b>AI Engineering:</b> prompt &amp; context engineering, structured/JSON output, tool/function calling, agent harnesses, MCP (Model Context Protocol), Claude Code/Cursor.</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Professional &amp; Soft Skills</h3>
+    <ul>
+      <li>Problem Solving &amp; Critical Thinking</li>
+      <li>Time Management &amp; Organization</li>
+      <li>Leadership &amp; Teamwork</li>
+      <li>Communication (Tech &amp; Non-Tech)</li>
+      <li>Project Coordination &amp; Multitasking</li>
+      <li>Adaptability &amp; Flexibility</li>
+      <li>Curiosity &amp; Continuous Learning</li>
+      <li>Analytical Thinking &amp; Decision-Making</li>
+      <li>Conflict Resolution &amp; Negotiation</li>
+      <li>Client &amp; User Support</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Languages:</h3>
+    <ul>
+      <li>Arabic — Native</li>
+      <li>English — Fluent (C1)</li>
+      <li>French — Beginner (Delf A1)</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Leadership &amp; Volunteering</h2>
+<ul>
+  <li>ACM Treasurer &amp; IT Support — Managed finances and maintained IT systems.</li>
+  <li>GDVC IT Support — Provided event support; awarded Best Member (2024).</li>
+  <li>Students Deanship Volunteer — Supported campus-wide student initiatives.</li>
+  <li>Jubilee Institute — Organized sports day; earned 5th place in Line Robotics.</li>
+  <li>Volunteered with MUN, Run Jordan, and other community events.</li>
+</ul>
+
+<div class="pair">
+<div>
+<h2>Certifications &amp; Awards</h2>
+<ul>
+  <li>Google (Coursera): IT Support (2023), Project Management (2023)</li>
+  <li>DataCamp: Python, NumPy, pandas, Data Manipulation with pandas</li>
+  <li>Award: Best Member — GDVC (2024)</li>
+  <li>Top 24 Finalist — Ahli Fintech Hackathon (2025)</li>
+  <li>7th Place — Tech 3arabi Hackathon (2025)</li>
+</ul>
+</div>
+<div>
+<h2>Interests</h2>
+<ul>
+  <li>Artificial Intelligence &amp; Machine Learning</li>
+  <li>Augmented &amp; Virtual Reality (AR/VR)</li>
+  <li>Game Development</li>
+  <li>Computer Architecture</li>
+  <li>Hackathons &amp; Tech Competitions</li>
+</ul>
+</div>
+</div>
+
+<h2 class="page-break">Projects</h2>
+<div class="projects">
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/sudur">Sudur</a> — Quran Memorization App with AI Recitation Grading <span>(began as Sabaq, team hackathon project)</span> | React Native, Expo, Django, DRF, PostgreSQL</h3>
+    <ul>
+      <li>Started as Sabaq with a 3-developer team; owned the Django/DRF backend, the OAuth2 proxy and MCP integration to the Quran Foundation API.</li>
+      <li>Built AI recitation grading — Whisper speech-to-text fuzzy-matched against riwaya-correct text with diff feedback.</li>
+      <li>Led the release as Sudur: live on Google Play and submitted to the App Store, Arabic + English, website at sudur.app.</li>
+      <li>Gesture-based Mushaf reader, verse-by-verse audio, prayer times with adhan, revision scheduling and Android home-screen widgets.</li>
+      <li>Release pipeline: push to main → 229 Jest tests → signed build → Play testing track with release notes; RevenueCat subscription, AdMob with UMP consent.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/mabsim">Mabsim</a> — Multi-Tenant Clinic Management SaaS | Next.js 16, TypeScript, Supabase, PostgreSQL</h3>
+    <ul>
+      <li>Built a clinic platform for MENA practices: appointments, online booking with phone verification, patient records, invoices, recalls and waitlist.</li>
+      <li>Specialty records: dental odontogram and a 44-point orthopedic chart; insurance claims, lab cases, prescriptions and consent letters.</li>
+      <li>Integrated JoFotara (Jordan's national e-invoicing) and WhatsApp reminders via the Meta Cloud API behind a per-clinic sending gate.</li>
+      <li>Tenant isolation with Postgres row-level security; an exclusion constraint blocks overlapping bookings, a unique index double invoices, a trigger overpayment.</li>
+      <li>Owner console with subscription warnings and one-click suspension; encrypted backups with a tested restore drill; Arabic-first RTL.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/wared">Wared</a> (وارد) — Inventory &amp; Warehouse Management SaaS | Django 5, DRF, PostgreSQL, django-tenants, React, TypeScript</h3>
+    <ul>
+      <li>Built a schema-per-tenant SaaS for Jordanian distributors and wholesalers with an Arabic-first, RTL React PWA and barcode scanning.</li>
+      <li>Append-only stock ledger with exact decimal money (JOD, 3 dp) and row-locked balances; weighted-average costing, FEFO expiry, serials and landed cost.</li>
+      <li>Purchasing, sales, put-away, stocktakes, supplier returns and proof of delivery; JoFotara e-invoicing with credit notes.</li>
+      <li>Plan tiers, owner console, per-tenant subdomains with on-demand TLS, and backups proven by a real restore.</li>
+      <li>Implemented and tested all 45 Phase-1 "must" requirements; dedicated review agents gate tenant isolation, permissions, money arithmetic and migrations.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/word-oasis">Word Oasis</a> (واحة الكلمات) — Arabic Word Puzzle Game | Flutter, Dart, AdMob, RevenueCat, Python</h3>
+    <ul>
+      <li>Built an Arabic letter-wheel crossword with 827 levels across 18 landmark chapters.</li>
+      <li>Wrote a Python level builder that generates the levels from a 50,000-word Arabic list.</li>
+      <li>Daily challenge, lucky wheel, daily gift, chapter treasures, hints and a coin economy.</li>
+      <li>Monetization: AdMob banner, interstitial, rewarded and app-open ads with UMP consent; RevenueCat in-app purchases.</li>
+      <li>Prepared the store release (signing, listing, graphics, content rating) and submitted it to Google Play closed testing.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/mot">MOT</a> — Gaming Community Platform, Mobile + Web <span>(Live · n0tmot.com; app on Google Play internal testing)</span> | Flutter, Firebase, Riverpod, RevenueCat, React, TypeScript, Node.js, PostgreSQL, Redis, LiveKit</h3>
+    <ul>
+      <li>Built one gaming platform across a Flutter mobile app and the n0tmot.com web app (formerly Odispear), under the MOT brand.</li>
+      <li>Mobile: profiles plus look-for-group matchmaking by game, platform and playstyle; real-time 1:1 chat with typing/seen indicators and FCM push notifications.</li>
+      <li>Integrated a live gaming-news feed and a 300+ game database via the RAWG API; content moderation (toxicity filtering, reporting, age-gating) and Cloud Functions for feed fan-out.</li>
+      <li>Web: Discord-style servers, channels, roles and direct messages over Socket.IO, with LiveKit voice/video, RNNoise/Krisp noise filtering, push-to-talk and voice-activity detection.</li>
+      <li>Implemented JWT + Google OAuth, premium tiers with RevenueCat and Stripe, and AWS S3 media on a PostgreSQL + Redis backend.</li>
+      <li>Deployed first to AWS EC2 behind nginx with PM2, now on Docker Compose behind Caddy; analytics and crash reporting via Firebase.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/shieldkin">ShieldKin</a> — Family-Safety Wristband &amp; Companion App <span>(in development; shieldkin.com; grew from the MedGuard graduation project)</span> | Flutter, Fastify, PostgreSQL, Valkey, three.js, build123d, Blender</h3>
+    <ul>
+      <li>Rebuilding my MedGuard graduation project (Flutter + Firebase, BLE heart rate, Gemini health analysis, GPS emergency alerts) as a wristband, an optional ring and an app.</li>
+      <li>Companion app tracks vitals against personal baselines, alerts carers on falls and critical readings, and guides first aid step by step, in Arabic and English.</li>
+      <li>New backend on Fastify, PostgreSQL and Valkey replacing Firebase; first builds on the Google Play testing track and TestFlight.</li>
+      <li>Built shieldkin.com, a bilingual product site with a scroll-driven 3D wristband (three.js).</li>
+      <li>Designed the wristband case in code (build123d → STL/STEP), 3D-printable for fit-and-feel testing, with Blender renders and an interactive web 3D viewer.</li>
+      <li>Wrote the device specification: sensors, display and buttons, connectivity, battery and materials.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/masra">Masra</a> — Islamic Education Platform <span>(Flutter app + Node API)</span> | Flutter, Node.js, Express, Prisma, PostgreSQL, Supabase</h3>
+    <ul>
+      <li>Built a Flutter app (offline-first caching, Arabic/English localization) for news, fatwa search, courses and gamified 30-day challenges.</li>
+      <li>Developed a Node.js/Express + Prisma API on PostgreSQL (Supabase) with row-level security and a secure points RPC.</li>
+      <li>Created a 12-panel admin CMS for managing all content — news, fatwas, courses, challenges and users.</li>
+      <li>Set up GitHub Actions CI/CD for linting, builds and automated APK releases.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/sehleh">Sehleh</a> — On-Demand Local-Services Marketplace | Flutter, BLoC, Supabase, PostGIS, Next.js, Stripe, Tap</h3>
+    <ul>
+      <li>Built customer and provider Flutter apps (BLoC) for booking local services, with live provider GPS tracking and in-app chat.</li>
+      <li>Implemented geolocation discovery using PostGIS spatial queries and multi-role access (customer / provider / admin).</li>
+      <li>Integrated Stripe and Tap payments via Supabase Edge Functions, plus FCM push notifications and KYC verification.</li>
+      <li>Built a Next.js admin dashboard for users, providers, bookings and promotions.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3>onecli — Multi-Model AI Coding CLI | Node.js</h3>
+    <ul>
+      <li>Built a zero-dependency CLI that wraps the Claude, Codex, Gemini and Qwen CLIs behind one streaming REPL with mid-chat model switching.</li>
+      <li>Shared project "brain" that syncs context files across tools; planner → workers → auditor orchestration pipeline.</li>
+      <li>"Council" mode where several models answer and one judges; local web dashboard and Windows desktop control.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/tabayyun">Tabayyun</a> — AI Arabic News &amp; Image-Tampering Verifier | React, Vite, OpenAI, Google GenAI, Sightengine</h3>
+    <ul>
+      <li>Built an Arabic-first web tool that scores news credibility from a URL or text using LLM analysis plus keyword/sentiment heuristics.</li>
+      <li>Implemented image forensics — EXIF metadata, Error-Level Analysis and Sightengine AI-generated-image detection.</li>
+      <li>Added a trusted-source database and reverse-image-search links; designed a fully right-to-left, animated UI.</li>
+      <li>Hackathon project (Tech 3arabi).</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <h3><a class="pl" href="https://mohammadotaqi.com/work/factquest">FactQuest</a> — Gamified Media-Literacy Trainer | React, Vite, Tailwind CSS</h3>
+    <ul>
+      <li>Built an interactive web app that teaches users to spot misinformation, deepfakes and bias.</li>
+      <li>Designed eight challenge modules — deepfake, clickbait, bias, sponsored, satire, image and source verification — with guided lessons.</li>
+      <li>Implemented XP, streaks and level progression with an animated mascot for feedback.</li>
+      <li>Hackathon project.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="block"><h2>More Projects</h2><p class="kl note2">Each name links to its page with screenshots. All projects: <a class="pl" href="https://mohammadotaqi.com">mohammadotaqi.com</a></p><p class="kl"><b>Apps:</b> <a class="pl" href="https://mohammadotaqi.com/work/owzy">Owzy</a> (spending and split bills, closed testing) · <a class="pl" href="https://mohammadotaqi.com/work/wird">Wird</a> (adhan app lock, closed testing) · <a class="pl" href="https://mohammadotaqi.com/work/ameno">Ameno</a> (family reminders, preparing for closed testing)</p><p class="kl"><b>Games in Google Play closed testing:</b> <a class="pl" href="https://mohammadotaqi.com/work/mundass">Mundass</a> (imposter party game) · <a class="pl" href="https://mohammadotaqi.com/work/midad">Midad</a> (daily Arabic word puzzles) · <a class="pl" href="https://mohammadotaqi.com/work/jabeen">Jabeen</a> (heads-up charades) · <a class="pl" href="https://mohammadotaqi.com/work/laffa">Laffa</a> (truth or dare)</p><p class="kl"><b>Games in development:</b> <a class="pl" href="https://mohammadotaqi.com/work/eishha">Eishha</a> (Jordanian life-sim) · <a class="pl" href="https://mohammadotaqi.com/work/shawarma-street">Shawarma Street</a> (idle tycoon) · <a class="pl" href="https://mohammadotaqi.com/work/tetas-stall">Teta&#39;s Stall</a> (sorting puzzle) · <a class="pl" href="https://mohammadotaqi.com/work/hadaf">Hadaf</a> (football career)</p></div>
+</body>
+</html>

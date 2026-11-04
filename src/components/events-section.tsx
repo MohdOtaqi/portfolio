@@ -28,12 +28,8 @@ export function EventsSection({ locale }: { locale: Locale }) {
   return (
     <section className="relative mx-auto max-w-[1400px] px-5 py-28 sm:px-10 sm:py-36">
       <Reveal variant="blur" speed="slow">
-        <div className="eyebrow mb-4 flex items-center gap-3">
-          <span className="h-px w-10 bg-brand" /> {t.eyebrow}
-        </div>
         <h2 className="font-display text-h2 font-semibold text-foreground">
-          {t.title}{" "}
-          <span className="font-serif-it text-brand">{t.accent}</span>.
+          {t.title} {t.accent}
         </h2>
       </Reveal>
 

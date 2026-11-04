@@ -32,11 +32,8 @@ export function DayWork({ locale }: { locale: Locale }) {
               variant="up"
               speed="fast"
               delay={i * 0.05}
-              className="grid gap-x-8 gap-y-3 py-8 md:grid-cols-[3rem_minmax(0,18rem)_1fr]"
+              className="grid gap-x-8 gap-y-3 py-8 md:grid-cols-[minmax(0,18rem)_1fr]"
             >
-              <span className="mono pt-1 text-[11px] tabular-nums text-brand">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <div>
                 <h3 className="font-display text-2xl font-semibold leading-tight text-foreground">{s.name}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.blurb}</p>

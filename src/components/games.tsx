@@ -12,12 +12,9 @@ export function Games({ locale }: { locale: Locale }) {
     <section id="games" className="relative mx-auto max-w-[1400px] px-5 pb-24 sm:px-10 sm:pb-36">
       <div className="mb-10 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
         <div>
-          <Reveal variant="slide-right" speed="normal" className="eyebrow mb-4 flex items-center gap-3">
-            <span className="h-px w-10 bg-brand" /> {t.eyebrow}
-          </Reveal>
           <Reveal variant="blur" speed="slow" delay={0.05}>
             <h2 className="font-display text-h2 font-semibold text-foreground">
-              {t.title} <span className="font-serif-it text-brand">{t.accent}</span>.
+              {t.title} {t.accent}
             </h2>
           </Reveal>
         </div>
@@ -35,8 +32,7 @@ export function Games({ locale }: { locale: Locale }) {
                 className="group grid grid-cols-[1fr_auto] gap-5 py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <div className="flex min-w-0 flex-col">
-                  <span className="mono text-[11px] tabular-nums text-brand">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className="mt-2 font-display text-2xl font-semibold leading-tight text-foreground">{g.name}</h3>
+                  <h3 className="font-display text-2xl font-semibold leading-tight text-foreground">{g.name}</h3>
                   {locale === "en" && g.altName && (
                     <p lang="ar" className="mt-1 text-sm text-muted-foreground/80">
                       {g.altName}
