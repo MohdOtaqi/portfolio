@@ -19,6 +19,7 @@ export function Nav({ locale }: { locale: Locale }) {
     { href: at("about"), label: t.about },
     { href: at("systems"), label: t.systems },
     { href: at("work"), label: t.work },
+    { href: at("games"), label: t.games },
     { href: at("contact"), label: t.contact },
   ];
 

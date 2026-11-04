@@ -61,7 +61,7 @@ function Thumb({ p }: { p: Project }) {
 
 export function SelectedWork({ locale }: { locale: Locale }) {
   const { projects, workshop } = getContent(locale);
-  const apps = projects.filter((p) => !p.internal);
+  const apps = projects.filter((p) => !p.internal && p.category !== "game");
   const t = labels(locale);
   const rtl = locale === "ar";
 

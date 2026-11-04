@@ -8,6 +8,7 @@ import { ExperienceSection } from "@/components/experience";
 import { DayWork } from "@/components/day-work";
 import { Dusk } from "@/components/dusk";
 import { SelectedWork } from "@/components/selected-work";
+import { Games } from "@/components/games";
 import { EventsSection } from "@/components/events-section";
 import { Capabilities } from "@/components/capabilities";
 import { Contact } from "@/components/contact";
@@ -39,6 +40,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         {/* ☾ NIGHT — personal apps (text light, sky is dark here) */}
         <div id="night" className="theme-night">
           <SelectedWork locale={locale} />
+          <Games locale={locale} />
           <EventsSection locale={locale} />
           <Capabilities locale={locale} />
           <Contact locale={locale} />
