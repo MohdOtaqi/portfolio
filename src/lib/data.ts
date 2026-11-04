@@ -152,6 +152,10 @@ export type Project = {
   status?: string;
   /** URL segment of the project's own page (/work/<slug>); night projects only */
   slug?: string;
+  /** "game" entries show in the Games section instead of Selected Work */
+  category?: "game";
+  /** the name in its other script, shown beside the English name */
+  altName?: string;
   /** "What I built" bullets for the project page (from the verified CV bullets) */
   highlights?: string[];
   /** a second visual layered beside the main mockup: the phone app of a web product,
@@ -274,23 +278,65 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "Word Oasis",
-    slug: "word-oasis",
+    name: "Owzy",
+    slug: "owzy",
     year: "2026",
     internal: false,
     status: "Play closed testing",
-    blurb: "Arabic letter-wheel crossword game.",
+    blurb: "Money app for spending, split bills and who owes who.",
     description:
-      "واحة الكلمات — an Arabic word game with 827 levels across 18 landmark chapters, generated from a 50,000-word Arabic list by my own Python level builder. Daily challenges, a lucky wheel, hints and a coin economy; AdMob (banner, interstitial, rewarded, app-open) with UMP consent, and RevenueCat in-app purchases. Built in Flutter.",
-    tags: ["Flutter", "Dart", "AdMob", "RevenueCat", "Python"],
+      "Tracks what you really spent, splits bills and keeps debts straight. It reads bank alerts on the device, matches repayments on its own and tells income apart from money paid back. Encrypted local ledger, multi-currency, five languages.",
+    tags: ["Flutter", "Dart", "Node.js", "PostgreSQL"],
     device: "phone",
-    media: ["/apps/wordoasis-1.webp", "/apps/wordoasis-2.webp", "/apps/wordoasis-3.webp"],
+    media: ["/apps/owzy-1.webp", "/apps/owzy-2.webp", "/apps/owzy-3.webp"],
     highlights: [
-      "Built an Arabic letter-wheel crossword with 827 levels across 18 landmark chapters.",
-      "Wrote a Python level builder that generates the levels from a 50,000-word Arabic list.",
-      "Daily challenge, lucky wheel, daily gift, chapter treasures, hints and a coin economy.",
-      "Monetization: AdMob banner, interstitial, rewarded and app-open ads with UMP consent; RevenueCat in-app purchases.",
-      "Prepared the store release (signing, listing, graphics, content rating) and submitted it to Google Play closed testing."
+      "Built a personal money app: real spending, split bills, who-owes-who, cash and budgets in one ledger.",
+      "On-device reader for bank and wallet alerts, tested against 81 real redacted messages, with a teach-me-once flow for any other bank.",
+      "Repayments are matched automatically and income is told apart from money paid back.",
+      "Encrypted local database, app lock, backup file, PDF reports, multi-currency and five languages.",
+      "523 automated tests; a self-hosted Node and PostgreSQL backend; submitted to Google Play closed testing."
+    ],
+  },
+  {
+    name: "Wird",
+    altName: "وِرد",
+    slug: "wird",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Locks distracting apps at each adhan until you pray.",
+    description:
+      "At every adhan, Wird locks the apps you pick until you mark the prayer as prayed. Between prayers you earn scrolling time by reading Quran or saying 33 tasbeeh. No ads, no location permission, and nothing leaves the phone.",
+    tags: ["Flutter", "Dart", "Kotlin", "Android"],
+    device: "phone",
+    media: ["/apps/wird-1.webp", "/apps/wird-2.webp", "/apps/wird-3.webp"],
+    highlights: [
+      "Built a prayer-time app lock: adhan, a grace period, then chosen apps stay locked until the prayer is marked.",
+      "A focus lock between prayers that opens with a few ayat of Quran or 33 tasbeeh.",
+      "Detects the open app through a UsageStats foreground service, without the Accessibility permission.",
+      "58 preset cities and 12 calculation methods; checked prayer times against the Aladhan API.",
+      "No ads, no location permission and no data leaving the phone."
+    ],
+  },
+  {
+    name: "Ameno",
+    altName: "أمينو",
+    slug: "ameno",
+    year: "2026",
+    internal: false,
+    status: "Preparing for Play closed testing",
+    blurb: "Family reminders and plans with friends.",
+    description:
+      "Gentle reminders for you and the people you look after, with Done, Snooze and Skip right on the lock screen. Plans turn movie night or a football match into one shared link where friends tap who's in. Works offline; reminders are free.",
+    tags: ["Flutter", "Kotlin", "Fastify", "PostgreSQL"],
+    device: "phone",
+    media: ["/apps/ameno-1.webp", "/apps/ameno-2.webp", "/apps/ameno-3.webp"],
+    highlights: [
+      "Built family reminders with native Android exact alarms and Done, Snooze and Skip from the notification.",
+      "Plans: one link to WhatsApp, friends answer I'm in, Maybe or Can't, and everyone who's in gets a reminder.",
+      "A weekly history chart, a low-stock countdown and home-time handling for travel.",
+      "Works offline with a local database, plus end-to-end encrypted backup.",
+      "Fastify and PostgreSQL server for plans and family sharing."
     ],
   },
   {
@@ -421,6 +467,203 @@ export const projects: Project[] = [
       "Eight challenge modules — deepfake, clickbait, bias, sponsored, satire, image and source verification — with guided lessons.",
       "XP, streaks and level progression with an animated mascot for feedback.",
       "Hackathon project."
+    ],
+  },
+  // ---- NIGHT · games (shown in their own section) ----
+  {
+    name: "Eishha",
+    altName: "عيشها",
+    category: "game",
+    slug: "eishha",
+    year: "2026",
+    internal: false,
+    status: "In development",
+    blurb: "A life-sim you swipe through, set in Jordan and written in Jordanian Arabic.",
+    description:
+      "Live one Jordanian life card by card, from childhood to the newspaper obituary. Four meters to balance: mood, health, money and what people say. Your Tawjihi score decides what you can study, and your heirs carry on after you.",
+    tags: ["Flutter", "Dart", "Blender", "AdMob", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/eishha-1.webp", "/apps/eishha-2.webp", "/apps/eishha-3.webp"],
+    highlights: [
+      "Designed and built a swipe life-sim in Jordanian dialect, with four meters and six life stages.",
+      "Wrote a deck of 260+ cards with storylines, where childhood choices come back decades later.",
+      "Systems for Tawjihi, jobs, relationships, health, crime, assets and loans, and generations of heirs.",
+      "A shareable obituary image at the end of each life.",
+      "Characters from CC0 models, rendered headless in Blender with a procedural keffiyeh and hijab."
+    ],
+  },
+  {
+    name: "Shawarma Street",
+    altName: "شارع الشاورما",
+    category: "game",
+    slug: "shawarma-street",
+    year: "2026",
+    internal: false,
+    status: "In development",
+    blurb: "One-thumb idle tycoon: run a shawarma shop from Amman to Aqaba.",
+    description:
+      "Walk your chef through carving, bread, wrapping and serving, then hire staff, open a drive-through and take on weddings. The shop keeps earning while you're away. Three cities, Amman, Irbid and Aqaba, each with its own look and events.",
+    tags: ["Flutter", "Flame", "Dart", "Blender", "AdMob", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/shawarma-1.webp", "/apps/shawarma-2.webp", "/apps/shawarma-3.webp"],
+    highlights: [
+      "Built a one-thumb tycoon on Flutter and Flame: carve, bread, wrap and serve, with toum and pickles raising the price.",
+      "Staff, drive-through cars, VIP customers, star ratings, daily rewards and offline earnings.",
+      "Three cities sharing one floor plan, with their own prices, unlock order and events.",
+      "The simulation is pure Dart and separate from rendering, with a command-line economy tool for balancing.",
+      "Sprites pre-rendered from Blender, including four chef skins."
+    ],
+  },
+  {
+    name: "Teta's Stall",
+    altName: "دكّانة تيتا",
+    category: "game",
+    slug: "tetas-stall",
+    year: "2026",
+    internal: false,
+    status: "In development",
+    blurb: "Goods-sorting puzzle: match three on the shelves and rebuild grandma's shop.",
+    description:
+      "Sort goods into threes across the shelves to fix up Teta's corner shop, one chapter at a time, with a story told through the neighbours. 200 levels, 6 chapters and 36 upgrades. Levels come from my own generator and solver, and it plays offline.",
+    tags: ["Flutter", "Flame", "Dart", "AdMob", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/teta-1.webp", "/apps/teta-2.webp", "/apps/teta-3.webp"],
+    highlights: [
+      "Built a 3-of-a-kind shelf puzzle with 200 levels, 6 chapters and 36 shop upgrades.",
+      "Wrote the level generator and solver, then tuned difficulty with simulated players.",
+      "Four added mechanics: jars, order tickets, crates and a moving cart, each with its own tutorial.",
+      "A weekly Souq Night event, win streaks, a piggy bank and boosters.",
+      "Works fully offline."
+    ],
+  },
+  {
+    name: "Hadaf",
+    altName: "هدف",
+    category: "game",
+    slug: "hadaf",
+    year: "2026",
+    internal: false,
+    status: "In development",
+    blurb: "Football career game: from an Amman neighbourhood academy to the national team.",
+    description:
+      "Start at 16 in a neighbourhood academy in Amman and swipe your way through the moments that matter: penalties, free kicks, volleys and one-on-ones. Negotiate contracts, climb the leagues, play for the national team and retire with a legacy score.",
+    tags: ["Flutter", "Flame", "Dart", "AdMob", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/hadaf-1.webp", "/apps/hadaf-2.webp", "/apps/hadaf-3.webp"],
+    highlights: [
+      "Built a football career game with swipe-controlled moments: penalties, free kicks, one-on-ones, headers, volleys, dribbles and long shots.",
+      "Career layer with contracts, leagues, a cup, the national team and a continental group, ending in a legacy score.",
+      "The career simulation is pure Dart, with a command-line balance tool and 185 automated tests.",
+      "All clubs are fictional."
+    ],
+  },
+  {
+    name: "Word Oasis",
+    altName: "واحة الكلمات",
+    category: "game",
+    slug: "word-oasis",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Arabic letter-wheel crossword game.",
+    description:
+      "واحة الكلمات — an Arabic word game with 827 levels across 18 landmark chapters, generated from a 50,000-word Arabic list by my own Python level builder. Daily challenges, a lucky wheel, hints and a coin economy; AdMob (banner, interstitial, rewarded, app-open) with UMP consent, and RevenueCat in-app purchases. Built in Flutter.",
+    tags: ["Flutter", "Dart", "Python", "Fastify", "WebSockets", "AdMob", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/wordoasis-1.webp", "/apps/wordoasis-2.webp", "/apps/wordoasis-3.webp"],
+    highlights: [
+      "Built an Arabic letter-wheel crossword with 827 levels across 18 landmark chapters.",
+      "Wrote a Python level builder that generates the levels from a 50,000-word Arabic list.",
+      "Daily challenge, lucky wheel, daily gift, chapter treasures, hints and a coin economy.",
+      "Arena: live 90-second ranked duels over WebSockets on a self-hosted Fastify and PostgreSQL server.",
+      "Monetization: AdMob banner, interstitial, rewarded and app-open ads with UMP consent; RevenueCat in-app purchases.",
+      "Prepared the store release (signing, listing, graphics, content rating) and submitted it to Google Play closed testing."
+    ],
+  },
+  {
+    name: "Mundass",
+    altName: "المندس",
+    category: "game",
+    slug: "mundass",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Imposter party game in Arabic and English, on one phone or online.",
+    description:
+      "Everyone gets the same secret word except the imposter. Pass one phone around in Classic, Undercover or Questions mode, or open an online room that friends join from the app or a browser. Online rooms also include Rasma, a drawing game.",
+    tags: ["Flutter", "Dart", "Fastify", "WebSockets", "PostgreSQL"],
+    device: "phone",
+    demoUrl: "https://mundass.n0tmot.com",
+    media: ["/apps/mundass-1.webp", "/apps/mundass-2.webp", "/apps/mundass-3.webp"],
+    highlights: [
+      "Built an Arabic and English imposter game with pass-and-play modes: Classic, Undercover and Questions.",
+      "Mundass Online: live rooms over WebSockets on a self-hosted Fastify and PostgreSQL server.",
+      "A web guest client, so friends can join a room without installing the app.",
+      "Rasma, a drawing game inside the online rooms.",
+      "A shared game engine package across the party-game monorepo."
+    ],
+  },
+  {
+    name: "Midad",
+    altName: "مداد",
+    category: "game",
+    slug: "midad",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Two new Arabic word puzzles every day.",
+    description:
+      "Kalima is a five-letter Arabic guessing game and Rawabit sorts 16 words into four hidden groups. Spelling is forgiving: hamza forms, ta marbuta and alef maqsura count as their base letter. Both are new daily and play offline.",
+    tags: ["Flutter", "Dart", "RevenueCat", "AdMob"],
+    device: "phone",
+    media: ["/apps/midad-1.webp", "/apps/midad-2.webp", "/apps/midad-3.webp"],
+    highlights: [
+      "Built two daily Arabic puzzles: Kalima (guess the word) and Rawabit (find the groups).",
+      "A dictionary of 11,358 accepted guesses, with folding for hamza forms, ta marbuta and alef maqsura.",
+      "428 Kalima answers, and 200 Rawabit puzzles that are each checked to have one solution.",
+      "Streaks, statistics, spoiler-free grid sharing, an archive and practice rounds.",
+      "Arabic and English interface with dark and high-contrast modes."
+    ],
+  },
+  {
+    name: "Jabeen",
+    altName: "جبين",
+    category: "game",
+    slug: "jabeen",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Heads-up charades: phone on your forehead, friends shout clues.",
+    description:
+      "Hold the phone to your forehead and nod down when you've got it. Tilt detection adapts to how you hold the phone, and no card repeats until the deck runs out, even after you close the app. 1,600+ cards in 32 decks, with a full Arabic edition.",
+    tags: ["Flutter", "Dart", "AdMob", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/jabeen-1.webp", "/apps/jabeen-2.webp", "/apps/jabeen-3.webp"],
+    highlights: [
+      "Built tilt detection that adapts to how the phone is held and ignores bumps and laughs.",
+      "No-repeat decks that persist after the app closes.",
+      "1,600+ cards in 32 decks, including a full Arabic edition, plus custom decks.",
+      "Teams or solo for 3 to 30 players, and a recap to fix any wrong tilt before points count."
+    ],
+  },
+  {
+    name: "Laffa",
+    altName: "لفّة",
+    category: "game",
+    slug: "laffa",
+    year: "2026",
+    internal: false,
+    status: "Play closed testing",
+    blurb: "Truth or dare with a spinning dallah.",
+    description:
+      "Spin the dallah to pick who's next, with fair laps so nobody gets skipped. 650+ prompts in each language, Arabic and English, and it works offline.",
+    tags: ["Flutter", "Dart", "AdMob", "RevenueCat"],
+    device: "phone",
+    media: ["/apps/laffa-1.webp", "/apps/laffa-2.webp", "/apps/laffa-3.webp"],
+    highlights: [
+      "Built truth or dare around a spinning Arabic coffee pot, with fair laps so everyone gets a turn.",
+      "650+ prompts per language, in Arabic and English.",
+      "Works offline, on the same shared party-game engine as Mundass and Jabeen."
     ],
   },
 ];

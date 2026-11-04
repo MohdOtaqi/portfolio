@@ -21,5 +21,6 @@ Session memory: `~/.claude/projects/D--New-folder/memory/` — includes verified
 - Two languages: `/` (en) and `/ar` (Arabic, RTL). UI strings live in `src/lib/i18n.ts`; content is `src/lib/data.ts` (en) with an Arabic overlay in `src/lib/data.ar.ts` keyed by English name/title, merged by `getContent(locale)` in `src/lib/content.ts`. **Any content change must be made in BOTH data.ts and data.ar.ts.**
 - Every section component takes `locale`; the page itself is `src/components/home-page.tsx`.
 - Project pages: `/work/<slug>` and `/ar/work/<slug>` (`src/components/project-page.tsx`). They use the `slug` and `highlights` fields.
+- Games (`category: "game"` in data.ts) show in their own section (`src/components/games.tsx`, `#games`), not in Selected Work. Each has a `/work/<slug>` page; `altName` is the name in Arabic, shown under the English name on `/`. Keep the 580px desktop panel: check `_qa/panel-heights.mjs`, and run `_qa/games-2026-11.mjs` for the new pages.
 - The top bar (`nav.tsx`) has the 3-CV Résumé menu and the language switch. On phones, Selected Work is a list (the tab rail is desktop-only).
 - Vercel Web Analytics + Speed Insights are mounted in the root layout. They need enabling in the Vercel dashboard; until then `/_vercel/*` returns 404.
