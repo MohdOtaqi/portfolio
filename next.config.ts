@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
       { source: "/work/vitalguard", destination: "/work/shieldkin", permanent: true },
       { source: "/ar/work/vitalguard", destination: "/ar/work/shieldkin", permanent: true },
       { source: "/vitalguard/:path*", destination: "/shieldkin/:path*", permanent: true },
+      // Hosted landing pages (static copies in public/demos). Their assets are
+      // relative, so the short URL has to land on the file itself.
+      { source: "/demos/wared", destination: "/demos/wared/index.html", permanent: false },
+      { source: "/demos/zaffa", destination: "/demos/zaffa/index.html", permanent: false },
     ];
   },
 };

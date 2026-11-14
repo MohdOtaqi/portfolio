@@ -269,6 +269,7 @@ export const projects: Project[] = [
     tags: ["Django", "DRF", "PostgreSQL", "django-tenants", "React", "TypeScript", "PWA"],
     device: "browser",
     media: ["/apps/wared-1.webp", "/apps/wared-2.webp"],
+    links: [{ label: "Landing page (3D scroll)", href: "/demos/wared/index.html" }],
     highlights: [
       "Built a schema-per-tenant SaaS for Jordanian distributors and wholesalers, with an Arabic-first RTL React PWA and barcode scanning.",
       "Append-only stock ledger with exact decimal money (JOD, 3 dp) and row-locked balances; weighted-average costing, FEFO expiry, serials and landed cost.",
